@@ -13,6 +13,7 @@ object GitStats extends App with GitStatsOptionParsing {
   }
 
   def doIt(config: ConfigGitStats): Unit = {
+    // git log --author="Mike Slinn" --pretty=tformat: --numstat
     val gitData = run("git", config.yyyy_mm, config.author) !
 
     val reportDate: DateTime = ConfigGitStats.fmt.parseDateTime(config.yyyy_mm)
