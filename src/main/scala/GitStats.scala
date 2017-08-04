@@ -1,6 +1,5 @@
 import com.github.nscala_time.time.Imports._
 import com.micronautics.gitStats._
-import org.joda.time.DateTime
 import scala.language.postfixOps
 import scala.sys.process._
 
@@ -14,10 +13,13 @@ object GitStats extends App with GitStatsOptionParsing {
 
   def doIt(config: ConfigGitStats): Unit = {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
-    val gitData = run("git", config.yyyy_mm, config.author) !
-
-    val reportDate: DateTime = ConfigGitStats.fmt.parseDateTime(config.yyyy_mm)
-    val reportDateStr: String = ConfigGitStats.fmt2.print(reportDate)
-    ()
+    // todo provide date range support
+    val gitResponse: List[String] =
+      run("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
+        .!!
+        .trim
+        .split("\n")
+        .toList
+    logger.info(gitResponse.mkString("\n"))
   }
 }

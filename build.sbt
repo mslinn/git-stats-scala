@@ -36,6 +36,7 @@ resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronaut
 val circeVer = "0.8.0"
 val grizzVer = "4.1.0"
 libraryDependencies ++= Seq(
+  "ch.qos.logback"           %  "logback-classic"    % "1.2.3",
   "com.github.nscala-time"   %% "nscala-time"        % "2.16.0" withSources(),
   "com.github.scopt"         %% "scopt"              % "3.6.0"  withSources(),
   "com.google.code.findbugs" %  "jsr305"             % "3.0.2"  force(),
