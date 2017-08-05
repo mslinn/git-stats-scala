@@ -1,5 +1,4 @@
 import com.micronautics.gitStats._
-import scala.language.postfixOps
 
 object Commit {
   @inline def apply(args: String): Commit = {
@@ -11,10 +10,13 @@ object Commit {
   lazy val zero = Commit(0, 0)
 }
 case class Commit(added: Int, deleted: Int, directory: String="") {
-  def summarize(userName: String, repoName: String): String =
-    s"$userName added $added lines, deleted $deleted lines to/from $repoName"
+  /** Number of net lines `(added - deleted)` */
+  lazy val delta: Int = added - deleted
 
-  override def toString: String = s"Commit: added $added lines and deleted $deleted lines"
+  def summarize(userName: String, repoName: String): String =
+    s"$userName added $added lines, deleted $deleted lines, net $delta lines for $repoName"
+
+  override def toString: String = s"Commit: added $added lines and deleted $deleted lines, net $delta lines"
 }
 
 object GitStats extends App with GitStatsOptionParsing {

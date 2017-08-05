@@ -1,6 +1,6 @@
 package com.micronautics.gitStats
 
-import scala.language.{postfixOps, reflectiveCalls}
+import scala.language.reflectiveCalls
 
 object Constructs {
   type Closeable = { def close(): Unit }
