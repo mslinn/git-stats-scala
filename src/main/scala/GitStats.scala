@@ -9,6 +9,7 @@ object Commit {
 
   lazy val zero = Commit(0, 0)
 }
+
 case class Commit(added: Int, deleted: Int, directory: String="") {
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
