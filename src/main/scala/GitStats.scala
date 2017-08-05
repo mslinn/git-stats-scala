@@ -1,4 +1,3 @@
-import com.micronautics.gitStats.RichFile.currentDirectory
 import com.micronautics.gitStats._
 import scala.collection.mutable
 
@@ -19,13 +18,13 @@ object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
     case Some(config) =>
       val commits: List[Commit] = for {
-        _ <- gitProjectsUnder(currentDirectory)
+        _ <- gitProjectsUnder(config.directory)
       } yield doIt(config)
       val total: Commit = commits.fold(Commit.zero) {
         case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
       }
       println()
-      val summary = total.summarize(config.authorFullName, config.repoName, finalTotal=true)
+      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
       println(summary)
       total
 
@@ -53,8 +52,8 @@ object GitStats extends App with GitStatsOptionParsing {
         val newTotal = Commit(acc.added+elem.added, acc.deleted+elem.deleted, language = elem.language)
         newTotal
     }
-    languageTotals.map.values.toList.sortBy(x => -x.delta).foreach { v => println(v.summarize(config.authorFullName, config.repoName)) }
-    println(grandTotal.summarize(config.authorFullName, config.repoName, suppressLanguageDisplay=true))
+    languageTotals.map.values.toList.sortBy(x => -x.delta).foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
+    println(grandTotal.summarize(config.authorFullName, config.gitRepoName, suppressLanguageDisplay=true))
     grandTotal
   }
 }
