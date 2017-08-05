@@ -57,7 +57,9 @@ object GitStats extends App with GitStatsOptionParsing {
       .values
       .toList
       .sortBy(x => -x.delta)
-      .foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
+      .map { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
+      .headOption // separate repos with a blank line
+      .foreach { _ => println() }
     println(grandTotal.summarize(config.authorFullName, config.gitRepoName, suppressLanguageDisplay=true))
     grandTotal
   }

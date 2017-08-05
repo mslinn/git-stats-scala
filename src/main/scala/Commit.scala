@@ -1,7 +1,13 @@
+import java.text.NumberFormat
+
 object Commit {
   lazy val unknown = "Unknown"
 
   lazy val zero = Commit(0, 0)
+
+  val intFormatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
+
+  def intFormat(int: Int): String = intFormatter.format(int.toLong)
 
   @inline def apply(args: String): Commit = {
     args.split("\t| ") match {
@@ -39,14 +45,16 @@ object Commit {
 }
 
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknown) {
+  import Commit._
+
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
 
   def summarize(userName: String, repoName: String, finalTotal: Boolean = false, suppressLanguageDisplay: Boolean = false): String = {
     val forLang = if (suppressLanguageDisplay || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
-    s"$userName added $added lines, deleted $deleted lines, net $delta lines$forLang$forRepo"
+    s"$userName added ${ intFormat(added) } lines, deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
   }
 
-  override def toString: String = s"Commit: added $added lines and deleted $deleted lines, net $delta lines"
+  override def toString: String = s"Commit: added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
 }
