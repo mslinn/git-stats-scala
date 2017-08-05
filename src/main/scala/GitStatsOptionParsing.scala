@@ -42,12 +42,14 @@ trait GitStatsOptionParsing {
       c.copy(author = x)
     }.text("author to attribute")
 
+    opt[String]('d', "dir").action { (x, c) =>
+      c.copy(directoryName = x)
+    }.text("directory to scan (defaults to current directory)")
+
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>
       c.copy(yyyy_mm = x)
     ).text(s"yyyy_mm to search (defaults to the date for the previous month, $lastMonth)")
 
-    opt[String]('d', "dir").action { (x, c) =>
-      c.copy(directoryName = x)
-    }.text("directory to scan (defaults to current directory)")
+    help("help").text("prints this usage text")
   }
 }

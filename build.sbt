@@ -42,9 +42,6 @@ libraryDependencies ++= Seq(
   "com.google.code.findbugs" %  "jsr305"             % "3.0.2"  force(),
   "com.micronautics"         %% "scalacourses-utils" % "0.2.20" withSources(),
   "com.typesafe"             %  "config"             % "1.3.1"  withSources(),
-  "io.circe"                 %% "circe-core"         % circeVer withSources(),
-  "io.circe"                 %% "circe-generic"      % circeVer withSources(),
-  "io.circe"                 %% "circe-parser"       % circeVer withSources(),
   //
   "org.scalatest"            %% "scalatest"          % "3.0.1" % "test" withSources(),
   "junit"                    %  "junit"              % "4.12"  % "test"

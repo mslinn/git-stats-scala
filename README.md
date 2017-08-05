@@ -5,19 +5,32 @@
 
 Totals current git user's added and deleted lines.
 
+Help message:
 ```
-Usage: sbt run GitStats [options] [<yyyy-mm>]
+$ bin/run --help
+GitStats 0.1.0
+Usage: GitStats [options] [<yyyy-mm>]
 
-  -u, --user               GitHub user id
-  <yyyy-mm>                yyyy_mm to search (defaults to all-time total)
-
+  -a, --author <value>  author to attribute
+  -d, --dir <value>     directory to scan (defaults to current directory)
+  <yyyy-mm>             yyyy_mm to search (defaults to the date for the previous month, 2017-07)
+  --help                prints this usage text
 ```
-
-Not sure if this still matters: Your github userid should be the same as your OS userid.
 
 For example, to get all-time totals for the current git user (per git directory), type:
+```
+$ bin/run
+Mike Slinn added 408 lines, deleted 139 lines, net 269 lines for language 'Scala' in git-stats-scala
+Mike Slinn added 141 lines, deleted 0 lines, net 141 lines for language 'SBT' in git-stats-scala
+Mike Slinn added 45 lines, deleted 0 lines, net 45 lines for language 'XML' in git-stats-scala
+Mike Slinn added 46 lines, deleted 14 lines, net 32 lines for language 'Markdown' in git-stats-scala
+Mike Slinn added 21 lines, deleted 0 lines, net 21 lines for language 'Miscellaneous' in git-stats-scala
+Mike Slinn added 35 lines, deleted 32 lines, net 3 lines for language 'Unknown' in git-stats-scala
+Mike Slinn added 1 lines, deleted 0 lines, net 1 lines for language 'Properties' in git-stats-scala
+Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in git-stats-scala
 
-    bin/run
+Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git repositories
+```
 
 To get statistics for 2017 for the current logged on user, type:
 

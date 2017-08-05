@@ -10,9 +10,6 @@ import RichFile._
 class TestyMcTestFace extends WordSpec with MustMatchers {
   "Directory walking" should {
     "Define various directories" in {
-      val currentName = currentDirectory.getName
-      currentName shouldBe "git-stats"
-
       val parentName = parentDirectory.getName
       parentName.length should be >= 0
 

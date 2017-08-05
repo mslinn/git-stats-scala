@@ -8,7 +8,7 @@ object Commit {
       case Array(linesAdded, linesDeleted, fileName) =>
         Commit(linesAdded.toInt, linesDeleted.toInt, language=language(fileName))
 
-      case Array(linesAdded, linesDeleted, oldFileName, arrow, newFileName) => // a file was renamed
+      case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
         val language = if (newFileName.contains(".")) Commit.unknown else "Bash"
         Commit(linesAdded.toInt, linesDeleted.toInt, language=language)
 
