@@ -1,7 +1,21 @@
-import com.github.nscala_time.time.Imports._
 import com.micronautics.gitStats._
 import scala.language.postfixOps
-import scala.sys.process._
+
+object Commit {
+  @inline def apply(args: String): Commit = {
+    val stringArray = args.split("\t| ")
+    val Array(linesAdded, linesDeleted, _ @ _*) = stringArray
+    Commit(linesAdded.toInt, linesDeleted.toInt)
+  }
+
+  lazy val zero = Commit(0, 0)
+}
+case class Commit(added: Int, deleted: Int, directory: String="") {
+  def summarize(userName: String, repoName: String): String =
+    s"$userName added $added lines, deleted $deleted lines to/from $repoName"
+
+  override def toString: String = s"Commit: added $added lines and deleted $deleted lines"
+}
 
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
@@ -15,11 +29,15 @@ object GitStats extends App with GitStatsOptionParsing {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
     // todo provide date range support
     val gitResponse: List[String] =
-      run("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
-        .!!
-        .trim
+      getOutputFrom("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
         .split("\n")
         .toList
-    logger.info(gitResponse.mkString("\n"))
+    logger.debug(gitResponse.mkString("\n"))
+
+    val commits: List[Commit] = gitResponse.map(Commit.apply)
+    val total: Commit = commits.fold(Commit.zero) {
+      case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
+    }
+    logger.info(total.summarize(config.authorFullName, config.repoName))
   }
 }

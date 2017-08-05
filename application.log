@@ -1,0 +1,30 @@
+INFO  gitstats - Mike Slinn added 398 lines, deleted 12 lines to/from git-stats-scala
+INFO  gitStats - Mike Slinn added 398 lines, deleted 12 lines to/from git-stats-scala
+DEBUG gitStats - git config user.name
+DEBUG gitStats - git log --author=Mike\ Slinn --pretty=tformat: --numstat
+DEBUG gitStats - 1	1	bin/git-stats
+1	0	build.sbt
+8	6	src/main/scala/GitStats.scala
+14	3	src/main/scala/GitStatsOptionParsing.scala
+7	1	src/main/scala/com/micronautics/gitStats/gitStats.scala
+1	1	src/test/scala/{TestyMcTest.scala => TestyMcTestFace.scala}
+1	0	src/main/scala/GitStats.scala
+13	0	.gitignore
+7	0	.travis.yml
+30	0	README.md
+3	0	bin/git-stats
+101	0	build.sbt
+14	0	eclipse.sbt
+1	0	project/assembly.sbt
+1	0	project/build.properties
+2	0	project/ghpages.sbt
+13	0	project/plugins.sbt
+9	0	publish.sbt
+22	0	src/main/scala/GitStats.scala
+30	0	src/main/scala/GitStatsOptionParsing.scala
+17	0	src/main/scala/com/micronautics/gitStats/Constructs.scala
+9	0	src/main/scala/com/micronautics/gitStats/gitStats.scala
+0	0	src/test/java/.gitkeep
+0	0	src/test/resources/.gitkeep
+93	0	src/test/scala/TestyMcTest.scala
+INFO  gitStats - Mike Slinn added 398 lines, deleted 12 lines to/from git-stats-scala
