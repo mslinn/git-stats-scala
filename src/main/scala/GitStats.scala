@@ -52,7 +52,12 @@ object GitStats extends App with GitStatsOptionParsing {
         val newTotal = Commit(acc.added+elem.added, acc.deleted+elem.deleted, language = elem.language)
         newTotal
     }
-    languageTotals.map.values.toList.sortBy(x => -x.delta).foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
+    languageTotals
+      .map
+      .values
+      .toList
+      .sortBy(x => -x.delta)
+      .foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
     println(grandTotal.summarize(config.authorFullName, config.gitRepoName, suppressLanguageDisplay=true))
     grandTotal
   }
