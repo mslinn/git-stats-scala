@@ -12,19 +12,21 @@ Usage: sbt run GitStats [options] [<yyyy-mm>]
   <yyyy-mm>                yyyy_mm to search (defaults to all-time total)
 
 ```
-For example, to get git all-time totals for the current logged on user
-(their github userid must be the same as their OS userid), type:
+
+Not sure if this still matters: Your github userid should be the same as your OS userid.
+
+For example, to get all-time totals for the current git user (per git directory), type:
 
     bin/run
 
-To get git statistics for 2017 for the current logged on user, type:
+To get statistics for 2017 for the current logged on user, type:
 
     bin/run 2017
 
-To get git statistics for May 2017 for the current logged on user, type:
+To get statistics for May 2017 for the current logged on user, type:
 
     bin/run 2017-05
 
-To get git statistics for 2016 for the GitHub user mslinn, type:
+To get statistics for 2016 for the GitHub user mslinn, type:
 
-    GitStats -u mslinn 2016
+    bin/run -u mslinn 2016
