@@ -39,9 +39,6 @@ libraryDependencies ++= Seq(
   "ch.qos.logback"           %  "logback-classic"    % "1.2.3",
   "com.github.nscala-time"   %% "nscala-time"        % "2.16.0" withSources(),
   "com.github.scopt"         %% "scopt"              % "3.6.0"  withSources(),
-  "com.google.code.findbugs" %  "jsr305"             % "3.0.2"  force(),
-  "com.micronautics"         %% "scalacourses-utils" % "0.2.20" withSources(),
-  "com.typesafe"             %  "config"             % "1.3.1"  withSources(),
   //
   "org.scalatest"            %% "scalatest"          % "3.0.1" % "test" withSources(),
   "junit"                    %  "junit"              % "4.12"  % "test"
