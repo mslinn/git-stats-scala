@@ -1,3 +1,4 @@
+import com.micronautics.gitStats.RichFile.currentDirectory
 import com.micronautics.gitStats._
 
 object Commit {
@@ -22,13 +23,22 @@ case class Commit(added: Int, deleted: Int, directory: String="") {
 
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
-    case Some(config) => doIt(config)
+    case Some(config) =>
+      val commits: List[Commit] = for {
+        _ <- gitProjectsUnder(currentDirectory)
+      } yield doIt(config)
+      val total: Commit = commits.fold(Commit.zero) {
+        case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
+      }
+      val summary = total.summarize(config.authorFullName, config.repoName)
+      logger.info(summary)
+      total
 
     case None =>
       // arguments are bad, error message will have been displayed
   }
 
-  def doIt(config: ConfigGitStats): Unit = {
+  def doIt(config: ConfigGitStats): Commit = {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
     // todo provide date range support
     val gitResponse: List[String] =
@@ -41,6 +51,8 @@ object GitStats extends App with GitStatsOptionParsing {
     val total: Commit = commits.fold(Commit.zero) {
       case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
     }
-    logger.info(total.summarize(config.authorFullName, config.repoName))
+    val summary = total.summarize(config.authorFullName, config.repoName)
+    logger.info(summary)
+    total
   }
 }
