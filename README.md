@@ -1,9 +1,9 @@
 # Git Activity
 
-[![Build Status](https://travis-ci.org/mslinn/userActivity.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
-[![GitHub version](https://badge.fury.io/gh/mslinn%2FuserActivity.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
+[![Build Status](https://travis-ci.org/mslinn/git-stats-scala.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
+[![GitHub version](https://badge.fury.io/gh/mslinn%2Fgit-stats-scala.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
 
-Totals current git user's added and deleted lines.
+For your resume: Totals and grand totals of lines added and deleted to/from your git repositories.
 
 Help message:
 ```
@@ -12,6 +12,7 @@ GitStats 0.1.0
 Usage: GitStats [options] [<yyyy-mm>]
 
   -a, --author <value>  author to attribute
+  -v, --verbose         show subtotals
   -d, --dir <value>     directory to scan (defaults to current directory)
   <yyyy-mm>             yyyy_mm to search (defaults to the date for the previous month, 2017-07)
   --help                prints this usage text

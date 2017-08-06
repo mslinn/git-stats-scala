@@ -17,7 +17,8 @@ object ConfigGitStats {
 case class ConfigGitStats(
   author: String = ConfigGitStats.gitUserName,
   yyyy_mm: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1)),
-  directoryName: String = sys.props("user.dir")
+  directoryName: String = sys.props("user.dir"),
+  verbose: Boolean = false
 ) {
   lazy val authorFullName: String = author.replace("\\", "")
   lazy val reportDate: DateTime = ConfigGitStats.fmt.parseDateTime(yyyy_mm)
@@ -45,6 +46,10 @@ trait GitStatsOptionParsing {
     opt[String]('d', "dir").action { (x, c) =>
       c.copy(directoryName = x)
     }.text("directory to scan (defaults to current directory)")
+
+    opt[Boolean]('v', "verbose").action { (x, c) =>
+      c.copy(verbose = x)
+    }.text("show subtotals)")
 
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>
       c.copy(yyyy_mm = x)

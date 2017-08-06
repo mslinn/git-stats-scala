@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 
-java -cp target/scala-2.12/git-stats-scala-assembly-0.1.0.jar GitStats "$@"
+JAR=target/scala-2.12/git-stats-scala-assembly-0.1.0.jar
+
+if [ ! -f $JAR ]; then
+  echo "Building $JAR"
+  sbt assembly
+fi
+
+# --help option gives usage
+java -cp $JAR GitStats "$@"
