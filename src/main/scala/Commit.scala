@@ -58,6 +58,11 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     if (i<0) fileName else fileName.substring(i+1)
   }
 
+  lazy val lastFilePath: String = {
+    val array = fileName.split(java.io.File.separator)
+    if (array.size<2) fileName else array.takeRight(2).head
+  }
+
   @inline def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
     val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"

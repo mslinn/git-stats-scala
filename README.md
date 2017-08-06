@@ -5,7 +5,8 @@
 
 For your resume: Totals and grand totals of lines added and deleted to/from your git repositories.
 
-Ignores git repos if a file called `.ignore` exists in the root of the directory tree.
+Ignores git repos containing a file called `.ignore` in the root of the directory tree.
+Obtains git repo histories by examining the output of `git log`.
 
 Help message:
 ```
@@ -24,7 +25,7 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -d, --dir <value>     directory to scan (defaults to current directory)
   -i, --ignore <value>  additional filetype to ignore, without the leading dot (can be specified multiple times)
   -v, --verbose         show per-repo subtotals)
-  <yyyy-mm>             yyyy_mm to search (defaults to the date for the previous month, 2017-07)
+  <yyyy-mm>             year or month to search (defaults to the date for the previous month, 2017-07)
   --help                prints this usage text
 ```
 

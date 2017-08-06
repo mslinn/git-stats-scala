@@ -8,9 +8,10 @@ object ConfigGitStats {
   val fmt2: DateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
 
   /** This only works if the current directory is the root of a git directory tree */
-  @inline def gitUserName(cwd: File): String =
-    getOutputFrom(cwd, gitProgram, "config", "user.name")
-      .replace(" ", "\\ ")
+  @inline def gitUserName(cwd: File): String = {
+    val userName = getOutputFrom(cwd, gitProgram, "config", "user.name")
+    if (isWindows) "\"" + userName + "\"" else userName.replace(" ", "\\ ")
+  }
 
   val lastMonth: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1))
 }
@@ -20,7 +21,8 @@ case class ConfigGitStats(
   yyyy_mm: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1)),
   directoryName: String = sys.props("user.dir"),
   verbose: Boolean = false,
-  ignores: List[String] = List("exe", "gz", "log", "pdf", "tar", "zip")
+  ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip"),
+  ignoredSubDirectories: List[String] = List("node_modules")
 ) {
   lazy val authorFullName: String = author.replace("\\", "")
   lazy val reportDate: DateTime = ConfigGitStats.fmt.parseDateTime(yyyy_mm)
@@ -44,7 +46,7 @@ trait GitStatsOptionParsing {
     note("""For Linux and Mac, an executable program called git must be on the PATH;
          |for Windows, and executable called git.exe must be on the Path.
          |
-         |Ignores files committed with these filetypes: exe, gz, log, pdf, tar, zip.
+         |Ignores files committed with these filetypes: exe, gif, gz, jpg, log, png, pdf, tar, zip.
          |
          |Tries to continue processing remaining git repos if an exception is encountered.
          |""".stripMargin)
@@ -58,8 +60,12 @@ trait GitStatsOptionParsing {
     }.text("directory to scan (defaults to current directory)")
 
     opt[String]('i', "ignore").action { (x, c) =>
-      c.copy(ignores = x :: c.ignores)
+      c.copy(ignoredFileTypes = x :: c.ignoredFileTypes)
     }.text("additional filetype to ignore, without the leading dot (can be specified multiple times)")
+
+    opt[String]('I', "Ignore").action { (x, c) =>
+      c.copy(ignoredSubDirectories = x :: c.ignoredSubDirectories)
+    }.text("additional subdirectories to ignore, without slashes (can be specified multiple times)")
 
     opt[Unit]('v', "verbose").action { (_, c) =>
       c.copy(verbose = true)
@@ -67,7 +73,7 @@ trait GitStatsOptionParsing {
 
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>
       c.copy(yyyy_mm = x)
-    ).text(s"yyyy_mm to search (defaults to the date for the previous month, $lastMonth)")
+    ).text(s"year or month to search (defaults to the date for the previous month, $lastMonth)")
 
     help("help").text("prints this usage text")
   }
