@@ -58,6 +58,12 @@ To get statistics for 2016 for the GitHub user `mslinn`, type:
 
     bin/run -u mslinn 2016
 
+You can also run SBT if desired. 
+These options cause git logs from all of 2016 are processed, for the `cadenza` project, with subtotals;
+XML files are ignored:
+
+    sbt "run 2016 -d /mnt/c/work/training/cadenza -v -i xml"
+
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)
 

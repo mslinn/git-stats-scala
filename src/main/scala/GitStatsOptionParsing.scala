@@ -70,7 +70,8 @@ trait GitStatsOptionParsing {
     }.text("directory to scan (defaults to current directory)")
 
     opt[String]('i', "ignore").action { (x, c) =>
-      c.copy(ignoredFileTypes = x :: c.ignoredFileTypes)
+      val c2 = c.copy(ignoredFileTypes = x :: c.ignoredFileTypes)
+      c2
     }.text("additional filetype to ignore, without the leading dot (can be specified multiple times)")
 
     opt[String]('I', "Ignore").action { (x, c) =>
