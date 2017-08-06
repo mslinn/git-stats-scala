@@ -24,8 +24,8 @@ object GitStats extends App with GitStatsOptionParsing {
         case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
       }
       println()
-      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
-      println(summary)
+//      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
+//      println(summary)
       total
 
     case None =>
@@ -34,34 +34,37 @@ object GitStats extends App with GitStatsOptionParsing {
 
   def doIt(config: ConfigGitStats): Commit = {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
-    // todo provide date range support
     val gitResponse: List[String] =
       getOutputFrom("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
         .split("\n")
         .toList
+
     logger.debug(gitResponse.mkString("\n"))
 
     val commits: List[Commit] =
       gitResponse
         .map(Commit.apply)
         .filterNot(_.fileName.endsWith(".log"))
+
     val languageTotals = new LanguageTotals
-    val grandTotal: Commit = commits.fold(Commit.zero) {
+
+    val grandTotalCommit: Commit = commits.fold(Commit.zero) {
       case (acc, elem) =>
         languageTotals.combine(elem)
         val newTotal = Commit(acc.added+elem.added, acc.deleted+elem.deleted, language = elem.language)
         newTotal
     }
-    val results = languageTotals
-                    .map
-                    .values
-                    .toList
-                    .sortBy(x => -x.delta)
+
+    val detailCommits: List[Commit] = languageTotals
+                                        .map
+                                        .values
+                                        .toList
+                                        .sortBy(x => -x.delta)
     if (config.verbose) {
-      results.foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
+      detailCommits.foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
       println()  // separate repos with a blank line
     }
-    println(grandTotal.summarize(config.authorFullName, config.gitRepoName, suppressLanguageDisplay=false))
-    grandTotal
+    println(grandTotalCommit.summarize(config.authorFullName, config.gitRepoName, displayLanguageInfo=false))
+    grandTotalCommit
   }
 }

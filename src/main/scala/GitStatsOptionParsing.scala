@@ -47,8 +47,8 @@ trait GitStatsOptionParsing {
       c.copy(directoryName = x)
     }.text("directory to scan (defaults to current directory)")
 
-    opt[Boolean]('v', "verbose").action { (x, c) =>
-      c.copy(verbose = x)
+    opt[Unit]('v', "verbose").action { (_, c) =>
+      c.copy(verbose = true)
     }.text("show subtotals)")
 
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>

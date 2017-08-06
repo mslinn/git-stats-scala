@@ -50,11 +50,15 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
 
-  def summarize(userName: String, repoName: String, finalTotal: Boolean = false, suppressLanguageDisplay: Boolean = false): String = {
-    val forLang = if (suppressLanguageDisplay || finalTotal) "" else s" for language '$language'"
+  def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
+    val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
-    s"$userName added ${ intFormat(added) } lines, deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
+    s"$userName $this"
   }
 
-  override def toString: String = s"Commit: added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
+  override def toString: String = {
+    val forLang = s" for language '$language'"
+    val forRepo = " in this git repository"
+    s"added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
+  }
 }
