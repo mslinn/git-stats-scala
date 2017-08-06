@@ -4,8 +4,9 @@ import com.github.nscala_time.time.Imports._
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 object ConfigGitStats {
-  val fmt: DateTimeFormatter  = DateTimeFormat.forPattern("yyyy-MM")
-  val fmt2: DateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
+  val fmt_yyyyMMdd: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+  val fmt_yyyyMM: DateTimeFormatter   = DateTimeFormat.forPattern("yyyy-MM")
+  val fmt_MMMMyyyy: DateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
 
   /** This only works if the current directory is the root of a git directory tree */
   @inline def gitUserName(cwd: File): String = {
@@ -13,28 +14,36 @@ object ConfigGitStats {
     if (isWindows) "\"" + userName + "\"" else userName.replace(" ", "\\ ")
   }
 
-  val lastMonth: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1))
+  val lastMonth: String = ConfigGitStats.fmt_yyyyMM.print(DateTime.now.minusMonths(1))
 }
 
 case class ConfigGitStats(
   author: String = ConfigGitStats.gitUserName(new File(".").getAbsoluteFile),
-  yyyy_mm: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1)),
+  yyyy_mm: String = ConfigGitStats.fmt_yyyyMM.print(DateTime.now.minusMonths(1)),
   directoryName: String = sys.props("user.dir"),
   verbose: Boolean = false,
   ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip"),
   ignoredSubDirectories: List[String] = List("node_modules")
 ) {
   lazy val authorFullName: String = author.replace("\\", "")
-  lazy val reportDate: DateTime = ConfigGitStats.fmt.parseDateTime(yyyy_mm)
-  lazy val reportDateStr: String = ConfigGitStats.fmt2.print(reportDate)
 
   lazy val directory = new java.io.File(directoryName)
+
+  lazy val from: String = if (yyyy_mm.contains("-")) s"$yyyy_mm-01" else yyyy_mm
+
+  lazy val to: String = if (yyyy_mm.contains("-")) {
+    val lastDay = new DateTime(s"$yyyy_mm-01").dayOfMonth.withMaximumValue
+    ConfigGitStats.fmt_yyyyMMdd.print(lastDay)
+  } else yyyy_mm + "-12-31"
 
   /** This only works if the current directory is the root of a git directory tree */
   lazy val gitRepoName: String = {
     val i: Int = directoryName.lastIndexOf(java.io.File.separator)
     if (i<0) directoryName else directoryName.substring(i).replace(java.io.File.separator, "")
   }
+
+  lazy val reportDate: DateTime = ConfigGitStats.fmt_yyyyMM.parseDateTime(yyyy_mm)
+  lazy val reportDateStr: String = ConfigGitStats.fmt_MMMMyyyy.print(reportDate)
 }
 
 trait GitStatsOptionParsing {
