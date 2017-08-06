@@ -46,3 +46,10 @@ To get statistics for May 2017 for the current logged on user, type:
 To get statistics for 2016 for the GitHub user `mslinn`, type:
 
     bin/run -u mslinn 2016
+
+## Scaladoc
+[Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)
+
+## License
+This software is published under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+
