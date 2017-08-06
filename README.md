@@ -24,6 +24,7 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -a, --author <value>  author to attribute
   -d, --dir <value>     directory to scan (defaults to current directory)
   -i, --ignore <value>  additional filetype to ignore, without the leading dot (can be specified multiple times)
+  -I, --Ignore <value>  additional subdirectories to ignore, without slashes (can be specified multiple times)
   -v, --verbose         show per-repo subtotals)
   <yyyy-mm>             year or month to search (defaults to the date for the previous month, 2017-07)
   --help                prints this usage text
