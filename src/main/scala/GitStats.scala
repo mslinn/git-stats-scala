@@ -42,7 +42,7 @@ object GitStats extends App with GitStatsOptionParsing {
   def processOneRepo(config: ConfigGitStats): Commit = {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
     val gitResponse: List[String] =
-      getOutputFrom("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
+      getOutputFrom(gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
         .split("\n")
         .filter(_.nonEmpty)
         .toList

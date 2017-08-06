@@ -8,7 +8,7 @@ object ConfigGitStats {
 
   /** This only works if the current directory is the root of a git directory tree */
   lazy val gitUserName: String =
-    getOutputFrom("git", "config", "user.name")
+    getOutputFrom(gitProgram, "config", "user.name")
       .replace(" ", "\\ ")
 
   val lastMonth: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1))

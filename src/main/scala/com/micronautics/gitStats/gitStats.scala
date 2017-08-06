@@ -19,6 +19,8 @@ package object gitStats {
         sys.exit(-1)
     }
 
+  lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
+
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
   def gitProjectsUnder(file: File = new File(sys.props("user.dir"))): List[File] = {
@@ -32,10 +34,12 @@ package object gitStats {
         childDirs.flatMap(gitProjectsUnder)
   }
 
+  lazy val isWindows: Boolean = sys.props("os.name").toLowerCase.indexOf("win") >= 0
+
   protected lazy val os: String = sys.props("os.name").toLowerCase
 
   protected def which(program: String): Option[Path] = {
-    val path = if (sys.props("os.name").toLowerCase.indexOf("win") >= 0) sys.env("Path") else sys.env("PATH")
+    val path = if (isWindows) sys.env("Path") else sys.env("PATH")
     path
       .split(Pattern.quote(File.pathSeparator))
       .map(Paths.get(_))
