@@ -241,10 +241,10 @@
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="com.micronautics.gitStats#getOutputFrom" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="getOutputFrom(cmd:String*):String"></a><a id="getOutputFrom(String*):String"></a>
+                <li name="com.micronautics.gitStats#getOutputFrom" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getOutputFrom(cwd:java.io.File,cmd:String*):String"></a><a id="getOutputFrom(File,String*):String"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#getOutputFrom(cmd:String*):String" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#getOutputFrom(cwd:java.io.File,cmd:String*):String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -253,7 +253,26 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getOutputFrom</span><span class="params">(<span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">getOutputFrom</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.micronautics.gitStats#gitProgram" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="gitProgram:String"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#gitProgram:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">gitProgram</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       
@@ -273,6 +292,22 @@
       </span>
       
       <p class="shortcomment cmt">Handles special case where file points to a git directory, as well os a directory of git directories</p><div class="fullcomment"><div class="comment cmt"><p>Handles special case where file points to a git directory, as well os a directory of git directories</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>List[File] where each item is the root of a git repo's directory tree</p></dd></dl></div>
+    </li><li name="com.micronautics.gitStats#isWindows" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="isWindows:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#isWindows:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isWindows</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
     </li><li name="com.micronautics.gitStats#logger" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="logger:org.slf4j.Logger"></a><a id="logger:Logger"></a>
       <span class="permalink">
@@ -305,10 +340,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
-    </li><li name="com.micronautics.gitStats#panderToWindows" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="panderToWindows(command:Seq[String]):List[String]"></a><a id="panderToWindows(Seq[String]):List[String]"></a>
+    </li><li name="com.micronautics.gitStats#run" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="run(cwd:java.io.File,cmd:String*):scala.sys.process.ProcessBuilder"></a><a id="run(File,String*):ProcessBuilder"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#panderToWindows(command:Seq[String]):List[String]" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#run(cwd:java.io.File,cmd:String*):scala.sys.process.ProcessBuilder" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -317,14 +352,33 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">panderToWindows</span><span class="params">(<span name="command">command: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">run</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.sys.process.ProcessBuilder">ProcessBuilder</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.micronautics.gitStats#which" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="which(program:String):Option[java.nio.file.Path]"></a><a id="which(String):Option[Path]"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#which(program:String):Option[java.nio.file.Path]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">which</span><span class="params">(<span name="program">program: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.nio.file.Path">Path</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
-    </li><li name="com.micronautics.gitStats#run" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="run(cmd:String*):scala.sys.process.ProcessBuilder"></a><a id="run(String*):ProcessBuilder"></a>
+    </li><li name="com.micronautics.gitStats#whichOrThrow" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="whichOrThrow(program:String):java.nio.file.Path"></a><a id="whichOrThrow(String):Path"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#run(cmd:String*):scala.sys.process.ProcessBuilder" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#whichOrThrow(program:String):java.nio.file.Path" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -333,10 +387,13 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">run</span><span class="params">(<span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.sys.process.ProcessBuilder">ProcessBuilder</span></span>
+        <span class="name">whichOrThrow</span><span class="params">(<span name="program">program: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.nio.file.Path">Path</span></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="com.micronautics.gitStats.Constructs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Constructs"></a><a id="Constructs:Constructs"></a>
       <span class="permalink">
