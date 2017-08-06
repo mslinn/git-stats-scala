@@ -25,14 +25,20 @@ object GitStats extends App with GitStatsOptionParsing {
   private def processAllRepos(config: ConfigGitStats) = {
     val commits: List[Commit] = for {
       file <- gitProjectsUnder(config.directory)
-    } yield processOneRepo(config, file)
+    } yield try {
+      processOneRepo(config, file)
+    } catch {
+      case e: Throwable =>
+        Console.err.println("Error: " + e.getMessage + " git repo ignored")
+        Commit.zero
+    }
 
     val total: Commit = commits.fold(Commit.zero) {
       case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
     }
     println()
-    //      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
-    //      println(summary)
+    val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
+    println(summary)
     total
   }
 
@@ -53,7 +59,7 @@ object GitStats extends App with GitStatsOptionParsing {
     val commits: List[Commit] =
       gitResponse
         .map(Commit.apply)
-        .filterNot(_.fileName.endsWith(".log"))
+        .filterNot(commit => config.ignores.contains(commit.fileType))
 
     val languageTotals = new LanguageTotals
 

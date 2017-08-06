@@ -55,6 +55,7 @@ package object gitStats {
 
   @inline def run(cwd: File, cmd: String*): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
+    println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))
     logger.debug(command.mkString(" "))
     Process(command=command, cwd=cwd)
   }

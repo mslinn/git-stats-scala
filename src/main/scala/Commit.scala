@@ -52,6 +52,12 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
 
+  /** Filetype of fileName, not including the dot */
+  lazy val fileType: String = {
+    val i = fileName.lastIndexOf(".")
+    if (i<0) fileName else fileName.substring(i+1)
+  }
+
   @inline def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
     val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
