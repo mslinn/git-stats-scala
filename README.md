@@ -18,6 +18,7 @@ For Linux and Mac, an executable program called git must be on the PATH;
 for Windows, and executable called git.exe must be on the Path.
 
 Ignores files committed with these filetypes: exe, gz, log, pdf, tar, zip.
+Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
