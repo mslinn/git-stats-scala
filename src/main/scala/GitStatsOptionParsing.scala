@@ -83,7 +83,7 @@ trait GitStatsOptionParsing {
 
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>
       c.copy(yyyy_mm = x)
-    ).text(s"year or month to search (defaults to the date for the previous month, $lastMonth)")
+    ).text(s"year or month to search (defaults to the date for the previous month, for example $lastMonth)")
 
     help("help").text("prints this usage text")
   }
