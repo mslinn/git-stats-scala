@@ -21,7 +21,7 @@
        CAUTION: If you specify WARNING instead of WARN then the value DEBUG is used!!!! -->
   <logger name="gitStats" level="${LOGGER_GITSTATS:-INFO}" />
 
-  <root level="DEBUG">
+  <root level="INFO">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

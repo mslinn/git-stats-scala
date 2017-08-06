@@ -9,9 +9,9 @@ import scala.sys.process._
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
-  def getOutputFrom(cmd: String*): String =
+  @inline def getOutputFrom(cwd: File, cmd: String*): String =
     try {
-      run(cmd:_*).!!.trim
+      run(cwd, cmd:_*).!!.trim
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)
@@ -47,20 +47,20 @@ package object gitStats {
       .map(_.resolve(program))
   }
 
-  protected def whichOrThrow(program: String): Path =
+  @inline protected def whichOrThrow(program: String): Path =
     which(program) match {
       case None => throw new Exception(program + " not found on path")
       case Some(programPath) => programPath
     }
 
-  def run(cmd: String*): ProcessBuilder = {
+  @inline def run(cwd: File, cmd: String*): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
     logger.debug(command.mkString(" "))
-    Process(command)
+    Process(command=command, cwd=cwd)
   }
 
   object RichFile {
-    def currentDirectory: File = new File(".").getCanonicalFile
+    @inline def currentDirectory: File = new File(".").getCanonicalFile
 
     val dotIgnore: File = new File(".", ".ignore")
     val dotGit: File    = new File(".", ".git")
@@ -71,22 +71,22 @@ package object gitStats {
   implicit class RichFile(val file: File) extends AnyVal {
     import RichFile._
 
-    def childFiles: List[File] = file.listFiles.toList
+    @inline def childFiles: List[File] = file.listFiles.toList
 
-    def childDirs: List[File] = childFiles.filter(_.isDirectory)
+    @inline def childDirs: List[File] = childFiles.filter(_.isDirectory)
 
-    def shouldBeIgnored: Boolean = childFiles.contains(RichFile.dotIgnore)
+    @inline def shouldBeIgnored: Boolean = childFiles.contains(RichFile.dotIgnore)
 
-    def gitSubdirectories: Seq[File] =
+    @inline def gitSubdirectories: Seq[File] =
       if (shouldBeIgnored) Nil else
         for {
           childDir <- childDirs
           if childDir.childDirs.exists(_.getName == ".git")
         } yield childDir
 
-    def isDotIgnore: Boolean = file.getName == dotIgnore.getName
-    def isDotGit: Boolean    = file.getName == dotGit.getName
+    @inline def isDotIgnore: Boolean = file.getName == dotIgnore.getName
+    @inline def isDotGit: Boolean    = file.getName == dotGit.getName
 
-    def setCwd(): String = System.setProperty("user.home", file.getAbsolutePath)
+    @inline def setCwd(): String = System.setProperty("user.home", file.getAbsolutePath)
   }
 }

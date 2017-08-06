@@ -7,23 +7,25 @@ object Commit {
 
   val intFormatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
-  def intFormat(int: Int): String = intFormatter.format(int.toLong)
+  @inline def intFormat(int: Int): String = intFormatter.format(int.toLong)
+
+  @inline def toInt(string: String): Int = if (string=="-") 0 else string.toInt
 
   @inline def apply(args: String): Commit = {
     args.split("\t| ") match {
       case Array(linesAdded, linesDeleted, fileName) =>
-        Commit(linesAdded.toInt, linesDeleted.toInt, language=language(fileName))
+        Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim))
 
       case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
         val language = if (newFileName.contains(".")) Commit.unknown else "Bash"
-        Commit(linesAdded.toInt, linesDeleted.toInt, language=language)
+        Commit(toInt(linesAdded), toInt(linesDeleted), language=language)
 
       case _ =>
-        throw new Exception(args)
+        Commit(0, 0, language=unknown)
     }
   }
 
-  def contents(fileName: String): String = try {
+  @inline def contents(fileName: String): String = try {
     scala.io.Source.fromFile(fileName).mkString
   } catch {
     case _: Exception => ""
@@ -50,7 +52,7 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
 
-  def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
+  @inline def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
     val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
     s"$userName added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"

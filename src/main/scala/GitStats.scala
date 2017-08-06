@@ -1,3 +1,4 @@
+import java.io.File
 import com.micronautics.gitStats._
 import scala.collection.mutable
 
@@ -24,11 +25,8 @@ object GitStats extends App with GitStatsOptionParsing {
   private def processAllRepos(config: ConfigGitStats) = {
     val commits: List[Commit] = for {
       file <- gitProjectsUnder(config.directory)
-    } yield {
-      println()
-      file.setCwd()
-      processOneRepo(config)
-    }
+    } yield processOneRepo(config, file)
+
     val total: Commit = commits.fold(Commit.zero) {
       case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
     }
@@ -39,10 +37,13 @@ object GitStats extends App with GitStatsOptionParsing {
   }
 
   /** Process repo at current directory */
-  def processOneRepo(config: ConfigGitStats): Commit = {
+  private def processOneRepo(config: ConfigGitStats, dir: File): Commit = {
+    dir.setCwd()
+    println()
+
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
     val gitResponse: List[String] =
-      getOutputFrom(gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
+      getOutputFrom(dir, gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
         .split("\n")
         .filter(_.nonEmpty)
         .toList

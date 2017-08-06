@@ -1,3 +1,4 @@
+import java.io.File
 import com.micronautics.gitStats._
 import com.github.nscala_time.time.Imports._
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
@@ -7,15 +8,15 @@ object ConfigGitStats {
   val fmt2: DateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
 
   /** This only works if the current directory is the root of a git directory tree */
-  lazy val gitUserName: String =
-    getOutputFrom(gitProgram, "config", "user.name")
+  @inline def gitUserName(cwd: File): String =
+    getOutputFrom(cwd, gitProgram, "config", "user.name")
       .replace(" ", "\\ ")
 
   val lastMonth: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1))
 }
 
 case class ConfigGitStats(
-  author: String = ConfigGitStats.gitUserName,
+  author: String = ConfigGitStats.gitUserName(new File(".").getAbsoluteFile),
   yyyy_mm: String = ConfigGitStats.fmt.print(DateTime.now.minusMonths(1)),
   directoryName: String = sys.props("user.dir"),
   verbose: Boolean = false
