@@ -14,8 +14,8 @@ GitStats 0.1.0
 Usage: GitStats [options] [<yyyy-mm>]
 
   -a, --author <value>  author to attribute
-  -v, --verbose         show subtotals
   -d, --dir <value>     directory to scan (defaults to current directory)
+  -v, --verbose         show subtotals
   <yyyy-mm>             yyyy_mm to search (defaults to the date for the previous month, 2017-07)
   --help                prints this usage text
 ```
