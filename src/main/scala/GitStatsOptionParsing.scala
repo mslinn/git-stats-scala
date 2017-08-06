@@ -52,7 +52,7 @@ trait GitStatsOptionParsing {
 
     opt[Unit]('v', "verbose").action { (_, c) =>
       c.copy(verbose = true)
-    }.text("show subtotals)")
+    }.text("show per-repo subtotals)")
 
     arg[String]("<yyyy-mm>").optional().action( (x, c) =>
       c.copy(yyyy_mm = x)
