@@ -1,13 +1,23 @@
 package com.micronautics
 
 import java.io.File
+import java.nio.file.{Files, Path, Paths}
+import java.util.regex.Pattern
 import org.slf4j.Logger
 import scala.sys.process._
 
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
-  def getOutputFrom(cmd: String*): String = run(cmd:_*).!!.trim
+  def getOutputFrom(cmd: String*): String =
+    try {
+      run(cmd:_*).!!.trim
+    } catch {
+      case e: Exception =>
+        Console.err.println(e.getMessage)
+        Console.err.println(e.getStackTrace.mkString("\n"))
+        sys.exit(-1)
+    }
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
@@ -24,13 +34,23 @@ package object gitStats {
 
   protected lazy val os: String = sys.props("os.name").toLowerCase
 
-  protected def panderToWindows(command: Seq[String]): List[String] = os match {
-    case x if x contains "windows" => List("cmd", "/C") ++ command.toList
-    case _ => command.toList
+  protected def which(program: String): Option[Path] = {
+    val path = if (sys.props("os.name").toLowerCase.indexOf("win") >= 0) sys.env("Path") else sys.env("PATH")
+    path
+      .split(Pattern.quote(File.pathSeparator))
+      .map(Paths.get(_))
+      .find(path => Files.exists(path.resolve(program)))
+      .map(_.resolve(program))
   }
 
+  protected def whichOrThrow(program: String): Path =
+    which(program) match {
+      case None => throw new Exception(program + " not found on path")
+      case Some(programPath) => programPath
+    }
+
   def run(cmd: String*): ProcessBuilder = {
-    val command: List[String] = panderToWindows(cmd)
+    val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
     logger.debug(command.mkString(" "))
     Process(command)
   }

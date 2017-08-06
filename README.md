@@ -13,6 +13,8 @@ $ bin/run --help
 GitStats 0.1.0
 Usage: GitStats [options] [<yyyy-mm>]
 
+For Linux and Mac, an executable program called `git` must be on the `PATH`; for Windows, and executable called `git.exe` must be on the `Path`.
+
   -a, --author <value>  author to attribute
   -d, --dir <value>     directory to scan (defaults to current directory)
   -v, --verbose         show subtotals

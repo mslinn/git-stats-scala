@@ -1,21 +1,4 @@
 <configuration>
-  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
-
-  <appender name="CONFIG" class="ch.qos.logback.core.FileAppender">
-    <file>${application.home:-.}/logs/config.log</file>
-    <append>false</append>
-    <encoder>
-      <pattern>%date - [%level] - %logger{36} - %n%message%n%xException%n</pattern>
-    </encoder>
-  </appender>
-
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>application.log</file>
-    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-      <pattern>%-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
-
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>%-5level %logger{36} - %msg%n</pattern>
@@ -36,10 +19,9 @@
        Logger.info, Logger.debug, Logger.warn
 
        CAUTION: If you specify WARNING instead of WARN then the value DEBUG is used!!!! -->
-  <logger name="gitStats"          level="${LOGGER_GITSTATS:-INFO}" />
+  <logger name="gitStats" level="${LOGGER_GITSTATS:-INFO}" />
 
-  <root level="INFO">
+  <root level="DEBUG">
     <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE" />
   </root>
 </configuration>

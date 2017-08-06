@@ -16,30 +16,35 @@ class LanguageTotals(val map: mutable.Map[String, Commit] = mutable.Map.empty.wi
 
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
-    case Some(config) =>
-      val commits: List[Commit] = for {
-        _ <- gitProjectsUnder(config.directory)
-      } yield {
-        println()
-        doIt(config)
-      }
-      val total: Commit = commits.fold(Commit.zero) {
-        case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
-      }
-      println()
-//      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
-//      println(summary)
-      total
+    case Some(config) => processAllRepos(config)
 
-    case None =>
-      // arguments are bad, error message will have been displayed
+    case None => // arguments are bad, error message will have been displayed
   }
 
-  def doIt(config: ConfigGitStats): Commit = {
+  private def processAllRepos(config: ConfigGitStats) = {
+    val commits: List[Commit] = for {
+      file <- gitProjectsUnder(config.directory)
+    } yield {
+      println()
+      file.setCwd()
+      processOneRepo(config)
+    }
+    val total: Commit = commits.fold(Commit.zero) {
+      case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
+    }
+    println()
+    //      val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
+    //      println(summary)
+    total
+  }
+
+  /** Process repo at current directory */
+  def processOneRepo(config: ConfigGitStats): Commit = {
     // git log --author="Mike Slinn" --pretty=tformat: --numstat
     val gitResponse: List[String] =
       getOutputFrom("git", "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat")
         .split("\n")
+        .filter(_.nonEmpty)
         .toList
 
     logger.debug(gitResponse.mkString("\n"))

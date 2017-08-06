@@ -39,6 +39,8 @@ trait GitStatsOptionParsing {
   val parser = new scopt.OptionParser[ConfigGitStats]("GitStats") {
     head("GitStats", "0.1.0")
 
+    note("For Linux and Mac, an executable program called git must be on the PATH; for Windows, and executable called git.exe must be on the Path.")
+
     opt[String]('a', "author").action { (x, c) =>
       c.copy(author = x)
     }.text("author to attribute")
