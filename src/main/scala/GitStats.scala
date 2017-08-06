@@ -19,7 +19,10 @@ object GitStats extends App with GitStatsOptionParsing {
     case Some(config) =>
       val commits: List[Commit] = for {
         _ <- gitProjectsUnder(config.directory)
-      } yield doIt(config)
+      } yield {
+        println()
+        doIt(config)
+      }
       val total: Commit = commits.fold(Commit.zero) {
         case (acc, elem) => Commit(acc.added+elem.added, acc.deleted+elem.deleted)
       }

@@ -53,12 +53,9 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
   def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
     val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for language '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
-    s"$userName $this"
+    s"$userName added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
   }
 
-  override def toString: String = {
-    val forLang = s" for language '$language'"
-    val forRepo = " in this git repository"
-    s"added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
-  }
+  override def toString: String =
+    s"added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
 }

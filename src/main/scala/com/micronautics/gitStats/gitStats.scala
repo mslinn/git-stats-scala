@@ -11,10 +11,14 @@ package object gitStats {
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
-  def gitProjectsUnder(file: File = new File(sys.env("WORK"))): List[File] = {
+  def gitProjectsUnder(file: File = new File(sys.props("user.dir"))): List[File] = {
     val childDirs = file.childDirs
     if (childDirs.exists(_.isDotIgnore)) Nil else
-      if (childDirs.exists(_.isDotGit)) List(file.getCanonicalFile) else
+      if (childDirs.exists(_.isDotGit)) {
+        val x = List(file.getCanonicalFile)
+        print(".")
+        x
+      } else
         childDirs.flatMap(gitProjectsUnder)
   }
 
