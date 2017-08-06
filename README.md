@@ -46,6 +46,8 @@ Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in git-stats-scala
 Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git repositories
 ```
 
+<img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
+
 To get statistics for 2017 for the current logged on user, type:
 
     bin/run 2017
@@ -59,8 +61,8 @@ To get statistics for 2016 for the GitHub user `mslinn`, type:
     bin/run -u mslinn 2016
 
 You can also run SBT if desired. 
-These options cause git logs from all of 2016 are processed, for the `cadenza` project, with subtotals;
-XML files are ignored:
+The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project, 
+with subtotals, and XML files are to be ignored:
 
     sbt "run 2016 -d /mnt/c/work/training/cadenza -v -i xml"
 
