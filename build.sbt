@@ -33,15 +33,13 @@ javacOptions ++= Seq(
 
 resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronautics/scala"
 
-val circeVer = "0.8.0"
-val grizzVer = "4.1.0"
 libraryDependencies ++= Seq(
-  "ch.qos.logback"           %  "logback-classic"    % "1.2.3",
-  "com.github.nscala-time"   %% "nscala-time"        % "2.16.0" withSources(),
-  "com.github.scopt"         %% "scopt"              % "3.6.0"  withSources(),
+  "ch.qos.logback"           %  "logback-classic" % "1.2.3",
+  "com.github.nscala-time"   %% "nscala-time"     % "2.16.0" withSources(),
+  "com.github.scopt"         %% "scopt"           % "3.6.0"  withSources(),
   //
-  "org.scalatest"            %% "scalatest"          % "3.0.1" % "test" withSources(),
-  "junit"                    %  "junit"              % "4.12"  % "test"
+  "org.scalatest"            %% "scalatest"       % "3.0.1" % Test withSources(),
+  "junit"                    %  "junit"           % "4.12"  % Test
 )
 
 logLevel := Level.Warn
