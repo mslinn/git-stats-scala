@@ -65,7 +65,7 @@ package object gitStats {
   object RichFile {
     @inline def currentDirectory: File = new File(".").getCanonicalFile
 
-    val dotIgnore: File = new File(".", ".ignore")
+    val dotIgnore: File = new File(".", ".ignore.stats")
     val dotGit: File    = new File(".", ".git")
 
     def parentDirectory: File = currentDirectory.getParentFile

@@ -12,10 +12,10 @@ Statistics are reported for each computer language found.
 The reader is free to impart any meaning they deem appropriate to this output.
 The author of this software (GitStats) makes no claims regarding meaning.*
 
-Ignores git repos containing a file called `.ignore` in the root of the directory tree.
+Ignores git repos containing a file called `.ignore.stats` in the root of the directory tree.
 Obtains git repo histories by examining the output of `git log`.
 
-The Help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
+The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
 ```
 $ bin/run --help
 GitStats 0.1.0
