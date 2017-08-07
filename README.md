@@ -43,7 +43,8 @@ Tries to continue processing remaining git repos if an exception is encountered.
   --help                 Print this usage text
 ```
 
-For example, to get all-time totals for the current git user (per git directory), type:
+For example, to get all-time totals for the current git user (per git directory), 
+walking the directory tree below the current directory, type:
 ```
 $ bin/run
 Mike Slinn added 408 lines, deleted 139 lines, net 269 lines for language 'Scala' in git-stats-scala
@@ -60,32 +61,27 @@ Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git reposito
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
 
-To get statistics from the entire git history for the current logged on user, 
-walking the directory tree below the current directory, type:
-
-    bin/run 
-    
 To get statistics for the previous 365 days for the current logged on user, type:
     
     bin/run --previous365days
 
-To get statistics for the previous month for the current logged on user, type:
+For the previous month:
 
     bin/run --previousMonth
 
-To get statistics for the previous 30 days for the current logged on user, type:
+For the previous 30 days:
 
     bin/run --previous30days
 
-To get statistics for the previous 90 days for the current logged on user, type:
+For the previous 90 days:
 
     bin/run --previous90days
 
-To get statistics for all of May 2017 for the current logged on user, type:
+For all of May 2017:
 
     bin/run --from={2017-05-01} --to={2017-05-31}
 
-To get statistics for 2016 for the GitHub user `mslinn`, type:
+For 2016 for the GitHub user `mslinn`, type:
 
     bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
 
