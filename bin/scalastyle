@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Not used, but it works
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+cd "$DIR"
+
+java -jar bin/scalastyle_2.12-0.9.0-batch.jar --config bin/scalastyle_config.xml "$@"
