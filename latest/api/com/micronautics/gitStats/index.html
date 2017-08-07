@@ -131,8 +131,8 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
-                        <a class="class" href="ConfigGitStats.html" title=""></a>
-                        <a href="ConfigGitStats.html" title="">
+                        <a class="class" href="ConfigGitStats.html" title="Configuration value object for this app."></a>
+                        <a href="ConfigGitStats.html" title="Configuration value object for this app.">
                           ConfigGitStats
                         </a>
                       </li><li class="current-entities indented3">
@@ -257,7 +257,7 @@
       </span>
       
       
-    </li><li name="com.micronautics.gitStats.ConfigGitStats" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.micronautics.gitStats.ConfigGitStats" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ConfigGitStatsextendsProductwithSerializable"></a><a id="ConfigGitStats:ConfigGitStats"></a>
       <span class="permalink">
       <a href="../../../com/micronautics/gitStats/index.html#ConfigGitStatsextendsProductwithSerializable" title="Permalink">
@@ -269,12 +269,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ConfigGitStats.html">
+        <a title="Configuration value object for this app." href="ConfigGitStats.html">
               <span class="name">ConfigGitStats</span>
-            </a><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Configuration value object for this app.</p><div class="fullcomment"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl></div>
     </li><li name="com.micronautics.gitStats.LanguageTotals" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="LanguageTotalsextendsAnyRef"></a><a id="LanguageTotals:LanguageTotals"></a>
       <span class="permalink">

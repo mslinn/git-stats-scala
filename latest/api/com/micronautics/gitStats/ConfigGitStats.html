@@ -133,8 +133,8 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">
+                        <a class="class" href="" title="Configuration value object for this app."></a>
+                        <a href="" title="Configuration value object for this app.">
                           ConfigGitStats
                         </a>
                       </li><li class="current-entities indented3">
@@ -186,12 +186,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -241,10 +241,10 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.micronautics.gitStats.ConfigGitStats#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String]):com.micronautics.gitStats.ConfigGitStats"></a><a id="&lt;init&gt;:ConfigGitStats"></a>
+              <ol><li name="com.micronautics.gitStats.ConfigGitStats#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean):com.micronautics.gitStats.ConfigGitStats"></a><a id="&lt;init&gt;:ConfigGitStats"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String]):com.micronautics.gitStats.ConfigGitStats" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean):com.micronautics.gitStats.ConfigGitStats" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -253,10 +253,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>)</span>
+        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -488,9 +488,9 @@
               
         </dd></dl></div>
     </li><li name="com.micronautics.gitStats.ConfigGitStats#fromFormatted" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fromFormatted:String"></a>
+      <a id="fromFormatted:Option[String]"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#fromFormatted:String" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#fromFormatted:Option[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -499,7 +499,7 @@
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">fromFormatted</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">fromFormatted</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
@@ -631,6 +631,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.micronautics.gitStats.ConfigGitStats#onlyKnown" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="onlyKnown:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#onlyKnown:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onlyKnown</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -648,9 +664,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.micronautics.gitStats.ConfigGitStats#toFormatted" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="toFormatted:String"></a>
+      <a id="toFormatted:Option[String]"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#toFormatted:String" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#toFormatted:Option[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -659,7 +675,7 @@
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">toFormatted</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">toFormatted</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
