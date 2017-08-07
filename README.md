@@ -22,13 +22,16 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -a, --author <value>  author to attribute
-  -d, --dir <value>     directory to scan (defaults to current directory)
-  -i, --ignore <value>  additional filetype to ignore, without the leading dot (can be specified multiple times)
-  -I, --Ignore <value>  additional subdirectories to ignore, without slashes (can be specified multiple times)
-  -v, --verbose         show per-repo subtotals)
-  <yyyy-mm>             year or month to search (defaults to the date for the previous month, for example 2017-07)
-  --help                prints this usage text
+  -a, --author <value>   author to attribute
+  -d, --dir <value>      directory to scan (defaults to current directory)
+  -f, --from <value>     First date to process (yyyy-MM-dd)
+  -i, --ignore <value>   additional filetype to ignore, without the leading dot (can be specified multiple times)
+  -I, --Ignore <value>   additional subdirectories to ignore, without slashes (can be specified multiple times)
+  -m, --previousMonth    Same as specifying --from={2017-07-08} and --to={2017-08-07}
+  -t, --to <value>       Last date to process (yyyy-MM-dd)
+  -v, --verbose          show per-repo subtotals)
+  -y, --previous365days  (Default) same as specifying --from={2016-08-07} and --to={2017-08-07}
+  --help                 prints this usage text
 ```
 
 For example, to get all-time totals for the current git user (per git directory), type:
@@ -48,23 +51,31 @@ Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git reposito
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
 
-To get statistics for 2017 for the current logged on user, type:
+To get statistics for the previous 365 days for the current logged on user, type:
 
-    bin/run 2017
+    bin/run 
+    
+or
+    
+    bin/run --previous365days
 
-To get statistics for May 2017 for the current logged on user, type:
+To get statistics for the previous month (more accurately, the previous 30 days) for the current logged on user, type:
 
-    bin/run 2017-05
+    bin/run --previousMonth
+
+To get statistics for all of May 2017 for the current logged on user, type:
+
+    bin/run --from={2017-05-01} --to={2017-05-31}
 
 To get statistics for 2016 for the GitHub user `mslinn`, type:
 
-    bin/run -u mslinn 2016
+    bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
 
 You can also run SBT if desired. 
 The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project, 
 with subtotals, and XML files are to be ignored:
 
-    sbt "run 2016 -d /mnt/c/work/training/cadenza -v -i xml"
+    sbt "run --previous365days -d /mnt/c/work/training/cadenza -v -i xml"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)

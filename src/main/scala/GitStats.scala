@@ -44,15 +44,17 @@ object GitStats extends App with GitStatsOptionParsing {
 
   /** Process repo at current directory */
   private def processOneRepo(config: ConfigGitStats, dir: File): Commit = {
-    val from: String = s"--since={${ config.from }}"
-    val to: String   = s"--until={${ config.to }}"
+    assert(config.dateFrom.isBefore(config.dateTo))
+    val fromOption: String = s"--since={${ config.from }}"
+    val toOption: String   = s"--until={${ config.to }}"
 
     dir.setCwd()
     println()
 
-    // git log --author="Mike Slinn" --pretty=tformat: --numstat
+    // git log --author="Mike Slinn" --pretty=tformat: --numstat --previous365days
+    // git log --author="Mike Slinn" --pretty=tformat: --numstat --since={2016-09-01} --until={2017-08-30}
     val gitResponse: List[String] =
-      getOutputFrom(dir, gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat", from, to)
+      getOutputFrom(dir, gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat", fromOption, toOption)
         .split("\n")
         .filter(_.nonEmpty)
         .toList
