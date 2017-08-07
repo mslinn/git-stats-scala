@@ -7,8 +7,8 @@ trait GitStatsOptionParsing {
   val parser = new scopt.OptionParser[ConfigGitStats]("GitStats") {
     head("GitStats", "0.1.0")
 
-    val ignoredDirectories: String = defaultValue.ignoredSubDirectories.mkString(",")
-    val ignoredFileTypes: String = defaultValue.ignoredFileTypes.mkString(",")
+    val ignoredDirectories: String = defaultValue.ignoredSubDirectories.sorted.mkString(", ")
+    val ignoredFileTypes: String = defaultValue.ignoredFileTypes.sorted.mkString(", ")
 
     note(s"""For Linux and Mac, an executable program called git must be on the PATH;
             |for Windows, and executable called git.exe must be on the Path.
@@ -40,12 +40,12 @@ trait GitStatsOptionParsing {
     }.text("First date to process, in yyyy-MM-dd format; default is no limit")
 
     opt[String]('i', "ignore").action { (x, c) =>
-      val c2 = c.copy(ignoredFileTypes = x :: c.ignoredFileTypes)
+      val c2 = c.copy(ignoredFileTypes = (x :: c.ignoredFileTypes).sorted)
       c2
     }.text("Additional filetype to ignore, without the leading dot (can be specified multiple times)")
 
     opt[String]('I', "Ignore").action { (x, c) =>
-      c.copy(ignoredSubDirectories = x :: c.ignoredSubDirectories)
+      c.copy(ignoredSubDirectories = (x :: c.ignoredSubDirectories).sorted)
     }.text("Additional subdirectories to ignore, without slashes (can be specified multiple times)")
 
     opt[Unit]('m', "previousMonth").action { (_, c) =>

@@ -39,8 +39,8 @@ case class ConfigGitStats(
   dateTo: Option[DateTime] = None,
   directoryName: String = sys.props("user.dir"),
   verbose: Boolean = false,
-  ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip"),
-  ignoredSubDirectories: List[String] = List("node_modules")
+  ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip").sorted,
+  ignoredSubDirectories: List[String] = List("node_modules").sorted
 ) {
   import com.micronautics.gitStats.ConfigGitStats._
 
