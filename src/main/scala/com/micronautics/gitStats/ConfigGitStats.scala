@@ -19,9 +19,14 @@ object ConfigGitStats {
 
   lazy val today: DateTime     = DateTime.now.withTimeAtStartOfDay
   lazy val lastYear: DateTime  = today.minusDays(365)
-  lazy val lastMonth: DateTime = today.minusDays(30)  // more accurately, the last 30 days
+
+  lazy val last90days: DateTime = today.minusDays(90)
+  lazy val last30days: DateTime = today.minusDays(30)
+  lazy val lastMonth: DateTime = today.minusMonths(1)
 
   lazy val todayFormatted: String     = ConfigGitStats.fmt_yyyyMMdd.print(today)
+  lazy val last30Formatted: String    = ConfigGitStats.fmt_yyyyMMdd.print(last30days)
+  lazy val last90Formatted: String    = ConfigGitStats.fmt_yyyyMMdd.print(last90days)
   lazy val lastMonthFormatted: String = ConfigGitStats.fmt_yyyyMMdd.print(lastMonth)
   lazy val lastYearFormatted: String  = ConfigGitStats.fmt_yyyyMMdd.print(lastYear)
 

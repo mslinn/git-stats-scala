@@ -19,6 +19,14 @@ trait GitStatsOptionParsing {
             |Tries to continue processing remaining git repos if an exception is encountered.
             |""".stripMargin)
 
+    opt[Unit]('3', "previous30ays").action { (_, c) =>
+      c.copy(dateFrom = Some(last30days), dateTo = Some(today))
+    }.text(s"Same as specifying --from={$last30Formatted} and --to={$todayFormatted}")
+
+    opt[Unit]('9', "previous90ays").action { (_, c) =>
+      c.copy(dateFrom = Some(last90days), dateTo = Some(today))
+    }.text(s"Same as specifying --from={$last90Formatted} and --to={$todayFormatted}")
+
     opt[String]('a', "author").action { (x, c) =>
       c.copy(author = x)
     }.text("Author to attribute")
