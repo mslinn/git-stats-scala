@@ -16,11 +16,11 @@ object Commit {
   @inline def apply(args: String): Commit = {
     args.split("\t| ") match {
       case Array(linesAdded, linesDeleted, fileName) =>
-        Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim))
+        Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim), fileName=fileName)
 
       case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
         val language = if (newFileName.contains(".")) Commit.unknown else "Bash"
-        Commit(toInt(linesAdded), toInt(linesDeleted), language=language)
+        Commit(toInt(linesAdded), toInt(linesDeleted), language=language, fileName=newFileName)
 
       case _ =>
         Commit(0, 0, language=unknown)
