@@ -29,16 +29,16 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -a, --author <value>   author to attribute
-  -d, --dir <value>      directory to scan (defaults to current directory)
+  -a, --author <value>   Author to attribute
+  -d, --dir <value>      Directory to scan (defaults to current directory)
   -f, --from <value>     First date to process (yyyy-MM-dd)
-  -i, --ignore <value>   additional filetype to ignore, without the leading dot (can be specified multiple times)
-  -I, --Ignore <value>   additional subdirectories to ignore, without slashes (can be specified multiple times)
+  -i, --ignore <value>   Additional filetype to ignore, without the leading dot (can be specified multiple times)
+  -I, --Ignore <value>   Additional subdirectories to ignore, without slashes (can be specified multiple times)
   -m, --previousMonth    Same as specifying --from={2017-07-08} and --to={2017-08-07}
   -t, --to <value>       Last date to process (yyyy-MM-dd)
-  -v, --verbose          show per-repo subtotals)
-  -y, --previous365days  (Default) same as specifying --from={2016-08-07} and --to={2017-08-07}
-  --help                 prints this usage text
+  -v, --verbose          Show per-repo subtotals)
+  -y, --previous365days  Sme as specifying --from={2016-08-07} and --to={2017-08-07}
+  --help                 Prints this usage text
 ```
 
 For example, to get all-time totals for the current git user (per git directory), type:

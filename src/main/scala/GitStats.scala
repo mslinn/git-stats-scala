@@ -44,9 +44,8 @@ object GitStats extends App with GitStatsOptionParsing {
 
   /** Process repo at current directory */
   private def processOneRepo(config: ConfigGitStats, dir: File): Commit = {
-    assert(config.dateFrom.isBefore(config.dateTo))
-    val fromOption: String = s"--since={${ config.from }}"
-    val toOption: String   = s"--until={${ config.to }}"
+    val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
+    val toOption: String   = config.toFormatted  .map(from => s"--until={$from}").mkString
 
     dir.setCwd()
     println()
