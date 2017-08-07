@@ -10,10 +10,14 @@ class Repo(config: ConfigGitStats, dir: File) {
   dir.setCwd()
   println()
 
-  // git log --author="Mike Slinn" --pretty=tformat: --numstat --previous365days
+  // git log --author="Mike Slinn" --pretty=tformat: --numstat
   // git log --author="Mike Slinn" --pretty=tformat: --numstat --since={2016-09-01} --until={2017-08-30}
+  val gitCmd: Seq[String] = List(gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat") :::
+    (if (fromOption.isEmpty) Nil else List(fromOption)) :::
+    (if (toOption.isEmpty) Nil else List(toOption))
+
   val gitResponse: List[String] =
-    getOutputFrom(dir, gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat", fromOption, toOption)
+    getOutputFrom(dir, gitCmd:_*)
       .split("\n")
       .filter(_.nonEmpty)
       .toList
