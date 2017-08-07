@@ -37,7 +37,7 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -i, --ignore <value>  Additional filetype to ignore, without the leading dot (can be specified multiple times)
   -I, --Ignore <value>  Additional subdirectories to ignore, without slashes (can be specified multiple times)
   -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-06 --to=2017-08-06
-  -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits
+  -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes
   -t, --to <value>      Last date to process, in yyyy-MM-dd format; default is no limit
   -v, --verbose         Show per-repo subtotals
   -y, --prev-365        Same as specifying --from=2016-08-06 --to=2017-08-06
@@ -88,9 +88,9 @@ For 2016 for the GitHub user `mslinn`, type:
 
 You can also run SBT if desired. 
 The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project, 
-with subtotals, and XML files are to be ignored:
+with subtotals, and all unknown files are to be ignored:
 
-    sbt "run --previous365days -d /mnt/c/work/training/cadenza -v -i xml"
+    sbt "run --previous365days -d /mnt/c/work/training/cadenza -v -o"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)

@@ -54,7 +54,7 @@ trait GitStatsOptionParsing {
 
     opt[Unit]('o', "only-known").action { (_, c) =>
       c.copy(onlyKnown = true)
-    }.text(s"If a filetype is not recognized, ignore it's data when summarizing commits")
+    }.text(s"If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes")
 
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))

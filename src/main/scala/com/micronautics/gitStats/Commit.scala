@@ -4,6 +4,7 @@ import java.text.NumberFormat
 
 object Commit {
   lazy val unknown = "Unknown"
+  lazy val miscellaneous = "Miscellaneous"
 
   lazy val zero = Commit(0, 0)
 
@@ -42,7 +43,7 @@ object Commit {
     case f if f.endsWith(".html") => "HTML"
     case f if f.endsWith(".properties") => "Properties"
     case f if f.endsWith(".xml") => "XML"
-    case f if f.startsWith(".") => "Miscellaneous"
+    case f if f.startsWith(".") => miscellaneous
     case f if contents(f).startsWith("#!/bin/bash") => "Bash shell"
     case _ => unknown
   }
@@ -60,7 +61,7 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     if (i<0) fileName else fileName.substring(i+1)
   }
 
-  lazy val hasUnknownLanguage: Boolean = language==unknown
+  lazy val hasUnknownLanguage: Boolean = language==unknown || language==miscellaneous
 
   lazy val lastFilePath: String = {
     val array = fileName.split(java.io.File.separator)

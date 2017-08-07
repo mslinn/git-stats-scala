@@ -59,9 +59,9 @@ case class ConfigGitStats(
 
   lazy val directory = new java.io.File(directoryName)
 
-  lazy val fromFormatted: String = dateFrom.map(fmt_yyyyMMdd.print).mkString
+  lazy val fromFormatted: Option[String] = dateFrom.map(fmt_yyyyMMdd.print)
 
-  lazy val toFormatted: String   = dateTo.map(fmt_yyyyMMdd.print).mkString
+  lazy val toFormatted: Option[String]   = dateTo.map(fmt_yyyyMMdd.print)
 
   /** This only works if the current directory is the root of a git directory tree */
   lazy val gitRepoName: String = {
