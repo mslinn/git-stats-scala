@@ -29,17 +29,17 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -3, --previous30ays    Same as specifying --from={2017-07-07} and --to={2017-08-06}
-  -9, --previous90ays    Same as specifying --from={2017-05-08} and --to={2017-08-06}
+  -3, --previous30ays    Same as specifying --from=2017-07-07 and --to=2017-08-06
+  -9, --previous90ays    Same as specifying --from=2017-05-08 and --to=2017-08-06
   -a, --author <value>   Author to attribute
   -d, --dir <value>      Directory to scan (defaults to current directory)
   -f, --from <value>     First date to process, in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>   Additional filetype to ignore, without the leading dot (can be specified multiple times)
   -I, --Ignore <value>   Additional subdirectories to ignore, without slashes (can be specified multiple times)
-  -m, --previousMonth    Same as specifying --from={2017-07-06} and --to={2017-08-06}
+  -m, --previousMonth    Same as specifying --from=2017-07-06 and --to=2017-08-06
   -t, --to <value>       Last date to process, in yyyy-MM-dd format; default is no limit
   -v, --verbose          Show per-repo subtotals)
-  -y, --previous365days  Same as specifying --from={2016-08-06} and --to={2017-08-06}
+  -y, --previous365days  Same as specifying --from=2016-08-06 and --to=2017-08-06
   --help                 Print this usage text
 ```
 
@@ -60,17 +60,26 @@ Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git reposito
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
 
-To get statistics for the previous 365 days for the current logged on user, type:
+To get statistics from the entire git history for the current logged on user, 
+walking the directory tree below the current directory, type:
 
     bin/run 
     
-or
+To get statistics for the previous 365 days for the current logged on user, type:
     
     bin/run --previous365days
 
-To get statistics for the previous month (more accurately, the previous 30 days) for the current logged on user, type:
+To get statistics for the previous month for the current logged on user, type:
 
     bin/run --previousMonth
+
+To get statistics for the previous 30 days for the current logged on user, type:
+
+    bin/run --previous30days
+
+To get statistics for the previous 90 days for the current logged on user, type:
+
+    bin/run --previous90days
 
 To get statistics for all of May 2017 for the current logged on user, type:
 

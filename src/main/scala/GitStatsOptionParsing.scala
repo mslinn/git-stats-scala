@@ -21,11 +21,11 @@ trait GitStatsOptionParsing {
 
     opt[Unit]('3', "previous30ays").action { (_, c) =>
       c.copy(dateFrom = Some(last30days), dateTo = Some(today))
-    }.text(s"Same as specifying --from={$last30Formatted} and --to={$todayFormatted}")
+    }.text(s"Same as specifying --from=$last30Formatted --to=$todayFormatted")
 
     opt[Unit]('9', "previous90ays").action { (_, c) =>
       c.copy(dateFrom = Some(last90days), dateTo = Some(today))
-    }.text(s"Same as specifying --from={$last90Formatted} and --to={$todayFormatted}")
+    }.text(s"Same as specifying --from=$last90Formatted --to=$todayFormatted")
 
     opt[String]('a', "author").action { (x, c) =>
       c.copy(author = x)
@@ -50,7 +50,7 @@ trait GitStatsOptionParsing {
 
     opt[Unit]('m', "previousMonth").action { (_, c) =>
       c.copy(dateFrom = Some(lastMonth), dateTo = Some(today))
-    }.text(s"Same as specifying --from={$lastMonthFormatted} and --to={$todayFormatted}")
+    }.text(s"Same as specifying --from=$lastMonthFormatted --to=$todayFormatted")
 
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))
@@ -58,11 +58,11 @@ trait GitStatsOptionParsing {
 
     opt[Unit]('v', "verbose").action { (_, c) =>
       c.copy(verbose = true)
-    }.text("Show per-repo subtotals)")
+    }.text("Show per-repo subtotals")
 
     opt[Unit]('y', "previous365days").action { (_, c) =>
       c.copy(dateFrom = Some(lastYear), dateTo = Some(today))
-    }.text(s"Same as specifying --from={$lastYearFormatted} and --to={$todayFormatted}")
+    }.text(s"Same as specifying --from=$lastYearFormatted --to=$todayFormatted")
 
     help("help").text("Print this usage text")
   }
