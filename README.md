@@ -5,6 +5,13 @@
 
 For your resume: Totals and grand totals of lines added and deleted to/from your git repositories.
 
+*The output of this program merely answers the question: "are you an active programmer?"
+This program only reports textual additions and deletions, 
+which one hopes are indications of actual programming. 
+Statistics are reported for each computer language found.
+The reader is free to impart any meaning they deem appropriate to this output.
+The author of this software (GitStats) makes no claims regarding meaning.*
+
 Ignores git repos containing a file called `.ignore` in the root of the directory tree.
 Obtains git repo histories by examining the output of `git log`.
 
