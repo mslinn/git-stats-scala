@@ -15,7 +15,7 @@ The author of this software (GitStats) makes no claims regarding meaning.*
 Ignores git repos containing a file called `.ignore` in the root of the directory tree.
 Obtains git repo histories by examining the output of `git log`.
 
-Help message:
+The Help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
 ```
 $ bin/run --help
 GitStats 0.1.0
@@ -91,4 +91,3 @@ with subtotals, and XML files are to be ignored:
 
 ## License
 This software is published under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
-
