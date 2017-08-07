@@ -7,14 +7,17 @@ trait GitStatsOptionParsing {
   val parser = new scopt.OptionParser[ConfigGitStats]("GitStats") {
     head("GitStats", "0.1.0")
 
-    note("""For Linux and Mac, an executable program called git must be on the PATH;
-         |for Windows, and executable called git.exe must be on the Path.
-         |
-         |Ignores files committed with these filetypes: exe, gif, gz, jpg, log, png, pdf, tar, zip.
-         |Ignores directories committed called node_modules.
-         |
-         |Tries to continue processing remaining git repos if an exception is encountered.
-         |""".stripMargin)
+    val ignoredDirectories: String = defaultValue.ignoredSubDirectories.mkString(",")
+    val ignoredFileTypes: String = defaultValue.ignoredFileTypes.mkString(",")
+
+    note(s"""For Linux and Mac, an executable program called git must be on the PATH;
+            |for Windows, and executable called git.exe must be on the Path.
+            |
+            |Ignores files committed with these filetypes: $ignoredFileTypes.
+            |Ignores directories committed called $ignoredDirectories.
+            |
+            |Tries to continue processing remaining git repos if an exception is encountered.
+            |""".stripMargin)
 
     opt[String]('a', "author").action { (x, c) =>
       c.copy(author = x)

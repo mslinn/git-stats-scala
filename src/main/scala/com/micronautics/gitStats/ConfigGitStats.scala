@@ -24,6 +24,8 @@ object ConfigGitStats {
   lazy val todayFormatted: String     = ConfigGitStats.fmt_yyyyMMdd.print(today)
   lazy val lastMonthFormatted: String = ConfigGitStats.fmt_yyyyMMdd.print(lastMonth)
   lazy val lastYearFormatted: String  = ConfigGitStats.fmt_yyyyMMdd.print(lastYear)
+
+  lazy val defaultValue: ConfigGitStats = ConfigGitStats()
 }
 
 case class ConfigGitStats(

@@ -15,6 +15,7 @@ package object gitStats {
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)
+        if (e.getCause.toString.nonEmpty) Console.err.println(e.getCause)
         Console.err.println(e.getStackTrace.mkString("\n"))
         sys.exit(-1)
     }
@@ -73,7 +74,17 @@ package object gitStats {
   implicit class RichFile(val file: File) extends AnyVal {
     import RichFile._
 
-    @inline def childFiles: List[File] = file.listFiles.toList
+    @inline def childFiles: List[File] = {
+      val files: List[File] = try { // File.listFiles can return null, so deal with it:
+        Option(file.listFiles).toList.flatMap(_.toList)
+      } catch {
+        case e: Exception =>
+          logger.error(e.getMessage)
+          Console.err.println(s"${ e.getMessage } ${ e.getCause } ${ e.getStackTrace.mkString("\n") }")
+          Nil
+      }
+      files
+    }
 
     @inline def childDirs: List[File] = childFiles.filter(_.isDirectory)
 
