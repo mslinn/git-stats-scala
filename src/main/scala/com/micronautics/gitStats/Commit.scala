@@ -1,3 +1,5 @@
+package com.micronautics.gitStats
+
 import java.text.NumberFormat
 
 object Commit {
@@ -47,7 +49,7 @@ object Commit {
 }
 
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknown) {
-  import Commit._
+  import com.micronautics.gitStats.Commit._
 
   /** Number of net lines `(added - deleted)` */
   lazy val delta: Int = added - deleted
