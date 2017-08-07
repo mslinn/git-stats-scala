@@ -15,7 +15,7 @@ class AllRepos(config: ConfigGitStats) {
         file <- gitProjectsUnder(config.directory)
       } yield new Repo(config, file)
 
-    val repoSubtotals = repos.map { repo =>
+    val repoSubtotals: List[Commit] = repos.map { repo =>
       try {
         repo.process
       } catch {
@@ -30,7 +30,7 @@ class AllRepos(config: ConfigGitStats) {
     }
     println()
 
-    val summary = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
+    val summary: String = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
     println(summary)
 
     total
