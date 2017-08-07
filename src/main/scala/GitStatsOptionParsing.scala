@@ -19,13 +19,13 @@ trait GitStatsOptionParsing {
             |Tries to continue processing remaining git repos if an exception is encountered.
             |""".stripMargin)
 
-    opt[Unit]('3', "previous30ays").action { (_, c) =>
+    opt[Unit]('3', "prev-30").action { (_, c) =>
       c.copy(dateFrom = Some(last30days), dateTo = Some(today))
-    }.text(s"Same as specifying --from=$last30Formatted --to=$todayFormatted")
+    }.text(s"Process the most recent 30 days; same as specifying --from=$last30Formatted --to=$todayFormatted")
 
-    opt[Unit]('9', "previous90ays").action { (_, c) =>
+    opt[Unit]('9', "prev-90").action { (_, c) =>
       c.copy(dateFrom = Some(last90days), dateTo = Some(today))
-    }.text(s"Same as specifying --from=$last90Formatted --to=$todayFormatted")
+    }.text(s"Process the most recent 90 days; same as specifying --from=$last90Formatted --to=$todayFormatted")
 
     opt[String]('a', "author").action { (x, c) =>
       c.copy(author = x)
@@ -48,9 +48,13 @@ trait GitStatsOptionParsing {
       c.copy(ignoredSubDirectories = (x :: c.ignoredSubDirectories).sorted)
     }.text("Additional subdirectories to ignore, without slashes (can be specified multiple times)")
 
-    opt[Unit]('m', "previousMonth").action { (_, c) =>
+    opt[Unit]('m', "prev-month").action { (_, c) =>
       c.copy(dateFrom = Some(lastMonth), dateTo = Some(today))
-    }.text(s"Same as specifying --from=$lastMonthFormatted --to=$todayFormatted")
+    }.text(s"Process the most recent complete month's data; same as specifying --from=$lastMonthFormatted --to=$todayFormatted")
+
+    opt[Unit]('o', "only-known").action { (_, c) =>
+      c.copy(onlyKnown = true)
+    }.text(s"If a filetype is not recognized, ignore it's data when summarizing commits")
 
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))
@@ -60,7 +64,7 @@ trait GitStatsOptionParsing {
       c.copy(verbose = true)
     }.text("Show per-repo subtotals")
 
-    opt[Unit]('y', "previous365days").action { (_, c) =>
+    opt[Unit]('y', "prev-365").action { (_, c) =>
       c.copy(dateFrom = Some(lastYear), dateTo = Some(today))
     }.text(s"Same as specifying --from=$lastYearFormatted --to=$todayFormatted")
 

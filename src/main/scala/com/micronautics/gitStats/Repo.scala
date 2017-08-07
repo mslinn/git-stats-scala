@@ -27,6 +27,7 @@ class Repo(config: ConfigGitStats, dir: File) {
   val commits: List[Commit] =
     gitResponse
       .map(Commit.apply)
+      .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
       .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
       .filterNot(commit => config.ignoredSubDirectories.contains(commit.lastFilePath))
 

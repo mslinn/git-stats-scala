@@ -29,18 +29,19 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -3, --previous30ays    Same as specifying --from=2017-07-07 --to=2017-08-06
-  -9, --previous90ays    Same as specifying --from=2017-05-08 --to=2017-08-06
-  -a, --author <value>   Author to attribute
-  -d, --dir <value>      Directory to scan (defaults to current directory)
-  -f, --from <value>     First date to process, in yyyy-MM-dd format; default is no limit
-  -i, --ignore <value>   Additional filetype to ignore, without the leading dot (can be specified multiple times)
-  -I, --Ignore <value>   Additional subdirectories to ignore, without slashes (can be specified multiple times)
-  -m, --previousMonth    Same as specifying --from=2017-07-06 --to=2017-08-06
-  -t, --to <value>       Last date to process, in yyyy-MM-dd format; default is no limit
-  -v, --verbose          Show per-repo subtotals
-  -y, --previous365days  Same as specifying --from=2016-08-06 --to=2017-08-06
-  --help                 Print this usage text
+  -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-07 --to=2017-08-06
+  -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-08 --to=2017-08-06
+  -a, --author <value>  Author to attribute
+  -d, --dir <value>     Directory to scan (defaults to current directory)
+  -f, --from <value>    First date to process, in yyyy-MM-dd format; default is no limit
+  -i, --ignore <value>  Additional filetype to ignore, without the leading dot (can be specified multiple times)
+  -I, --Ignore <value>  Additional subdirectories to ignore, without slashes (can be specified multiple times)
+  -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-06 --to=2017-08-06
+  -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits
+  -t, --to <value>      Last date to process, in yyyy-MM-dd format; default is no limit
+  -v, --verbose         Show per-repo subtotals
+  -y, --prev-365        Same as specifying --from=2016-08-06 --to=2017-08-06
+  --help                Print this usage text
 ```
 
 For example, to get all-time totals for the current git user (per git directory), 

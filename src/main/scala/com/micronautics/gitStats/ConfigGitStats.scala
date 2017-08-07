@@ -33,6 +33,16 @@ object ConfigGitStats {
   lazy val defaultValue: ConfigGitStats = ConfigGitStats()
 }
 
+/** Configuration value object for this app.
+  * @param author picked up from the git directories automatically; usually no need to specify this
+  * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
+  * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
+  * @param directoryName Top of git directory tree
+  * @param verbose Set it to see per-repo statistics as well as the grand totals
+  * @param ignoredFileTypes List of file types to ignore when processing the git commit log
+  * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
+  * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it.
+  */
 case class ConfigGitStats(
   author: String = ConfigGitStats.gitUserName(new File(".").getAbsoluteFile),
   dateFrom: Option[DateTime] = None,
@@ -40,7 +50,8 @@ case class ConfigGitStats(
   directoryName: String = sys.props("user.dir"),
   verbose: Boolean = false,
   ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip").sorted,
-  ignoredSubDirectories: List[String] = List("node_modules").sorted
+  ignoredSubDirectories: List[String] = List("node_modules").sorted,
+  onlyKnown: Boolean = false
 ) {
   import com.micronautics.gitStats.ConfigGitStats._
 
