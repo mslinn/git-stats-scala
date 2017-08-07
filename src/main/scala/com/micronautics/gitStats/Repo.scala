@@ -48,10 +48,10 @@ class Repo(config: ConfigGitStats, dir: File) {
 
   def process: Commit = {
     if (config.verbose) {
-      detailCommits.foreach { v => println(v.summarize(config.authorFullName, config.gitRepoName)) }
       println()  // separate repos with a blank line
+      detailCommits.foreach { v => println(v.summarize(config.authorFullName, dir.getAbsolutePath)) }
     }
-    println(grandTotalCommit.summarize(config.authorFullName, config.gitRepoName, displayLanguageInfo=false))
+    println(grandTotalCommit.summarize(config.authorFullName, dir.getAbsolutePath, displayLanguageInfo=false))
     grandTotalCommit
   }
 }
