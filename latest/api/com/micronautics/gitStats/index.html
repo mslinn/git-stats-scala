@@ -124,10 +124,34 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.micronautics">micronautics</a></dd></dl></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="Commit$.html" title=""></a>
+                        <a class="class" href="Commit.html" title=""></a>
+                        <a href="Commit.html" title="">
+                          Commit
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="ConfigGitStats$.html" title=""></a>
+                        <a class="class" href="ConfigGitStats.html" title=""></a>
+                        <a href="ConfigGitStats.html" title="">
+                          ConfigGitStats
+                        </a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="object" href="Constructs$.html" title=""></a>
                         <a href="Constructs$.html" title="">
                           Constructs
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="LanguageTotals.html" title=""></a>
+                        <a href="LanguageTotals.html" title="">
+                          LanguageTotals
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Repo.html" title="Process repo at directory dir"></a>
+                        <a href="Repo.html" title="Process repo at directory dir">
+                          Repo
                         </a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="package$$RichFile$.html" title=""></a>
@@ -215,7 +239,79 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.micronautics.gitStats.RichFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.micronautics.gitStats.Commit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CommitextendsProductwithSerializable"></a><a id="Commit:Commit"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#CommitextendsProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Commit.html">
+              <span class="name">Commit</span>
+            </a><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknown</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.ConfigGitStats" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConfigGitStatsextendsProductwithSerializable"></a><a id="ConfigGitStats:ConfigGitStats"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#ConfigGitStatsextendsProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ConfigGitStats.html">
+              <span class="name">ConfigGitStats</span>
+            </a><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;)">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;)</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.LanguageTotals" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LanguageTotalsextendsAnyRef"></a><a id="LanguageTotals:LanguageTotals"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#LanguageTotalsextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="LanguageTotals.html">
+              <span class="name">LanguageTotals</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="com.micronautics.gitStats.Repo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RepoextendsAnyRef"></a><a id="Repo:Repo"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#RepoextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Process repo at directory dir" href="Repo.html">
+              <span class="name">Repo</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Process repo at directory <code>dir</code></p>
+    </li><li name="com.micronautics.gitStats.RichFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RichFileextendsAnyVal"></a><a id="RichFile:RichFile"></a>
       <span class="permalink">
       <a href="../../../com/micronautics/gitStats/index.html#RichFileextendsAnyVal" title="Permalink">
@@ -394,6 +490,42 @@
                 <span class="name">@inline</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.micronautics.gitStats.Commit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Commit"></a><a id="Commit:Commit"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#Commit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Commit$.html">
+              <span class="name">Commit</span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.ConfigGitStats" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConfigGitStats"></a><a id="ConfigGitStats:ConfigGitStats"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#ConfigGitStats" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ConfigGitStats$.html">
+              <span class="name">ConfigGitStats</span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt"></p>
     </li><li name="com.micronautics.gitStats.Constructs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Constructs"></a><a id="Constructs:Constructs"></a>
       <span class="permalink">
