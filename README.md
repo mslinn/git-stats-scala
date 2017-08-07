@@ -19,27 +19,27 @@ The Help message is dynamically generated, so the dates shown in the help messag
 ```
 $ bin/run --help
 GitStats 0.1.0
-Usage: GitStats [options] [<yyyy-mm>]
+Usage: GitStats [options]
 
 For Linux and Mac, an executable program called git must be on the PATH;
 for Windows, and executable called git.exe must be on the Path.
 
-Ignores files committed with these filetypes: exe, gz, log, pdf, tar, zip.
+Ignores files committed with these filetypes: exe, gif, gz, jpg, log, pdf, png, tar, zip.
 Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -3, --previous30ays    Same as specifying --from=2017-07-07 and --to=2017-08-06
-  -9, --previous90ays    Same as specifying --from=2017-05-08 and --to=2017-08-06
+  -3, --previous30ays    Same as specifying --from=2017-07-07 --to=2017-08-06
+  -9, --previous90ays    Same as specifying --from=2017-05-08 --to=2017-08-06
   -a, --author <value>   Author to attribute
   -d, --dir <value>      Directory to scan (defaults to current directory)
   -f, --from <value>     First date to process, in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>   Additional filetype to ignore, without the leading dot (can be specified multiple times)
   -I, --Ignore <value>   Additional subdirectories to ignore, without slashes (can be specified multiple times)
-  -m, --previousMonth    Same as specifying --from=2017-07-06 and --to=2017-08-06
+  -m, --previousMonth    Same as specifying --from=2017-07-06 --to=2017-08-06
   -t, --to <value>       Last date to process, in yyyy-MM-dd format; default is no limit
-  -v, --verbose          Show per-repo subtotals)
-  -y, --previous365days  Same as specifying --from=2016-08-06 and --to=2017-08-06
+  -v, --verbose          Show per-repo subtotals
+  -y, --previous365days  Same as specifying --from=2016-08-06 --to=2017-08-06
   --help                 Print this usage text
 ```
 
