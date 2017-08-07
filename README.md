@@ -31,14 +31,14 @@ Tries to continue processing remaining git repos if an exception is encountered.
 
   -a, --author <value>   Author to attribute
   -d, --dir <value>      Directory to scan (defaults to current directory)
-  -f, --from <value>     First date to process (yyyy-MM-dd)
+  -f, --from <value>     First date to process, in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>   Additional filetype to ignore, without the leading dot (can be specified multiple times)
   -I, --Ignore <value>   Additional subdirectories to ignore, without slashes (can be specified multiple times)
   -m, --previousMonth    Same as specifying --from={2017-07-08} and --to={2017-08-07}
-  -t, --to <value>       Last date to process (yyyy-MM-dd)
+  -t, --to <value>       Last date to process, in yyyy-MM-dd format; default is no limit
   -v, --verbose          Show per-repo subtotals)
-  -y, --previous365days  Sme as specifying --from={2016-08-07} and --to={2017-08-07}
-  --help                 Prints this usage text
+  -y, --previous365days  Same as specifying --from={2016-08-07} and --to={2017-08-07}
+  --help                 Print this usage text
 ```
 
 For example, to get all-time totals for the current git user (per git directory), type:
