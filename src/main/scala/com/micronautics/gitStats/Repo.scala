@@ -29,7 +29,7 @@ class Repo(config: ConfigGitStats, dir: File) {
       .map(Commit.apply)
       .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
       .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
-      .filterNot(commit => config.ignoredSubDirectories.exists( subdir => commit.fileName.contains(s"/$subdir/")))
+      .filterNot(commit => config.ignoredSubDirectories.exists( subdir => commit.fileName.contains(s"$subdir/")))
 
   val languageTotals = new LanguageTotals
 
