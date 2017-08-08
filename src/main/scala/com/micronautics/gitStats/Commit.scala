@@ -10,7 +10,12 @@ object Commit {
 
   val intFormatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
-  @inline def intFormat(int: Int): String = intFormatter.format(int.toLong)
+  @inline def sign(x: Int): String = x match {
+    case _ if x>0 => "+"
+    case _ => ""
+  }
+
+  @inline def intFormat(int: Int): String = sign(int) + intFormatter.format(int.toLong)
 
   @inline def toInt(string: String): Int = if (string=="-") 0 else string.toInt
 

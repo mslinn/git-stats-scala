@@ -11,10 +11,16 @@ object AsciiWidgets {
 
   def asciiTable(contents: List[String]*): String = {
     val table = new AsciiTable
-    val rows = contents.head.length
+    val rows = contents.length
+    table.addRule()
+    if (contents.head.length==4)
+      table.addRow("Language", "Lines added", "Lines deleted", "Net change")
+    else
+      table.addRow("Lines added", "Lines deleted", "Net change")
+    table.addRule()
     0 until rows foreach { i =>
-      table.addRule()
-      table.addRow(contents(i):_*)
+      val rowContents: List[String] = contents(i)
+      table.addRow(rowContents:_*)
     }
     table.addRule()
     table.render

@@ -1,10 +1,10 @@
 package com.micronautics.gitStats
 
 import java.io.File
-import com.micronautics.gitStats.Commit.intFormat
+import Output._
 
 /** Process repo at directory `dir` */
-class Repo(config: ConfigGitStats, dir: File) {
+class Repo(config: ConfigGitStats, val dir: File) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
   val toOption: String   = config.toFormatted  .map(from => s"--until={$from}").mkString
 
@@ -49,23 +49,9 @@ class Repo(config: ConfigGitStats, dir: File) {
 
   def process: Commit = {
     if (config.verbose) {
-      println()  // separate repos with a blank line
-      detailCommits.foreach { v => println(v.summarize(config.authorFullName, dir.getAbsolutePath)) }
+      println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, grandTotal=true, commits=detailCommits))
     }
-    println(grandTotalCommit.summarize(config.authorFullName, dir.getAbsolutePath, displayLanguageInfo=false))
+    println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, grandTotal=true, commits=List(grandTotalCommit)))
     grandTotalCommit
-  }
-
-  // List("SBT: +141 / 0 / net 141")
-  def formatCommits(userName: String, repoName: String, finalTotal: Boolean = false, commits: List[Commit]): String = {
-//    val forRepo: String = if (finalTotal) " in all git repositories" else s" in $repoName"
-//    s"$userName added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
-
-    val subtotals: List[List[String]] = List(
-      commits.map {
-        commit => s"${ commit.language } / +${ intFormat(commit.added) } / -${ intFormat(commit.deleted) } / net ${ intFormat(commit.delta) } lines"
-      }
-    )
-    AsciiWidgets.asciiTable(subtotals:_*)
   }
 }

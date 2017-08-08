@@ -50,17 +50,25 @@ For example, to get all-time totals for the current git user (per git directory)
 walking the directory tree below the current directory, type:
 ```
 $ bin/run
-git-stats-scala:
-  Scala: +408 / -139 / net 269 lines
-    SBT: +141 / 0    / net 141 lines for language 'SBT' in git-stats-scala
-Mike Slinn added 45 lines, deleted 0 lines, net 45 lines for language 'XML' in git-stats-scala
-Mike Slinn added 46 lines, deleted 14 lines, net 32 lines for language 'Markdown' in git-stats-scala
-Mike Slinn added 21 lines, deleted 0 lines, net 21 lines for language 'Miscellaneous' in git-stats-scala
-Mike Slinn added 35 lines, deleted 32 lines, net 3 lines for language 'Unknown' in git-stats-scala
-Mike Slinn added 1 lines, deleted 0 lines, net 1 lines for language 'Properties' in git-stats-scala
-Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in git-stats-scala
+....
+Language Subtotals (lines changed across all projects)
+┌───────────────────┬───────────────────┬───────────────────┬──────────────────┐
+│Language           │Lines added        │Lines deleted      │Net change        │
+├───────────────────┼───────────────────┼───────────────────┼──────────────────┤
+│Markdown           │+79,763            │-76,918            │+2,845            │
+│Scala              │+37,805            │-14,941            │+22,864           │
+│JavaScript         │+21,688            │-11,999            │+9,689            │
+│HTML               │+16,482            │-10,467            │+6,015            │
+│SBT                │+1,531             │-179               │+1,352            │
+│Properties         │+691               │-159               │+532              │
+└───────────────────┴───────────────────┴───────────────────┴──────────────────┘
 
-Mike Slinn added 697 lines, deleted 185 lines, net 512 lines in all git repositories
+Grand Totals (lines changed across all projects)
+┌──────────────────────────┬─────────────────────────┬─────────────────────────┐
+│Lines added               │Lines deleted            │Net change               │
+├──────────────────────────┼─────────────────────────┼─────────────────────────┤
+│+157,960                  │-114,663                 │+43,297                  │
+└──────────────────────────┴─────────────────────────┴─────────────────────────┘
 ```
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
@@ -91,9 +99,9 @@ For 2016 for the GitHub user `mslinn`, type:
 
 You can also run SBT if desired. 
 The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project, 
-with subtotals, and all unknown files are to be ignored:
+with subtotals, and all unknown files are to be ignored as well as XML files:
 
-    sbt "run --previous365days -d /mnt/c/work/training/cadenza -v -o"
+    sbt "run --previous365days -d /mnt/work/training/cadenza -v -o -i xml"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)

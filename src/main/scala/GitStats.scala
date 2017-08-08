@@ -1,3 +1,4 @@
+import com.micronautics.gitStats.Output.formatCommits
 import com.micronautics.gitStats._
 
 object GitStats extends App with GitStatsOptionParsing {
@@ -21,19 +22,30 @@ class AllRepos(config: ConfigGitStats) {
         repo.process
       } catch {
         case e: Throwable =>
-          Console.err.println("Error: " + e.getMessage + " git repo ignored")
+          Console.err.println(s"${ e.getClass.getSimpleName }, ignoring git repo at ${ repo.dir }")
           Commit.zero
       }
     }
 
-    val total: Commit = repoSubtotals.fold(Commit.zero) {
+    val languageTotals: List[Commit] =
+      repoSubtotals
+        .groupBy(_.language)
+        .map { case (_, values) =>
+          val commit0: Commit = values.head
+          Commit(added=values.map(_.added).sum, deleted=values.map(_.deleted).sum, fileName=commit0.fileName, language=commit0.language)
+        }
+        .toList
+        .sortBy(x => (-x.added, -x.deleted))
+
+    def total(commits: List[Commit]): Commit = commits.fold(Commit.zero) {
       case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
     }
-    println()
 
-    val summary: String = total.summarize(config.authorFullName, config.gitRepoName, finalTotal=true)
-    println(summary)
+    println(formatCommits(userName=config.authorFullName, title="Language Subtotals (lines changed across all projects)", commits=languageTotals))
 
-    total
+    val grandTotal = total(languageTotals)
+    println(formatCommits(userName=config.authorFullName, title="Grand Totals (lines changed across all projects)", grandTotal=true, commits=List(grandTotal)))
+
+    grandTotal
   }
 }
