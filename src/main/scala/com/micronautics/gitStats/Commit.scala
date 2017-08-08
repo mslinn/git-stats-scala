@@ -3,6 +3,10 @@ package com.micronautics.gitStats
 import java.text.NumberFormat
 
 protected object Commit {
+  implicit val defaultCommitOrdering: Ordering[Commit] = Ordering.by { commit: Commit =>
+    (-commit.delta, -commit.added, -commit.delta)
+  }
+
   lazy val unknownLanguage = "Unknown"
   lazy val miscellaneousLanguage = "Miscellaneous"
   lazy val languageTotal = "Total"

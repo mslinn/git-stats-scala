@@ -13,7 +13,7 @@ protected object LanguageTotals {
 class LanguageTotals(
   val ltValue: mutable.Map[String, Commit] = mutable.Map.empty.withDefaultValue(Commit.zero)
 ) {
-  def asCommits: Commits = Commits(ltValue.values.toList.sortBy(commitOrdering))
+  def asCommits: Commits = Commits(ltValue.values.toList.sorted)
 
   def combine(commit: Commit): Unit = {
     val value = ltValue(commit.language)

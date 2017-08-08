@@ -39,7 +39,7 @@ case class Commits(value: List[Commit]) {
           )
         }
         .toList
-        .sortBy(commitOrdering)
+        .sorted
     )
 
   def combine(other: Commits): Commits =
