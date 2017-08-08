@@ -2,17 +2,29 @@ package com.micronautics.gitStats
 
 import scala.collection.mutable
 
-protected class LanguageTotals(
-  val map: mutable.Map[String, Commit] = mutable.Map.empty.withDefaultValue(Commit.zero)
+protected object LanguageTotals {
+  def apply(commits: Commits): LanguageTotals = {
+    val total = new LanguageTotals
+    commits.value.foreach(total.combine)
+    total
+  }
+}
+
+class LanguageTotals(
+  val ltValue: mutable.Map[String, Commit] = mutable.Map.empty.withDefaultValue(Commit.zero)
 ) {
+  def asCommits: Commits = Commits(ltValue.values.toList.sortBy(commitOrdering))
+
   def combine(commit: Commit): Unit = {
-    val value = map(commit.language)
+    val value = ltValue(commit.language)
     val updated = Commit(
       added = value.added + commit.added,
       deleted = value.deleted + commit.deleted,
       language = commit.language
     )
-    map.put(commit.language, updated)
+    ltValue.put(commit.language, updated)
     ()
   }
+
+  def total: Commit = Commits(ltValue.values.toList).total
 }

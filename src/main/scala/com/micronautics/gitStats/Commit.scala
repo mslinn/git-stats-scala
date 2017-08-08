@@ -2,9 +2,10 @@ package com.micronautics.gitStats
 
 import java.text.NumberFormat
 
-object Commit {
-  lazy val unknown = "Unknown"
-  lazy val miscellaneous = "Miscellaneous"
+protected object Commit {
+  lazy val unknownLanguage = "Unknown"
+  lazy val miscellaneousLanguage = "Miscellaneous"
+  lazy val languageTotal = "Total"
 
   lazy val zero = Commit(0, 0)
 
@@ -25,11 +26,11 @@ object Commit {
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim), fileName=fileName)
 
       case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
-        val language = if (newFileName.contains(".")) Commit.unknown else "Bash"
+        val language = if (newFileName.contains(".")) Commit.unknownLanguage else "Bash"
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language, fileName=newFileName)
 
       case _ =>
-        Commit(0, 0, language=unknown)
+        Commit(0, 0, language=unknownLanguage)
     }
   }
 
@@ -48,13 +49,13 @@ object Commit {
     case f if f.endsWith(".html") => "HTML"
     case f if f.endsWith(".properties") => "Properties"
     case f if f.endsWith(".xml") => "XML"
-    case f if f.startsWith(".") => miscellaneous
+    case f if f.startsWith(".") => miscellaneousLanguage
     case f if contents(f).startsWith("#!/bin/bash") => "Bash shell"
-    case _ => unknown
+    case _ => unknownLanguage
   }
 }
 
-case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknown) {
+case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage) {
   import com.micronautics.gitStats.Commit._
 
   /** Number of net lines `(added - deleted)` */
@@ -66,23 +67,17 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     if (i<0) fileName else fileName.substring(i+1)
   }
 
-  lazy val hasUnknownLanguage: Boolean = language==unknown || language==miscellaneous
+  lazy val hasUnknownLanguage: Boolean = language==unknownLanguage || language==miscellaneousLanguage
 
   lazy val lastFilePath: String = {
     val array = fileName.split(java.io.File.separator)
     if (array.size<2) fileName else array.takeRight(2).head
   }
 
-  @inline def format(grandTotals: Commit=Commit.zero): List[String] =
-    (if (grandTotals==Commit.zero) Nil else List(language)) :::
+  @inline def asAsciiTableRow(showLanguage: Boolean = true): List[String] =
+    (if (showLanguage) List(language) else Nil) :::
       List(intFormat(added), intFormat(-deleted), intFormat(delta))
 
-  @inline def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
-    val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for '$language'"
-    val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
-    s"$userName added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines$forLang$forRepo"
-  }
-
   override def toString: String =
-    s"added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
+    s"$language: added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
 }

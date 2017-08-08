@@ -1,7 +1,6 @@
 package com.micronautics.gitStats
 
 import java.io.File
-import Output._
 
 /** Process repo at directory `dir` */
 class Repo(config: ConfigGitStats, val dir: File) {
@@ -25,32 +24,19 @@ class Repo(config: ConfigGitStats, val dir: File) {
 
   logger.debug(gitResponse.mkString("\n"))
 
-  val commits: List[Commit] =
-    gitResponse
-      .map(Commit.apply)
-      .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
-      .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
-      .filterNot(commit => config.ignoredSubDirectories.exists(subdir => commit.fileName.contains(s"$subdir/")))
+  val commits: Commits =
+    Commits(
+      gitResponse
+        .map(Commit.apply)
+        .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
+        .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
+        .filterNot(commit => config.ignoredSubDirectories.exists(subdir => commit.fileName.contains(s"$subdir/")))
+    )
 
-  val languageTotals = new LanguageTotals
+  val grandTotal: Commit = commits.total
+  val grandTotals = Commits(List(grandTotal))
+  val languageTotals: LanguageTotals = commits.languageTotals
+  println("")
 
-  val grandTotalCommit: Commit = commits.fold(Commit.zero) {
-    case (acc, elem) =>
-      languageTotals.combine(elem)
-      val newTotal = Commit(acc.added+elem.added, acc.deleted+elem.deleted, language = elem.language)
-      newTotal
-  }
-
-  val detailCommits: List[Commit] = languageTotals
-                                      .map
-                                      .values
-                                      .toList
-                                      .sortBy(x => -x.delta)
-
-  def process(): Commit = {
-    if (config.verbose)
-      println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, /*grandTotal=true,*/ commits=detailCommits))
-    println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, /*grandTotal=true,*/ commits=List(grandTotalCommit)))
-    grandTotalCommit
-  }
+  def commitsByLanguage: Commits = languageTotals.asCommits
 }

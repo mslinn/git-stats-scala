@@ -41,8 +41,7 @@ object ConfigGitStats {
   * @param verbose Set it to see per-repo statistics as well as the grand totals
   * @param ignoredFileTypes List of file types to ignore when processing the git commit log
   * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
-  * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it.
-  */
+  * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it. */
 case class ConfigGitStats(
   author: String = ConfigGitStats.gitUserName(new File(".").getAbsoluteFile),
   dateFrom: Option[DateTime] = None,

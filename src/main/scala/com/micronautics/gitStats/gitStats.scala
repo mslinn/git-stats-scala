@@ -9,6 +9,9 @@ import scala.sys.process._
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
+  val commitOrdering: Commit => (Int, Int, Int) =
+    (x: Commit) => (-x.delta, -x.added, -x.deleted)
+
   @inline def getOutputFrom(cwd: File, cmd: String*): String =
     try {
       run(cwd, cmd:_*).!!.trim
