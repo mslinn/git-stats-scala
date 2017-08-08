@@ -47,11 +47,10 @@ class Repo(config: ConfigGitStats, val dir: File) {
                                       .toList
                                       .sortBy(x => -x.delta)
 
-  def process: Commit = {
-    if (config.verbose) {
-      println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, grandTotal=true, commits=detailCommits))
-    }
-    println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, grandTotal=true, commits=List(grandTotalCommit)))
+  def process(): Commit = {
+    if (config.verbose)
+      println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, /*grandTotal=true,*/ commits=detailCommits))
+    println(formatCommits(userName=config.authorFullName, title=dir.getAbsolutePath, /*grandTotal=true,*/ commits=List(grandTotalCommit)))
     grandTotalCommit
   }
 }

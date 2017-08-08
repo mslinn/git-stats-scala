@@ -9,7 +9,7 @@ object AsciiWidgets {
       List("row 2 col 1", "row 2 col 2")
     )
 
-  def asciiTable(contents: List[String]*): String = {
+  def asciiTable(total: List[String], contents: List[String]*): String = {
     val table = new AsciiTable
     val rows = contents.length
     table.addRule()
@@ -23,8 +23,12 @@ object AsciiWidgets {
       table.addRow(rowContents:_*)
     }
     table.addRule()
+    if (total.nonEmpty) {
+      table.addRow(total)
+      table.addRule()
+    }
     table.render
   }
 
-  def demo(): Unit = println(asciiTable(defaultAsciiTableData:_*))
+  def demo(): Unit = println(asciiTable(Nil, defaultAsciiTableData:_*))
 }

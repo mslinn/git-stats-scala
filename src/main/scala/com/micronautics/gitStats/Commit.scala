@@ -73,6 +73,10 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     if (array.size<2) fileName else array.takeRight(2).head
   }
 
+  @inline def format(grandTotals: Commit=Commit.zero): List[String] =
+    (if (grandTotals==Commit.zero) Nil else List(language)) :::
+      List(intFormat(added), intFormat(-deleted), intFormat(delta))
+
   @inline def summarize(userName: String, repoName: String, finalTotal: Boolean = false, displayLanguageInfo: Boolean = true): String = {
     val forLang = if (!displayLanguageInfo || finalTotal) "" else s" for '$language'"
     val forRepo = if (finalTotal) " in all git repositories" else s" in $repoName"
