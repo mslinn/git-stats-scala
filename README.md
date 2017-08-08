@@ -51,27 +51,21 @@ walking the directory tree below the current directory, type:
 ```
 $ bin/run
 ....
-Language Subtotals (lines changed across all projects)
+Subtotals By Language (lines changed across all projects)
 ┌───────────────────┬───────────────────┬───────────────────┬──────────────────┐
 │Language           │Lines added        │Lines deleted      │Net change        │
 ├───────────────────┼───────────────────┼───────────────────┼──────────────────┤
-│Markdown           │+79,763            │-76,918            │+2,845            │
-│Scala              │+37,805            │-14,941            │+22,864           │
-│JavaScript         │+21,688            │-11,999            │+9,689            │
-│HTML               │+16,482            │-10,467            │+6,015            │
-│SBT                │+1,531             │-179               │+1,352            │
-│Markdown           │+79,763            │-76,918            │+2,845            │
-│Properties         │+691               │-159               │+532              │
+│Scala              │+40,701            │-16,219            │+24,482           │
+│HTML               │+24,158            │-15,703            │+8,455            │
+│SBT                │+10,386            │-4,342             │+6,044            │
+│Java               │+3,823             │-1,631             │+2,192            │
+│Markdown           │+2,323             │-728               │+1,595            │
+│JavaScript         │+75,909            │-75,585            │+324              │
+│Properties         │+656               │-451               │+205              │
+│Bash               │+4                 │-4                 │0                 │
 ├───────────────────┼───────────────────┼───────────────────┼──────────────────┤
-│Grand Total        │+157,960           │-114,663           │+43,297           │
+│Total              │+157,960           │-114,663           │+43,297           │
 └───────────────────┴───────────────────┴───────────────────┴──────────────────┘
-
-Grand Totals (lines changed across all projects)
-┌──────────────────────────┬─────────────────────────┬─────────────────────────┐
-│Lines added               │Lines deleted            │Net change               │
-├──────────────────────────┼─────────────────────────┼─────────────────────────┤
-│+157,960                  │-114,663                 │+43,297                  │
-└──────────────────────────┴─────────────────────────┴─────────────────────────┘
 ```
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
