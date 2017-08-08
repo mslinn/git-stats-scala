@@ -37,6 +37,7 @@ libraryDependencies ++= Seq(
   "ch.qos.logback"           %  "logback-classic" % "1.2.3",
   "com.github.nscala-time"   %% "nscala-time"     % "2.16.0" withSources(),
   "com.github.scopt"         %% "scopt"           % "3.6.0"  withSources(),
+  "de.vandermeer"            %  "asciitable"      % "0.3.2"  withSources(),
   //
   "org.scalatest"            %% "scalatest"       % "3.0.1" % Test withSources(),
   "junit"                    %  "junit"           % "4.12"  % Test
@@ -52,7 +53,7 @@ logLevel in compile := Level.Warn
 logLevel in test := Level.Info
 
 // define the statements initially evaluated when entering 'console', 'console-quick', but not 'console-project'
-initialCommands in console := """
+initialCommands in console := """import com.micronautics.gitStats._
                                 |""".stripMargin
 
 cancelable := true

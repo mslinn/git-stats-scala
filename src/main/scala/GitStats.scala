@@ -15,6 +15,7 @@ class AllRepos(config: ConfigGitStats) {
         file <- gitProjectsUnder(config.directory)
       } yield new Repo(config, file)
 
+    /** Each [[Commit]] returned is actually a summary of related `Commit`s */
     val repoSubtotals: List[Commit] = repos.map { repo =>
       try {
         repo.process

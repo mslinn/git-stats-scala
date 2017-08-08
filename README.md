@@ -1,9 +1,9 @@
-# Git Activity
+# Scoped Git Activity Summary for a User
 
 [![Build Status](https://travis-ci.org/mslinn/git-stats-scala.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
 [![GitHub version](https://badge.fury.io/gh/mslinn%2Fgit-stats-scala.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
 
-For your resume: Totals and grand totals of lines added and deleted to/from your git repositories.
+For your resume: totals and grand totals of lines added and deleted to/from your git repositories.
 
 *The output of this program merely answers the question: "are you an active programmer?"
 This program only reports textual additions and deletions, 
@@ -11,6 +11,8 @@ which one hopes are indications of actual programming.
 Statistics are reported for each computer language found.
 The reader is free to impart any meaning they deem appropriate to this output.
 The author of this software (GitStats) makes no claims regarding meaning.*
+
+GitStats scans local git repos, so running the program does not generate outbound network traffic.
 
 Ignores git repos containing a file called `.ignore.stats` in the root of the directory tree.
 Obtains git repo histories by examining the output of `git log`.
@@ -48,8 +50,9 @@ For example, to get all-time totals for the current git user (per git directory)
 walking the directory tree below the current directory, type:
 ```
 $ bin/run
-Mike Slinn added 408 lines, deleted 139 lines, net 269 lines for language 'Scala' in git-stats-scala
-Mike Slinn added 141 lines, deleted 0 lines, net 141 lines for language 'SBT' in git-stats-scala
+git-stats-scala:
+  Scala: +408 / -139 / net 269 lines
+    SBT: +141 / 0    / net 141 lines for language 'SBT' in git-stats-scala
 Mike Slinn added 45 lines, deleted 0 lines, net 45 lines for language 'XML' in git-stats-scala
 Mike Slinn added 46 lines, deleted 14 lines, net 32 lines for language 'Markdown' in git-stats-scala
 Mike Slinn added 21 lines, deleted 0 lines, net 21 lines for language 'Miscellaneous' in git-stats-scala
