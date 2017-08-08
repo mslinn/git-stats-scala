@@ -43,7 +43,8 @@ protected class AllRepos(config: ConfigGitStats) {
 
     if (config.verbose) commitsByLanguageByRepo.foreach {
       case (repo, commits) =>
-        println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
+        if (commits.value.nonEmpty)
+          println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
 
     if (commitsByLanguageByRepo.size > 1) {
@@ -51,9 +52,10 @@ protected class AllRepos(config: ConfigGitStats) {
         Commits(Nil)
           .combine(commitsByLanguageByRepo.map(_._2))
 
-      println(grandTotal.asAsciiTable(
-        title = "Subtotals By Language (lines changed across all projects)"
-      ))
+      if (grandTotal.value.isEmpty) "No activity." else
+        println(grandTotal.asAsciiTable(
+          title = "Subtotals By Language (lines changed across all projects)"
+        ))
     }
   }
 }
