@@ -7,12 +7,15 @@ class Repo(config: ConfigGitStats, val dir: File) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
   val toOption: String   = config.toFormatted  .map(from => s"--until={$from}").mkString
 
+  val author: String = ConfigGitStats.gitUserName(dir.getAbsoluteFile)
+  lazy val authorFullName: String = author.replace("\\", "")
+
   dir.setCwd()
   println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
   // git log --author="Mike Slinn" --pretty=tformat: --numstat --since={2016-09-01} --until={2017-08-30}
-  val gitCmd: Seq[String] = List(gitProgram, "log", s"--author=${ config.author }", s"--pretty=tformat:", "--numstat") :::
+  val gitCmd: Seq[String] = List(gitProgram, "log", s"--author=$author", s"--pretty=tformat:", "--numstat") :::
     (if (fromOption.isEmpty) Nil else List(fromOption)) :::
     (if (toOption.isEmpty) Nil else List(toOption))
 

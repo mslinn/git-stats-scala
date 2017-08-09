@@ -5,6 +5,8 @@
 
 For your resume: totals and grand totals of lines added and deleted to/from your git repositories.
 
+[Read the author's blog](http://blog.mslinn.com/blog/2017/08/07/how-much-do-you-program) to learn why this program was written.
+
 *The output of this program merely answers the question: "are you an active programmer?"
 This program only reports textual additions and deletions, 
 which one hopes are indications of actual programming. 
@@ -16,6 +18,7 @@ GitStats scans local git repos, so running the program does not generate outboun
 
 Ignores git repos containing a file called `.ignore.stats` in the root of the directory tree.
 Obtains git repo histories by examining the output of `git log`.
+The user name for each repository is obtained by running `git config user.name` in each repository.
 
 The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
 ```

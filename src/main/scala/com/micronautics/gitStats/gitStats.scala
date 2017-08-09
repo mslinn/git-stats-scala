@@ -29,9 +29,9 @@ package object gitStats {
     lazy val childDirs = file.childDirs
     if (childFiles.exists(_.isDotIgnore)) Nil else
       if (childDirs.exists(_.isDotGit)) {
-        val x = List(file.getCanonicalFile)
+        val files: List[File] = List(file.getCanonicalFile)
         print(".")
-        x
+        files
       } else
         childDirs.flatMap(gitProjectsUnder)
   }

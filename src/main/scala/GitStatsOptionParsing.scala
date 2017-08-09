@@ -27,10 +27,6 @@ trait GitStatsOptionParsing {
       c.copy(dateFrom = Some(last90days), dateTo = Some(today))
     }.text(s"Process the most recent 90 days; same as specifying --from=$last90Formatted --to=$todayFormatted")
 
-    opt[String]('a', "author").action { (x, c) =>
-      c.copy(author = x)
-    }.text("Author to attribute")
-
     opt[String]('d', "dir").action { (x, c) =>
       c.copy(directoryName = x)
     }.text("Directory to scan (defaults to current directory)")

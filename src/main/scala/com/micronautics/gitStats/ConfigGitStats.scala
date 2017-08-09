@@ -34,7 +34,6 @@ object ConfigGitStats {
 }
 
 /** Configuration value object for this app.
-  * @param author picked up from the git directories automatically; usually no need to specify this
   * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
   * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
   * @param directoryName Top of git directory tree
@@ -43,7 +42,6 @@ object ConfigGitStats {
   * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
   * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it. */
 case class ConfigGitStats(
-  author: String = ConfigGitStats.gitUserName(new File(".").getAbsoluteFile),
   dateFrom: Option[DateTime] = None,
   dateTo: Option[DateTime] = None,
   directoryName: String = sys.props("user.dir"),
@@ -53,8 +51,6 @@ case class ConfigGitStats(
   onlyKnown: Boolean = false
 ) {
   import com.micronautics.gitStats.ConfigGitStats._
-
-  lazy val authorFullName: String = author.replace("\\", "")
 
   lazy val directory = new java.io.File(directoryName)
 
