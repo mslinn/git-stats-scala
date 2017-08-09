@@ -44,15 +44,77 @@ protected object Commit {
     case _: Exception => ""
   }
 
+  val suffixToLanguage: Map[String, String] = Map(
+    "asp"        -> "ASP",
+    "bat"        -> "MS-DOS batch",
+    "cmd"        -> "Windows script",
+    "c"          -> "C",
+    "C"          -> "C++",
+    "cc"         -> "C++",
+    "CPP"        -> "C++",
+    "cxx"        -> "C++",
+    "CXX"        -> "C++",
+    "c++"        -> "C++",
+    "dart"       -> "Dart",
+    "dtd"        -> "Document type definition",
+    "dfm"        -> "Delphi",
+    "dpk"        -> "Delphi",
+    "dpr"        -> "Delphi",
+    "fs"         -> "F#",
+    "fsi"        -> "F#",
+    "fsx"        -> "F#",
+    "fsscript"   -> "F#",
+    "go"         -> "Go",
+    "h"          -> "C/C++",
+    "H"          -> "C/C++",
+    "hs"         -> "Haskell",
+    "htm"        -> "HTML",
+    "html"       -> "HTML",
+    "java"       -> "Java",
+    "js"         -> "JavaScript",
+    "jsp"        -> "Java Server Pages",
+    "lhs"        -> "Haskell",
+    "m"          -> "Objective-C",
+    "md"         -> "Markdown",
+    "ml"         -> "F#",
+    "mli"        -> "F#",
+    "pl"         -> "Perl",
+    "php"        -> "PHP",
+    "py"         -> "Python",
+    "pyw"        -> "Python",
+    "properties" -> "Properties",
+    "r"          -> "R",
+    "rake"       -> "Ruby",
+    "rb"         -> "Ruby",
+    "repl"       -> "Scala",
+    "sbt"        -> "SBT",
+    "sc"         -> "Scala",
+    "scala"      -> "Scala",
+    "sh"         -> "Shell scripts",
+    "sql"        -> "SQL",
+    "swift"      -> "Swift",
+    "vb"         -> "Visual Basic",
+    "xml"        -> "XML"
+  )
+
+  def suffixedIsDefined(fileName: String): Boolean = {
+    val i = fileName.lastIndexOf(".")
+    if (i<0) false else {
+      val suffix = fileName.substring(i+1)
+      suffixToLanguage.get(suffix).isDefined
+    }
+  }
+
+  def suffix(fileName: String): String = {
+    val i = fileName.lastIndexOf(".")
+    if (i<0) unknownLanguage else {
+      val suffix = fileName.substring(i+1)
+      suffixToLanguage(suffix)
+    }
+  }
+
   def language(fileName: String): String = fileName.toLowerCase match {
-    case f if f.endsWith(".js") => "JavaScript"
-    case f if f.endsWith(".scala") || f.endsWith(".sc") || f.endsWith(".repl") => "Scala"
-    case f if f.endsWith(".sbt") => "SBT"
-    case f if f.endsWith(".java") => "Java"
-    case f if f.endsWith(".md") => "Markdown"
-    case f if f.endsWith(".html") => "HTML"
-    case f if f.endsWith(".properties") => "Properties"
-    case f if f.endsWith(".xml") => "XML"
+    case f if suffixedIsDefined(f) => suffix(f)
     case f if f.startsWith(".") => miscellaneousLanguage
     case f if contents(f).startsWith("#!/bin/bash") => "Bash shell"
     case _ => unknownLanguage
