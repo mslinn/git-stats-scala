@@ -1,5 +1,6 @@
 # Scoped Git Activity Summary for a User
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build Status](https://travis-ci.org/mslinn/git-stats-scala.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
 [![GitHub version](https://badge.fury.io/gh/mslinn%2Fgit-stats-scala.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
 
@@ -8,8 +9,8 @@ For your resume: totals and grand totals of lines added and deleted to/from your
 [Read the author's blog](http://blog.mslinn.com/blog/2017/08/07/how-much-do-you-program) to learn why this program was written.
 
 *The output of this program merely answers the question: "are you an active programmer?"
-This program only reports textual additions and deletions, 
-which one hopes are indications of actual programming. 
+This program only reports textual additions and deletions,
+which one hopes are indications of actual programming.
 Statistics are reported for each computer language found.
 The reader is free to impart any meaning they deem appropriate to this output.
 The author of this software (GitStats) makes no claims regarding meaning.*
@@ -20,7 +21,7 @@ Ignores git repos containing a file called `.ignore.stats` in the root of the di
 Obtains git repo histories by examining the output of `git log`.
 The user name for each repository is obtained by running `git config user.name` in each repository.
 
-The following filetypes are recognized: ASP, C, C++, Dart, Delphi, F#, Haskell, HTML, Java, JSP, MS-DOS batch, 
+The following filetypes are recognized: ASP, C, C++, Dart, Delphi, F#, Haskell, HTML, Java, JSP, MS-DOS batch,
 Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Vistual Basic, Windows script and XML.
 
 The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
@@ -52,7 +53,7 @@ Tries to continue processing remaining git repos if an exception is encountered.
   --help                Print this usage text
 ```
 
-For example, to get all-time totals for the current git user (per git directory), 
+For example, to get all-time totals for the current git user (per git directory),
 walking the directory tree below the current directory, type:
 ```
 $ bin/run
@@ -77,7 +78,7 @@ Subtotals By Language (lines changed across all projects)
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
 
 To get statistics for the previous 365 days for the current logged on user, type:
-    
+
     bin/run --previous365days
 
 For the previous month:
@@ -100,8 +101,8 @@ For 2016 for the GitHub user `mslinn`, type:
 
     bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
 
-You can also run SBT if desired. 
-The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project, 
+You can also run SBT if desired.
+The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project,
 with subtotals, and all unknown files are to be ignored as well as JavaScript and XML files:
 
     sbt "run --previous365days -d /mnt/work/training/cadenza -v -o -i js,xml"
