@@ -36,13 +36,13 @@ trait GitStatsOptionParsing {
     }.text("First date to process, in yyyy-MM-dd format; default is no limit")
 
     opt[String]('i', "ignore").action { (x, c) =>
-      val c2 = c.copy(ignoredFileTypes = (x :: c.ignoredFileTypes).sorted)
+      val c2 = c.copy(ignoredFileTypes = (x.split(",").toList ::: c.ignoredFileTypes).distinct.sorted)
       c2
-    }.text("Additional filetype to ignore, without the leading dot (can be specified multiple times)")
+    }.text("Comma-separated additional filetypes to ignore, without the leading dot")
 
     opt[String]('I', "Ignore").action { (x, c) =>
-      c.copy(ignoredSubDirectories = (x :: c.ignoredSubDirectories).sorted)
-    }.text("Additional subdirectories to ignore, without slashes (can be specified multiple times)")
+      c.copy(ignoredSubDirectories = (x.split(",").toList ::: c.ignoredSubDirectories).distinct.sorted)
+    }.text("Comma-separated additional subdirectories to ignore, without slashes")
 
     opt[Unit]('m', "prev-month").action { (_, c) =>
       c.copy(dateFrom = Some(lastMonth), dateTo = Some(today))

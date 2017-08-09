@@ -39,8 +39,8 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -a, --author <value>  Author to attribute
   -d, --dir <value>     Directory to scan (defaults to current directory)
   -f, --from <value>    First date to process, in yyyy-MM-dd format; default is no limit
-  -i, --ignore <value>  Additional filetype to ignore, without the leading dot (can be specified multiple times)
-  -I, --Ignore <value>  Additional subdirectories to ignore, without slashes (can be specified multiple times)
+  -i, --ignore <value>  Comma-separated additional filetypes to ignore, without the leading dot
+  -I, --Ignore <value>  Comma-separated additional subdirectories to ignore, without slashes
   -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-06 --to=2017-08-06
   -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes
   -t, --to <value>      Last date to process, in yyyy-MM-dd format; default is no limit
