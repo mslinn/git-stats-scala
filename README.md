@@ -21,7 +21,7 @@ Ignores git repos containing a file called `.ignore.stats` in the root of the di
 Obtains git repo histories by examining the output of `git log`.
 The user name for each repository is obtained by running `git config user.name` in each repository.
 
-The following file types are recognized: ASP, C, C++, Dart, Delphi, F#, Haskell, HTML, Java, JSP, MS-DOS batch,
+The following file types are recognized: ASP, C, C++, Dart, Delphi, F#, Groovy, Haskell, HTML, Java, JSP, MS-DOS batch,
 Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Visual Basic, Windows script and XML.
 
 The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:

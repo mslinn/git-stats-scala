@@ -27,9 +27,7 @@ package object gitStats {
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
-  /*TODO We don't need a default value here. Default dir for the tool is provided at the arg parsing level.
-  * Default value means additional execution path and additional chance of a mistake.*/
-  def gitProjectsUnder(file: File = new File(sys.props("user.dir")))
+  def gitProjectsUnder(file: File)
                       (implicit config: ConfigGitStats): List[File] = {
     val childFiles = file.childFiles
     lazy val childDirs = file.childDirs
@@ -42,10 +40,9 @@ package object gitStats {
         childDirs.flatMap(gitProjectsUnder)
   }
 
-  //TODO Reuse os declared below
-  lazy val isWindows: Boolean = sys.props("os.name").toLowerCase.indexOf("win") >= 0
-
   protected lazy val os: String = sys.props("os.name").toLowerCase
+
+  lazy val isWindows: Boolean = os.indexOf("win") >= 0
 
   protected def which(program: String): Option[Path] = {
     val path = if (isWindows) sys.env("Path") else sys.env("PATH")
@@ -94,24 +91,7 @@ package object gitStats {
 
     @inline def childDirs: List[File] = childFiles.filter(_.isDirectory)
 
-
-    //TODO Used only in unused method
-    //TODO Looks like bug: works only for "." directory
-    @inline def shouldBeIgnored: Boolean = childFiles.contains(RichFile.dotIgnore)
-
-    //TODO Unused
-    @inline def gitSubdirectories: Seq[File] =
-      if (shouldBeIgnored) Nil else
-        for {
-          childDir <- childDirs
-          if childDir.childDirs.exists(_.getName == ".git")
-        } yield childDir
-
     @inline def isDotIgnore: Boolean = file.getName == dotIgnore.getName
     @inline def isDotGit: Boolean    = file.getName == dotGit.getName
-
-    //TODO Looks like bug: why set user _home_?
-    //TODO There is no need in this method as we specify work dir every time we invoke git.
-    @inline def setCwd(): String = System.setProperty("user.home", file.getAbsolutePath)
   }
 }

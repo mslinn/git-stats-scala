@@ -1,33 +1,14 @@
 package com.micronautics.gitStats
 
-import scala.collection.mutable
-
 case class Commits(value: List[Commit])
                   (implicit config: ConfigGitStats){
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
-      //TODO Typo? Why binary OR?
-      value.filter(c => c.added!=0 | c.deleted!=0).map { commit =>
+      value.filter(c => c.added!=0 || c.deleted!=0).map { commit =>
         commit.asAsciiTableRow()
       }
 
     AsciiWidgets.asciiTable(title, total.asAsciiTableRow(), subTotals: _*)
-  }
-
-  //TODO Unused
-  def asCommitsGroupedByLanguage: Map[String, Commit] = {
-    val map = mutable.Map.empty[String, Commit]
-    value.foreach { commit =>
-      val updated: Commit = map.get(commit.language).map { acc =>
-        Commit(
-          added = acc.added + commit.added,
-          deleted = acc.deleted + commit.deleted,
-          language = commit.language
-        )
-      }.getOrElse(commit)
-      map.put(commit.language, updated)
-    }
-    map.toMap
   }
 
   def byLanguage: Commits =
@@ -44,11 +25,6 @@ case class Commits(value: List[Commit])
         .toList
         .sorted
     )
-
-  //TODO Unused
-  def combine(other: Commits): Commits =
-    Commits(this.value ::: other.value)
-      .byLanguage
 
   def combine(others: List[Commits]): Commits =
     Commits(this.value ::: others.flatMap(_.value))

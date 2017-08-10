@@ -2,7 +2,7 @@ package com.micronautics.gitStats
 
 import scala.collection.mutable
 
-/* TODO LanguageTotals seems duplicating Commits.byLanguage. Can be removed? */
+/* TODO LanguageTotals largely duplicates Commits.byLanguage and should probably be removed */
 protected object LanguageTotals {
   def apply(commits: Commits)
            (implicit config: ConfigGitStats): LanguageTotals = {
@@ -30,7 +30,4 @@ class LanguageTotals(
     ltValue.put(commit.language, updated)
     ()
   }
-
-  //TODO Unused
-  def total: Commit = Commits(ltValue.values.toList).total
 }

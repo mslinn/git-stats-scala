@@ -8,7 +8,7 @@ import RichFile._
 
 @RunWith(classOf[JUnitRunner])
 class TestyMcTestFace extends WordSpec with MustMatchers {
-  implicit val config = ConfigGitStats()
+  implicit val config: ConfigGitStats = ConfigGitStats()
 
   "Directory walking" should {
     "Define various directories" in {
@@ -18,20 +18,10 @@ class TestyMcTestFace extends WordSpec with MustMatchers {
       val ps: List[File] = gitProjectsUnder(parentDirectory)
       ps.size should be >= 0
     }
-
-    "work" in {
-      val actual: Seq[File] = gitProjectsUnder(currentDirectory)
-      actual shouldBe Seq(RichFile.currentDirectory)
-
-      /*TODO This test is fragile, it depends on the content of the parent directory.
-      * For example, if the parent directory contains .ignore.stats, then the test fails. */
-//      val actual2: Seq[File] = gitProjectsUnder(parentDirectory)
-//      actual2.size should be >= 1
-    }
   }
 
   "Commits" should {
-    implicit val config = ConfigGitStats(ignoredFileTypes = List("sql"), ignoredSubDirectories = List("sub"))
+    implicit val config: ConfigGitStats = ConfigGitStats(ignoredFileTypes = List("sql"), ignoredSubDirectories = List("sub"))
     "filter" in {
       val commitNotIgnored = new Commit(added=1, deleted=2, fileName = "baz/blah.scala")
       assert(!commitNotIgnored.ignoredFiletype)
