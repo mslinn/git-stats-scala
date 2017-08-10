@@ -106,6 +106,8 @@ package object gitStats {
     @inline def isDotIgnore: Boolean = file.getName == dotIgnore.getName
     @inline def isDotGit: Boolean    = file.getName == dotGit.getName
 
+    //TODO Looks like bug: why set user _home_?
+    //TODO There is no need in this method as we specify work dir every time we invoke git.
     @inline def setCwd(): String = System.setProperty("user.home", file.getAbsolutePath)
   }
 }

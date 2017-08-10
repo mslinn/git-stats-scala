@@ -10,7 +10,8 @@ class Repo(config: ConfigGitStats, val dir: File) {
   val author: String = ConfigGitStats.gitUserName(dir.getAbsoluteFile)
   lazy val authorFullName: String = author.replace("\\", "")
 
-  dir.setCwd()
+  //TODO This setCwd() is unnecessary and suspicious - see comments for the method.
+//  dir.setCwd()
   println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
