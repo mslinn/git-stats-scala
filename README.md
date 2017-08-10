@@ -79,19 +79,15 @@ Subtotals By Language (lines changed across all projects)
 
 To get statistics for the previous 365 days for the current logged on user, type:
 
-    bin/run --previous365days
-
-For the previous month:
-
-    bin/run --previousMonth
+    bin/run --prev-365
 
 For the previous 30 days:
 
-    bin/run --previous30days
+    bin/run --prev-30
 
 For the previous 90 days:
 
-    bin/run --previous90days
+    bin/run --prev-90
 
 For all of May 2017:
 
@@ -102,13 +98,10 @@ For 2016 for the GitHub user `mslinn`, type:
     bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
 
 You can also run SBT if desired.
-The options shown cause git logs from all of 2016 to be processed, for the `cadenza` project,
+The options shown below cause `git log`s from all of 2016 to be processed, for the `cadenza` project,
 with subtotals, and all unknown files are to be ignored as well as JavaScript and XML files:
 
     sbt "run --previous365days -d /mnt/work/training/cadenza -v -o -i js,xml"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)
-
-## License
-This software is published under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
