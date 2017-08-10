@@ -41,6 +41,7 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-11 --to=2017-08-10
   -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-12 --to=2017-08-10
   -d, --dir <value>     Directory to scan (defaults to current directory)
+  -e  --excel <value>   Output an Excel .XLSX file with the given name instead of UTF-8 tables
   -f, --from <value>    First date to process, in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>  Comma-separated additional filetypes to ignore, without the leading dot
   -I, --Ignore <value>  Comma-separated additional subdirectories to ignore, without slashes

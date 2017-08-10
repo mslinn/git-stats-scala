@@ -2,7 +2,7 @@ package com.micronautics.gitStats
 
 import java.text.NumberFormat
 
-protected object Commit {
+object Commit {
   implicit val defaultCommitOrdering: Ordering[Commit] = Ordering.by { commit: Commit =>
     (-commit.delta, -commit.added, -commit.delta)
   }
@@ -149,7 +149,7 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
 
   lazy val ignoredPath: Boolean = config.ignoredSubDirectories.exists(fileName.contains)
 
-  @inline def asAsciiTableRow(showLanguage: Boolean = true): List[String] =
+  @inline def asRow(showLanguage: Boolean = true): List[String] =
     (if (showLanguage) List(language) else Nil) :::
       List(intFormat(added), intFormat(-deleted), intFormat(delta))
 

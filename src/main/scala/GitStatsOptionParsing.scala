@@ -32,6 +32,10 @@ trait GitStatsOptionParsing {
       c.copy(directoryName = x)
     }.text("Directory to scan (defaults to current directory)")
 
+    opt[String]('e', "excel").action { (x, c) =>
+      c.copy(excelFileName = Some(x))
+    }.text(s"Output an Excel .XLSX file with the given name instead of UTF-8 tables")
+
     opt[String]('f', "from").action { (x, c) =>
       c.copy(dateFrom = Some(new DateTime(x).withTimeAtStartOfDay))
     }.text("First date to process, in yyyy-MM-dd format; default is no limit")
@@ -43,11 +47,10 @@ trait GitStatsOptionParsing {
 
     opt[String]('I', "Ignore").action { (x, c) =>
       def endWithSlash(path: String): String = if (path.endsWith(File.separator)) path else path + File.separator
-      val result: ConfigGitStats = c.copy(ignoredSubDirectories =
-                                            (x.split(",").toList ::: c.ignoredSubDirectories)
-                                              .map(endWithSlash).sorted.distinct
-                                         )
-      result
+      c.copy(ignoredSubDirectories =
+        (x.split(",").toList ::: c.ignoredSubDirectories)
+          .map(endWithSlash).sorted.distinct
+      )
     }.text("Comma-separated additional relative subdirectories to ignore, ending slashes are optional")
 
     opt[Unit]('m', "prev-month").action { (_, c) =>

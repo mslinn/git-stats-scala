@@ -33,6 +33,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
     val commitsByLanguageByRepo: List[(Repo, Commits)] = repos.zip(repos.map(commitsByLanguageFor))
 
     report(commitsByLanguageByRepo)
+    config.excelWorkbook.foreach(_.save())
     ()
   }
 
@@ -44,7 +45,10 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
     if (config.subtotals) commitsByLanguageByRepo.foreach {
       case (repo, commits) =>
         if (commits.value.nonEmpty)
-          println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
+          if (config.excelWorkbook.isDefined)
+            config.excelWorkbook.foreach(_.addSheet(title=repo.dir.getAbsolutePath, total=Commit.zero, contents=commits.value))
+          else
+            println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
 
     if (commitsByLanguageByRepo.size > 1 || !config.subtotals) {
@@ -54,9 +58,10 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
 
       if (grandTotal.value.isEmpty) "No activity." else {
         val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects)" else ""
-        println(grandTotal.asAsciiTable(
-          title = s"Subtotals By Language$projects"
-        ))
+        if (config.excelWorkbook.isDefined)
+          config.excelWorkbook.foreach(_.addSheet(title = s"Subtotals By Language$projects", Commit.zero, contents = grandTotal.value))
+        else
+          println(grandTotal.asAsciiTable(title = s"Subtotals By Language$projects"))
       }
     }
   }

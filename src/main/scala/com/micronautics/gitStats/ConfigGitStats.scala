@@ -37,6 +37,7 @@ object ConfigGitStats {
   * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
   * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
   * @param directoryName Top of git directory tree
+  * @param excelFileName output to an Excel file with the given name instead of an UTF-8 table
   * @param output Show output of OS commands
   * @param subtotals Set to see per-repo statistics as well as the grand totals
   * @param ignoredFileTypes List of file types to ignore when processing the git commit log
@@ -46,6 +47,7 @@ case class ConfigGitStats(
   dateFrom: Option[DateTime] = None,
   dateTo: Option[DateTime] = None,
   directoryName: String = sys.props("user.dir"),
+  excelFileName: Option[String] = None,
   verbose: Boolean = false,
   ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip").sorted,
   ignoredSubDirectories: List[String] = List("node_modules").sorted,
@@ -60,6 +62,8 @@ case class ConfigGitStats(
   lazy val fromFormatted: Option[String] = dateFrom.map(fmt_yyyyMMdd.print)
 
   lazy val toFormatted: Option[String]   = dateTo.map(fmt_yyyyMMdd.print)
+
+  lazy val excelWorkbook: Option[ExcelOutput] = excelFileName.map(new ExcelOutput(_))
 
   /** This only works if the current directory is the root of a git directory tree */
   lazy val gitRepoName: String = {

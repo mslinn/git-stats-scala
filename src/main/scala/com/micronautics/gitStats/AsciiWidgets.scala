@@ -3,12 +3,6 @@ package com.micronautics.gitStats
 import de.vandermeer.asciitable._
 
 object AsciiWidgets {
-  protected lazy val defaultAsciiTableData: List[List[String]] =
-    List(
-      List("row 1 col 1", "row 1 col 2"),
-      List("row 2 col 1", "row 2 col 2")
-    )
-
   def asciiTable(title: String, total: List[String], contents: List[String]*): String = {
     assert(contents.nonEmpty)
     val table = new AsciiTable
@@ -30,6 +24,4 @@ object AsciiWidgets {
     }
     s"\n$title\n" + table.render
   }
-
-  def demo(): Unit = println(asciiTable("Demo table", Nil, defaultAsciiTableData:_*))
 }

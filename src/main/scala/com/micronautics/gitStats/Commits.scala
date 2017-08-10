@@ -1,14 +1,25 @@
 package com.micronautics.gitStats
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
 case class Commits(value: List[Commit])
                   (implicit config: ConfigGitStats){
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
       value.filter(c => c.added!=0 || c.deleted!=0).map { commit =>
-        commit.asAsciiTableRow()
+        commit.asRow()
       }
 
-    AsciiWidgets.asciiTable(title, total.asAsciiTableRow(), subTotals: _*)
+    AsciiWidgets.asciiTable(title, total.asRow(), subTotals: _*)
+  }
+
+  def asExcelSheet(excelOutput: ExcelOutput, title: String): XSSFWorkbook = {
+    val subTotals: List[List[String]] =
+      value.filter(c => c.added!=0 || c.deleted!=0).map { commit =>
+        commit.asRow()
+      }
+
+    excelOutput.addSheet(title, total.asRow(), subTotals: _*)
   }
 
   def byLanguage: Commits =

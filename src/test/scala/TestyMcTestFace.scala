@@ -47,4 +47,12 @@ class TestyMcTestFace extends WordSpec with MustMatchers {
       huh mustBe List(commitNotIgnored)
     }
   }
+
+  "Poi" should {
+    "work" in {
+      val wb = new ExcelOutput("test")
+      wb.addSheet(title="Test", total=Nil, contents=List(List("a", "b", "c")):_*)
+      wb.save()
+    }
+  }
 }
