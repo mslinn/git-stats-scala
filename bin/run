@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-JAR=target/scala-2.12/git-stats-scala-assembly-0.1.0.jar
+JAR="$(ls target/scala-*/*assembly*.jar)"
 
 # -j option forces rebuild of jar
-if [ ! -f $JAR ] || [ "$1" == -j ]; then
-  echo "Building $JAR"
+if [ -z "$JAR" ] || [ "$1" == -j ]; then
+  echo "Building the binary"
   sbt assembly
+  JAR="$(ls target/scala-*/*assembly*.jar)"
 
   if [ "$1" == -j ]; then shift; fi
 fi
 
 # --help option gives usage
-java -cp $JAR GitStats "$@"
+java -cp "$JAR" GitStats "$@"
