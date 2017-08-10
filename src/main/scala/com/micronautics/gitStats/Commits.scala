@@ -2,7 +2,8 @@ package com.micronautics.gitStats
 
 import scala.collection.mutable
 
-case class Commits(value: List[Commit]) {
+case class Commits(value: List[Commit])
+                  (implicit config: ConfigGitStats){
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
       value.filter(c => c.added!=0 | c.deleted!=0).map { commit =>

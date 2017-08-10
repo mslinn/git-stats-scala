@@ -37,6 +37,7 @@ object ConfigGitStats {
   * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
   * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
   * @param directoryName Top of git directory tree
+  * @param output Show output of OS commands
   * @param subtotals Set to see per-repo statistics as well as the grand totals
   * @param ignoredFileTypes List of file types to ignore when processing the git commit log
   * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
@@ -49,6 +50,7 @@ case class ConfigGitStats(
   ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip").sorted,
   ignoredSubDirectories: List[String] = List("node_modules").sorted,
   onlyKnown: Boolean = false,
+  output: Boolean = false,
   subtotals: Boolean = false
 ) {
   import com.micronautics.gitStats.ConfigGitStats._

@@ -33,8 +33,8 @@ class Repo(val dir: File)
       gitResponse
         .map(Commit.apply)
         .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
-        .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
-        .filterNot(commit => config.ignoredSubDirectories.exists(subdir => commit.fileName.contains(s"$subdir/")))
+        .filterNot(_.ignoredFiletype)
+        .filterNot(_.ignoredPath)
     )
 
   val grandTotal: Commit = commits.total

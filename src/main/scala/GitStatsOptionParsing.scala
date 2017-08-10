@@ -1,3 +1,4 @@
+import java.io.File
 import com.github.nscala_time.time.Imports._
 import com.micronautics.gitStats.ConfigGitStats
 
@@ -41,8 +42,13 @@ trait GitStatsOptionParsing {
     }.text("Comma-separated additional filetypes to ignore, without the leading dot")
 
     opt[String]('I', "Ignore").action { (x, c) =>
-      c.copy(ignoredSubDirectories = (x.split(",").toList ::: c.ignoredSubDirectories).distinct.sorted)
-    }.text("Comma-separated additional subdirectories to ignore, without slashes")
+      def endWithSlash(path: String): String = if (path.endsWith(File.separator)) path else path + File.separator
+      val result: ConfigGitStats = c.copy(ignoredSubDirectories =
+                                            (x.split(",").toList ::: c.ignoredSubDirectories)
+                                              .map(endWithSlash).sorted.distinct
+                                         )
+      result
+    }.text("Comma-separated additional relative subdirectories to ignore, ending slashes are optional")
 
     opt[Unit]('m', "prev-month").action { (_, c) =>
       c.copy(dateFrom = Some(lastMonth), dateTo = Some(today))
@@ -59,6 +65,10 @@ trait GitStatsOptionParsing {
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))
     }.text("Last date to process, in yyyy-MM-dd format; default is no limit")
+
+    opt[Unit]('O', "output").action { (_, c) =>
+      c.copy(output = true)
+    }.text("Show output of OS commands executed")
 
     opt[Unit]('v', "verbose").action { (_, c) =>
       c.copy(verbose = true)

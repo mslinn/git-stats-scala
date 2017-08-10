@@ -12,7 +12,9 @@ package object gitStats {
   @inline def getOutputFrom(cwd: File, cmd: String*)
                            (implicit config: ConfigGitStats): String =
     try {
-      run(cwd, cmd:_*).!!.trim
+      val result = run(cwd, cmd:_*).!!.trim
+      if (config.output) println(result)
+      result
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)

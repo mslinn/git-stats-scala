@@ -11,7 +11,7 @@ protected object Commit {
   lazy val miscellaneousLanguage = "Miscellaneous"
   lazy val languageTotal = "Total"
 
-  lazy val zero = Commit(0, 0)
+  lazy val zero: Commit = Commit(0, 0)(ConfigGitStats.defaultValue)
 
   val intFormatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
@@ -24,7 +24,8 @@ protected object Commit {
 
   @inline def toInt(string: String): Int = if (string=="-") 0 else string.toInt
 
-  @inline def apply(args: String): Commit = {
+  @inline def apply(args: String)
+                   (implicit config: ConfigGitStats): Commit = {
     args.split("\t| ") match {
       case Array(linesAdded, linesDeleted, fileName) =>
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim), fileName=fileName)
@@ -121,7 +122,8 @@ protected object Commit {
   }
 }
 
-case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage) {
+case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage)
+                 (implicit config: ConfigGitStats) {
   import com.micronautics.gitStats.Commit._
 
   /** Number of net lines `(added - deleted)` */
@@ -134,6 +136,10 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
   }
 
   lazy val hasUnknownLanguage: Boolean = language==unknownLanguage || language==miscellaneousLanguage
+
+  lazy val ignoredFiletype: Boolean = config.ignoredFileTypes.contains(fileType)
+
+  lazy val ignoredPath: Boolean = config.ignoredSubDirectories.exists(fileName.contains)
 
   lazy val lastFilePath: String = {
     val array = fileName.split(java.io.File.separator)

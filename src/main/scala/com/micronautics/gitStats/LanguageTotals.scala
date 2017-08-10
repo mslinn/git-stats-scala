@@ -3,7 +3,8 @@ package com.micronautics.gitStats
 import scala.collection.mutable
 
 protected object LanguageTotals {
-  def apply(commits: Commits): LanguageTotals = {
+  def apply(commits: Commits)
+           (implicit config: ConfigGitStats): LanguageTotals = {
     val total = new LanguageTotals
     commits.value.foreach(total.combine)
     total
@@ -12,10 +13,13 @@ protected object LanguageTotals {
 
 class LanguageTotals(
   val ltValue: mutable.Map[String, Commit] = mutable.Map.empty.withDefaultValue(Commit.zero)
+)(implicit
+  config: ConfigGitStats
 ) {
   def asCommits: Commits = Commits(ltValue.values.toList.sorted)
 
-  def combine(commit: Commit): Unit = {
+  def combine(commit: Commit)
+             (implicit config: ConfigGitStats): Unit = {
     val value = ltValue(commit.language)
     val updated = Commit(
       added = value.added + commit.added,
