@@ -5,6 +5,7 @@ import scala.collection.mutable
 case class Commits(value: List[Commit]) {
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
+      //TODO Typo? Why binary OR?
       value.filter(c => c.added!=0 | c.deleted!=0).map { commit =>
         commit.asAsciiTableRow()
       }
@@ -12,8 +13,8 @@ case class Commits(value: List[Commit]) {
     AsciiWidgets.asciiTable(title, total.asAsciiTableRow(), subTotals: _*)
   }
 
+  //TODO Unused
   def asCommitsGroupedByLanguage: Map[String, Commit] = {
-    //TODO  Aggregate?
     val map = mutable.Map.empty[String, Commit]
     value.foreach { commit =>
       val updated: Commit = map.get(commit.language).map { acc =>
@@ -30,7 +31,6 @@ case class Commits(value: List[Commit]) {
 
   def byLanguage: Commits =
     Commits(
-      //TODO  Aggregate?
       value
         .groupBy(_.language)
         .map { case (key, values) =>

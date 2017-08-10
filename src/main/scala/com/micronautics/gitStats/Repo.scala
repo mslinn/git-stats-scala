@@ -38,11 +38,14 @@ class Repo(config: ConfigGitStats, val dir: File) {
         .filterNot(commit => config.ignoredSubDirectories.exists(subdir => commit.fileName.contains(s"$subdir/")))
     )
 
+  //TODO Used only in unused val: grandTotals
   val grandTotal: Commit = commits.total
+  //TODO Unused
   val grandTotals = Commits(List(grandTotal))
   val languageTotals: LanguageTotals = commits.languageTotals
   //TODO Instead of hidden println, format output
   println("")
 
+  /*TODO We can write: commits.byLanguage. Hence languageTotals and LanguageTotals are redundant.*/
   def commitsByLanguage: Commits = languageTotals.asCommits
 }

@@ -25,13 +25,14 @@ protected object Commit {
   @inline def toInt(string: String): Int = if (string=="-") 0 else string.toInt
 
   @inline def apply(args: String): Commit = {
+    //TODO \s+ or \h+
     args.split("\t| ") match {
       case Array(linesAdded, linesDeleted, fileName) =>
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim), fileName=fileName)
 
       case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
         //TODO Why so strange language discovery?
-        //TODO Inconsistency Bash / Bash shell
+        //TODO Inconsistency "Bash" / "Bash shell"
         val language = if (newFileName.contains(".")) Commit.unknownLanguage else "Bash"
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language, fileName=newFileName)
 
@@ -42,6 +43,7 @@ protected object Commit {
 
   /*TODO Read only the first line and at most 20 chars - should be enough to decide about the language.
   * The performance improvement can be visible, as we check _all_ files with unrecognized suffixes.*/
+  //TODO Close the resource. Use Constructs.using?
   @inline def contents(fileName: String): String = try {
     scala.io.Source.fromFile(fileName).mkString
   } catch {
