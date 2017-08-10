@@ -24,6 +24,8 @@ package object gitStats {
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
+  /*TODO We don't need a default value here. Default dir for the tool is provided at the arg parsing level.
+  * Default value means additional execution path and additional chance of a mistake.*/
   def gitProjectsUnder(file: File = new File(sys.props("user.dir"))): List[File] = {
     val childFiles = file.childFiles
     lazy val childDirs = file.childDirs
@@ -88,8 +90,12 @@ package object gitStats {
 
     @inline def childDirs: List[File] = childFiles.filter(_.isDirectory)
 
+
+    //TODO Used only in unused method
+    //TODO Looks like bug: works only for "." directory
     @inline def shouldBeIgnored: Boolean = childFiles.contains(RichFile.dotIgnore)
 
+    //TODO Unused
     @inline def gitSubdirectories: Seq[File] =
       if (shouldBeIgnored) Nil else
         for {
