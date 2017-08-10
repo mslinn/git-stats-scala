@@ -23,8 +23,10 @@ class TestyMcTestFace extends WordSpec with MustMatchers {
       val actual: Seq[File] = gitProjectsUnder(currentDirectory)
       actual shouldBe Seq(RichFile.currentDirectory)
 
-      val actual2: Seq[File] = gitProjectsUnder(parentDirectory)
-      actual2.size should be >= 1
+      /*TODO This test is fragile, it depends on the content of the parent directory.
+      * For example, if the parent directory contains .ignore.stats, then the test fails. */
+//      val actual2: Seq[File] = gitProjectsUnder(parentDirectory)
+//      actual2.size should be >= 1
     }
   }
 

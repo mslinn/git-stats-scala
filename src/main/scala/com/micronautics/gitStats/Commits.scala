@@ -6,6 +6,7 @@ case class Commits(value: List[Commit])
                   (implicit config: ConfigGitStats){
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
+      //TODO Typo? Why binary OR?
       value.filter(c => c.added!=0 | c.deleted!=0).map { commit =>
         commit.asAsciiTableRow()
       }
@@ -13,6 +14,7 @@ case class Commits(value: List[Commit])
     AsciiWidgets.asciiTable(title, total.asAsciiTableRow(), subTotals: _*)
   }
 
+  //TODO Unused
   def asCommitsGroupedByLanguage: Map[String, Commit] = {
     val map = mutable.Map.empty[String, Commit]
     value.foreach { commit =>
@@ -43,6 +45,7 @@ case class Commits(value: List[Commit])
         .sorted
     )
 
+  //TODO Unused
   def combine(other: Commits): Commits =
     Commits(this.value ::: other.value)
       .byLanguage

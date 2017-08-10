@@ -26,11 +26,14 @@ protected object Commit {
 
   @inline def apply(args: String)
                    (implicit config: ConfigGitStats): Commit = {
+    //TODO \s+ or \h+
     args.split("\t| ") match {
       case Array(linesAdded, linesDeleted, fileName) =>
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language(fileName.trim), fileName=fileName)
 
       case Array(linesAdded, linesDeleted, oldFileName@_, arrow@_, newFileName) => // a file was renamed
+        //TODO Why so strange language discovery?
+        //TODO Inconsistency "Bash" / "Bash shell"
         val language = if (newFileName.contains(".")) Commit.unknownLanguage else "Bash"
         Commit(toInt(linesAdded), toInt(linesDeleted), language=language, fileName=newFileName)
 
@@ -39,12 +42,17 @@ protected object Commit {
     }
   }
 
+  /*TODO Read only the first line and at most 20 chars - should be enough to decide about the language.
+  * The performance improvement can be visible, as we check _all_ files with unrecognized suffixes.*/
+  //TODO Close the resource. Use Constructs.using?
   @inline def contents(fileName: String): String = try {
     scala.io.Source.fromFile(fileName).mkString
   } catch {
     case _: Exception => ""
   }
 
+  //TODO Groovy, YAML, more C++ suffixes, Dockerfile what else?
+  //TODO Does it make sense to distinguish Scala / SBT? SBT programmers?
   val suffixToLanguage: Map[String, String] = Map(
     "asp"        -> "ASP",
     "bat"        -> "MS-DOS batch",
@@ -117,11 +125,14 @@ protected object Commit {
   def language(fileName: String): String = fileName.toLowerCase match {
     case f if suffixedIsDefined(f) => suffix(f)
     case f if f.startsWith(".") => miscellaneousLanguage
+      //TODO Makes little sense to distinguish Shell and Bash. *.sh files may be written in Bash.
+      //TODO Files with unrecognized suffixes containing #!/bin/sh
     case f if contents(f).startsWith("#!/bin/bash") => "Bash shell"
     case _ => unknownLanguage
   }
 }
 
+//TODO Calculate language from fileType. Currently we parse fileName twice: for language, then for fileType.
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage)
                  (implicit config: ConfigGitStats) {
   import com.micronautics.gitStats.Commit._
@@ -141,6 +152,7 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
 
   lazy val ignoredPath: Boolean = config.ignoredSubDirectories.exists(fileName.contains)
 
+  //TODO Unused
   lazy val lastFilePath: String = {
     val array = fileName.split(java.io.File.separator)
     if (array.size<2) fileName else array.takeRight(2).head

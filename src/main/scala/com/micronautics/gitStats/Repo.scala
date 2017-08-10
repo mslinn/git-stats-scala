@@ -11,7 +11,9 @@ class Repo(val dir: File)
   val author: String = ConfigGitStats.gitUserName(dir.getAbsoluteFile)
   lazy val authorFullName: String = author.replace("\\", "")
 
-  dir.setCwd()
+  //TODO This setCwd() is unnecessary and suspicious - see comments for the method.
+//  dir.setCwd()
+  //TODO Instead of hidden println, format output
   if (config.verbose) println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
@@ -37,10 +39,14 @@ class Repo(val dir: File)
         .filterNot(_.ignoredPath)
     )
 
+  //TODO Used only in unused val: grandTotals
   val grandTotal: Commit = commits.total
+  //TODO Unused
   val grandTotals = Commits(List(grandTotal))
   val languageTotals: LanguageTotals = commits.languageTotals
+  //TODO Instead of hidden println, format output
   if (config.verbose) println("")
 
+  /*TODO We can write: commits.byLanguage. Hence languageTotals and LanguageTotals are redundant.*/
   def commitsByLanguage: Commits = languageTotals.asCommits
 }
