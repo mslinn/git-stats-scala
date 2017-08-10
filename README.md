@@ -98,10 +98,11 @@ For 2016 for the GitHub user `mslinn`, type:
     bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
 
 You can also run SBT if desired.
-The options shown below cause `git log`s from all of 2016 to be processed, for the `cadenza` project,
-with subtotals, and all unknown files are to be ignored as well as JavaScript and XML files:
+The options shown below cause `git log`s from the previous year to be processed, for all git projects under `/work/cadenza`,
+with subtotals. All ignore commits for unknown file types as well as commits for JavaScript and XML files.
+Also ignore any commits involving the entire `modules/cadenza/public/ckeditor/` subdirectory:
 
-    sbt "run --previous365days -d /work/cadenza -s -o -i js,xml"
+    sbt "run --prev-365 -d /work/cadenza -s -o -i js,xml -I modules/cadenza/public/ckeditor"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)
