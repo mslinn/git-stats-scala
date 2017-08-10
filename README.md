@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/mslinn/git-stats-scala.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
 [![GitHub version](https://badge.fury.io/gh/mslinn%2Fgit-stats-scala.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
 
-For your resume: totals and grand totals of lines added and deleted to/from your git repositories.
+For your resume: subtotals and totals of lines added and deleted to/from a filtered collection of all your git repositories.
 
 [Read the author's blog](http://blog.mslinn.com/blog/2017/08/07/how-much-do-you-program) to learn why this program was written.
 
@@ -13,7 +13,7 @@ This program only reports textual additions and deletions,
 which one hopes are indications of actual programming.
 Statistics are reported for each computer language found.
 The reader is free to impart any meaning they deem appropriate to this output.
-The author of this software (GitStats) makes no claims regarding meaning.*
+The author of this software makes no claims regarding meaning.*
 
 GitStats scans local git repos, so running the program does not generate outbound network traffic.
 
