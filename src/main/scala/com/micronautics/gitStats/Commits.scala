@@ -1,5 +1,6 @@
 package com.micronautics.gitStats
 
+import com.github.tototoshi.csv.CSVWriter
 import scala.collection.mutable
 
 case class Commits(value: List[Commit])
@@ -7,10 +8,21 @@ case class Commits(value: List[Commit])
   def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
       value.filter(c => c.added!=0 | c.deleted!=0).map { commit =>
-        commit.asAsciiTableRow()
+        commit.asAsciiTable()
       }
 
-    AsciiWidgets.asciiTable(title, total.asAsciiTableRow(), subTotals: _*)
+    if (config.csvOutput) {
+      List(List(title)) ::: subTotals ::: total.asCsv()
+
+      val stringWriter = new java.io.StringWriter
+      val csvWriter = new CSVWriter(stringWriter)
+      Console.out.println(title)
+      csvWriter.writeAll(subTotals)
+      csvWriter.writeAll(total.asCsv())
+
+      ""
+    } else
+      AsciiWidgets.asciiTable(title, total.asAsciiTable(), subTotals: _*)
   }
 
   def asCommitsGroupedByLanguage: Map[String, Commit] = {

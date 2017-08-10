@@ -146,9 +146,15 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     if (array.size<2) fileName else array.takeRight(2).head
   }
 
-  @inline def asAsciiTableRow(showLanguage: Boolean = true): List[String] =
+  @inline def asAsciiTable(showLanguage: Boolean = true): List[String] =
     (if (showLanguage) List(language) else Nil) :::
       List(intFormat(added), intFormat(-deleted), intFormat(delta))
+
+  @inline def asCsv(showLanguage: Boolean = true): List[List[String]] =
+    List(
+      (if (showLanguage) List(language) else Nil) :::
+        List(intFormat(added), intFormat(-deleted), intFormat(delta))
+    )
 
   override def toString: String =
     s"$language: added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"

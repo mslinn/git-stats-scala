@@ -28,6 +28,10 @@ trait GitStatsOptionParsing {
       c.copy(dateFrom = Some(last90days), dateTo = Some(today))
     }.text(s"Process the most recent 90 days; same as specifying --from=$last90Formatted --to=$todayFormatted")
 
+    opt[Unit]('c', "csv").action { (_, c) =>
+      c.copy(csvOutput = true)
+    }.text(s"Output CSV instead of UTF-8 ASCII table(s)")
+
     opt[String]('d', "dir").action { (x, c) =>
       c.copy(directoryName = x)
     }.text("Directory to scan (defaults to current directory)")
@@ -43,11 +47,10 @@ trait GitStatsOptionParsing {
 
     opt[String]('I', "Ignore").action { (x, c) =>
       def endWithSlash(path: String): String = if (path.endsWith(File.separator)) path else path + File.separator
-      val result: ConfigGitStats = c.copy(ignoredSubDirectories =
-                                            (x.split(",").toList ::: c.ignoredSubDirectories)
-                                              .map(endWithSlash).sorted.distinct
-                                         )
-      result
+      c.copy(ignoredSubDirectories =
+        (x.split(",").toList ::: c.ignoredSubDirectories)
+          .map(endWithSlash).sorted.distinct
+      )
     }.text("Comma-separated additional relative subdirectories to ignore, ending slashes are optional")
 
     opt[Unit]('m', "prev-month").action { (_, c) =>

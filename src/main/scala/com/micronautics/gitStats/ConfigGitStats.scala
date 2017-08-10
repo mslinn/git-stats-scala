@@ -43,6 +43,7 @@ object ConfigGitStats {
   * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
   * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it. */
 case class ConfigGitStats(
+  csvOutput: Boolean = false,
   dateFrom: Option[DateTime] = None,
   dateTo: Option[DateTime] = None,
   directoryName: String = sys.props("user.dir"),
