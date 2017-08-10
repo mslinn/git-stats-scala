@@ -12,7 +12,7 @@ object ConfigGitStats {
   val fmt_MMMMyyyy: DateTimeFormatter = DateTimeFormat.forPattern("MMMM yyyy")
 
   /** This only works if the current directory is the root of a git directory tree */
-  @inline def gitUserName(cwd: File): String = {
+  @inline def gitUserName(cwd: File)(implicit config: ConfigGitStats): String = {
     val userName = getOutputFrom(cwd, gitProgram, "config", "user.name")
     if (isWindows) "\"" + userName + "\"" else userName.replace(" ", "\\ ")
   }
@@ -37,7 +37,8 @@ object ConfigGitStats {
   * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
   * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
   * @param directoryName Top of git directory tree
-  * @param verbose Set it to see per-repo statistics as well as the grand totals
+  * @param output Show output of OS commands
+  * @param subtotals Set to see per-repo statistics as well as the grand totals
   * @param ignoredFileTypes List of file types to ignore when processing the git commit log
   * @param ignoredSubDirectories List of subdirectories to ignore when processing the git commit log
   * @param onlyKnown If a file type is not hard-coded in the filetype match statement, do not process it. */
@@ -48,7 +49,9 @@ case class ConfigGitStats(
   verbose: Boolean = false,
   ignoredFileTypes: List[String] = List("exe", "gif", "gz", "jpg", "log", "png", "pdf", "tar", "zip").sorted,
   ignoredSubDirectories: List[String] = List("node_modules").sorted,
-  onlyKnown: Boolean = false
+  onlyKnown: Boolean = false,
+  output: Boolean = false,
+  subtotals: Boolean = false
 ) {
   import com.micronautics.gitStats.ConfigGitStats._
 

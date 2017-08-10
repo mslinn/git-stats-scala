@@ -2,21 +2,21 @@ import com.micronautics.gitStats._
 
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
-    case Some(config) => new AllRepos(config).process()
+    case Some(config) => new AllRepos()(config).process()
 
     case None => // arguments are bad, error message will have been displayed
   }
 }
 
 /** Walk through all repos and process them */
-protected class AllRepos(config: ConfigGitStats) {
+protected class AllRepos()(implicit config: ConfigGitStats) {
 
   /** Generates text output on stdout */
   def process(): Unit = {
     val repos: List[Repo] =
       for {
         file <- gitProjectsUnder(config.directory)
-      } yield new Repo(config, file)
+      } yield new Repo(file)
 
     /** Each [[Commit]] returned is actually a summary of related `Commit`s */
     def commitsByLanguageFor(repo: Repo): Commits = {
@@ -41,13 +41,13 @@ protected class AllRepos(config: ConfigGitStats) {
     val dateStr = if (dateRange.nonEmpty) dateRange else "for all time"
     println(s"Summary of commits in ${ commitsByLanguageByRepo.size } projects $dateStr")
 
-    if (config.verbose) commitsByLanguageByRepo.foreach {
+    if (config.subtotals) commitsByLanguageByRepo.foreach {
       case (repo, commits) =>
         if (commits.value.nonEmpty)
           println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
 
-    if (commitsByLanguageByRepo.size > 1 || !config.verbose) {
+    if (commitsByLanguageByRepo.size > 1 || !config.subtotals) {
       val grandTotal: Commits =
         Commits(Nil)
           .combine(commitsByLanguageByRepo.map(_._2))

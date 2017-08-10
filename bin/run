@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Sample usage:
+# git-stats -j -d $work -i xml,js -o
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+cd "$DIR"
+
 JAR="$(ls target/scala-*/*assembly*.jar)"
 
 # -j option forces rebuild of jar

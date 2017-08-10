@@ -3,7 +3,8 @@ package com.micronautics.gitStats
 import java.io.File
 
 /** Process repo at directory `dir` */
-class Repo(config: ConfigGitStats, val dir: File) {
+class Repo(val dir: File)
+          (implicit config: ConfigGitStats) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
   val toOption: String   = config.toFormatted  .map(from => s"--until={$from}").mkString
 
@@ -13,7 +14,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
   //TODO This setCwd() is unnecessary and suspicious - see comments for the method.
 //  dir.setCwd()
   //TODO Instead of hidden println, format output
-  println()
+  if (config.verbose) println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
   // git log --author="Mike Slinn" --pretty=tformat: --numstat --since={2016-09-01} --until={2017-08-30}
@@ -34,8 +35,8 @@ class Repo(config: ConfigGitStats, val dir: File) {
       gitResponse
         .map(Commit.apply)
         .filterNot(commit => commit.hasUnknownLanguage && config.onlyKnown)
-        .filterNot(commit => config.ignoredFileTypes.contains(commit.fileType))
-        .filterNot(commit => config.ignoredSubDirectories.exists(subdir => commit.fileName.contains(s"$subdir/")))
+        .filterNot(_.ignoredFiletype)
+        .filterNot(_.ignoredPath)
     )
 
   //TODO Used only in unused val: grandTotals
@@ -44,7 +45,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
   val grandTotals = Commits(List(grandTotal))
   val languageTotals: LanguageTotals = commits.languageTotals
   //TODO Instead of hidden println, format output
-  println("")
+  if (config.verbose) println("")
 
   /*TODO We can write: commits.byLanguage. Hence languageTotals and LanguageTotals are redundant.*/
   def commitsByLanguage: Commits = languageTotals.asCommits
