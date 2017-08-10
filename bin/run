@@ -6,13 +6,30 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
 cd "$DIR"
 
-JAR="$(ls target/scala-*/*assembly*.jar)"
+# Scan build.sbt for Scala version and program version
+
+SCALA_VERSION() {
+  V=`grep "scalaVersion :=" build.sbt |  cut -d' ' -f 3 | tr -d \"`
+   case $V in
+    2.10.*) echo 2.10 ;;
+    2.11.*) echo 2.11 ;;
+    2.12.*) echo 2.12 ;;
+    2.13.*) echo 2.13 ;;
+     3.0.*)  echo 3.0 ;;
+     3.1.*)  echo 3.1 ;;
+         *) echo UNKNOWN ;;
+  esac
+}
+
+VERSION="$( grep "version :=" build.sbt | cut -d' ' -f 3 | tr -d \" )"
+JAR=target/scala-`SCALA_VERSION`/git-stats-scala-assembly-$VERSION.jar
+
+echo $JAR
 
 # -j option forces rebuild of jar
 if [ -z "$JAR" ] || [ "$1" == -j ]; then
   echo "Building the binary"
   sbt assembly
-  JAR="$(ls target/scala-*/*assembly*.jar)"
 
   if [ "$1" == -j ]; then shift; fi
 fi
