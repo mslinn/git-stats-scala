@@ -38,6 +38,7 @@ package object gitStats {
         childDirs.flatMap(gitProjectsUnder)
   }
 
+  //TODO Reuse os declared below
   lazy val isWindows: Boolean = sys.props("os.name").toLowerCase.indexOf("win") >= 0
 
   protected lazy val os: String = sys.props("os.name").toLowerCase

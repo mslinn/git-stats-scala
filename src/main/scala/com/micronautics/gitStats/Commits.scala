@@ -13,6 +13,7 @@ case class Commits(value: List[Commit]) {
   }
 
   def asCommitsGroupedByLanguage: Map[String, Commit] = {
+    //TODO  Aggregate?
     val map = mutable.Map.empty[String, Commit]
     value.foreach { commit =>
       val updated: Commit = map.get(commit.language).map { acc =>
@@ -29,6 +30,7 @@ case class Commits(value: List[Commit]) {
 
   def byLanguage: Commits =
     Commits(
+      //TODO  Aggregate?
       value
         .groupBy(_.language)
         .map { case (key, values) =>
@@ -42,6 +44,7 @@ case class Commits(value: List[Commit]) {
         .sorted
     )
 
+  //TODO Unused
   def combine(other: Commits): Commits =
     Commits(this.value ::: other.value)
       .byLanguage

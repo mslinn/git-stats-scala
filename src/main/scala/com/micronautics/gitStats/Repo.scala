@@ -12,6 +12,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
 
   //TODO This setCwd() is unnecessary and suspicious - see comments for the method.
 //  dir.setCwd()
+  //TODO Instead of hidden println, format output
   println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
@@ -40,6 +41,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
   val grandTotal: Commit = commits.total
   val grandTotals = Commits(List(grandTotal))
   val languageTotals: LanguageTotals = commits.languageTotals
+  //TODO Instead of hidden println, format output
   println("")
 
   def commitsByLanguage: Commits = languageTotals.asCommits
