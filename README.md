@@ -21,8 +21,8 @@ Ignores git repos containing a file called `.ignore.stats` in the root of the di
 Obtains git repo histories by examining the output of `git log`.
 The user name for each repository is obtained by running `git config user.name` in each repository.
 
-The following filetypes are recognized: ASP, C, C++, Dart, Delphi, F#, Haskell, HTML, Java, JSP, MS-DOS batch,
-Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Vistual Basic, Windows script and XML.
+The following file types are recognized: ASP, C, C++, Dart, Delphi, F#, Haskell, HTML, Java, JSP, MS-DOS batch,
+Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Visual Basic, Windows script and XML.
 
 The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
 ```
@@ -38,18 +38,18 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-07 --to=2017-08-06
-  -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-08 --to=2017-08-06
-  -a, --author <value>  Author to attribute
+  -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-11 --to=2017-08-10
+  -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-12 --to=2017-08-10
   -d, --dir <value>     Directory to scan (defaults to current directory)
   -f, --from <value>    First date to process, in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>  Comma-separated additional filetypes to ignore, without the leading dot
   -I, --Ignore <value>  Comma-separated additional subdirectories to ignore, without slashes
-  -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-06 --to=2017-08-06
+  -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-10 --to=2017-08-10
   -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes
+  -s, --subtotals       Show per-repo subtotals
   -t, --to <value>      Last date to process, in yyyy-MM-dd format; default is no limit
-  -v, --verbose         Show per-repo subtotals
-  -y, --prev-365        Same as specifying --from=2016-08-06 --to=2017-08-06
+  -v, --verbose         Show OS commands executed and dots indicating progress
+  -y, --prev-365        Same as specifying --from=2016-08-10 --to=2017-08-10
   --help                Print this usage text
 ```
 
@@ -101,7 +101,7 @@ You can also run SBT if desired.
 The options shown below cause `git log`s from all of 2016 to be processed, for the `cadenza` project,
 with subtotals, and all unknown files are to be ignored as well as JavaScript and XML files:
 
-    sbt "run --previous365days -d /mnt/work/training/cadenza -v -o -i js,xml"
+    sbt "run --previous365days -d /work/cadenza -s -o -i js,xml"
 
 ## Scaladoc
 [Here](http://mslinn.github.io/git-stats-scala/latest/api/index.html)

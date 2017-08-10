@@ -3,7 +3,8 @@ package com.micronautics.gitStats
 import java.io.File
 
 /** Process repo at directory `dir` */
-class Repo(config: ConfigGitStats, val dir: File) {
+class Repo(val dir: File)
+          (implicit config: ConfigGitStats) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
   val toOption: String   = config.toFormatted  .map(from => s"--until={$from}").mkString
 
@@ -11,7 +12,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
   lazy val authorFullName: String = author.replace("\\", "")
 
   dir.setCwd()
-  println()
+  if (config.verbose) println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
   // git log --author="Mike Slinn" --pretty=tformat: --numstat --since={2016-09-01} --until={2017-08-30}
@@ -39,7 +40,7 @@ class Repo(config: ConfigGitStats, val dir: File) {
   val grandTotal: Commit = commits.total
   val grandTotals = Commits(List(grandTotal))
   val languageTotals: LanguageTotals = commits.languageTotals
-  println("")
+  if (config.verbose) println("")
 
   def commitsByLanguage: Commits = languageTotals.asCommits
 }

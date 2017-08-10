@@ -52,13 +52,17 @@ trait GitStatsOptionParsing {
       c.copy(onlyKnown = true)
     }.text(s"If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes")
 
+    opt[Unit]('s', "subtotals").action { (_, c) =>
+      c.copy(subtotals = true)
+    }.text("Show per-repo subtotals")
+
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))
     }.text("Last date to process, in yyyy-MM-dd format; default is no limit")
 
     opt[Unit]('v', "verbose").action { (_, c) =>
       c.copy(verbose = true)
-    }.text("Show per-repo subtotals")
+    }.text("Show OS commands executed and dots indicating progress")
 
     opt[Unit]('y', "prev-365").action { (_, c) =>
       c.copy(dateFrom = Some(lastYear), dateTo = Some(today))

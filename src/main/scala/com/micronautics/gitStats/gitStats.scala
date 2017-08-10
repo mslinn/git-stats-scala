@@ -9,7 +9,8 @@ import scala.sys.process._
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
-  @inline def getOutputFrom(cwd: File, cmd: String*): String =
+  @inline def getOutputFrom(cwd: File, cmd: String*)
+                           (implicit config: ConfigGitStats): String =
     try {
       run(cwd, cmd:_*).!!.trim
     } catch {
@@ -24,13 +25,14 @@ package object gitStats {
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
-  def gitProjectsUnder(file: File = new File(sys.props("user.dir"))): List[File] = {
+  def gitProjectsUnder(file: File = new File(sys.props("user.dir")))
+                      (implicit config: ConfigGitStats): List[File] = {
     val childFiles = file.childFiles
     lazy val childDirs = file.childDirs
     if (childFiles.exists(_.isDotIgnore)) Nil else
       if (childDirs.exists(_.isDotGit)) {
         val files: List[File] = List(file.getCanonicalFile)
-        print(".")
+        if (config.verbose) print(".")
         files
       } else
         childDirs.flatMap(gitProjectsUnder)
@@ -55,10 +57,9 @@ package object gitStats {
       case Some(programPath) => programPath
     }
 
-  @inline def run(cwd: File, cmd: String*): ProcessBuilder = {
+  @inline def run(cwd: File, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
-    println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))
-    logger.debug(command.mkString(" "))
+    if (config.verbose) println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))
     Process(command=command, cwd=cwd)
   }
 

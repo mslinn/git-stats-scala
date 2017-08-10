@@ -8,6 +8,8 @@ import RichFile._
 
 @RunWith(classOf[JUnitRunner])
 class TestyMcTestFace extends WordSpec with MustMatchers {
+  implicit val config = ConfigGitStats()
+
   "Directory walking" should {
     "Define various directories" in {
       val parentName = parentDirectory.getName
