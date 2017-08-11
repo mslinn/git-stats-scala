@@ -38,19 +38,20 @@ Ignores directories committed called node_modules.
 
 Tries to continue processing remaining git repos if an exception is encountered.
 
-  -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-11 --to=2017-08-10
-  -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-12 --to=2017-08-10
+  -3, --prev-30         Process the most recent 30 days; same as specifying --from=2017-07-13 --to=2017-08-11
+  -9, --prev-90         Process the most recent 90 days; same as specifying --from=2017-05-14 --to=2017-08-11
   -d, --dir <value>     Directory to scan (defaults to current directory)
-  -e  --excel <value>   Output an Excel .XLSX file with the given name instead of UTF-8 tables
-  -f, --from <value>    First date to process, in yyyy-MM-dd format; default is no limit
+  -e, --excel <value>   Output an Excel .XLSX file with the given name instead of UTF-8 tables
+  -f, --from <value>    First date to process (inclusive), in yyyy-MM-dd format; default is no limit
   -i, --ignore <value>  Comma-separated additional filetypes to ignore, without the leading dot
-  -I, --Ignore <value>  Comma-separated additional subdirectories to ignore, without slashes
-  -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-10 --to=2017-08-10
+  -I, --Ignore <value>  Comma-separated additional relative subdirectories to ignore, ending slashes are optional
+  -m, --prev-month      Process the most recent complete month's data; same as specifying --from=2017-07-11 --to=2017-08-11
   -o, --only-known      If a filetype is not recognized, ignore it's data when summarizing commits; filters out Unknown and Miscellaneous filetypes
   -s, --subtotals       Show per-repo subtotals
-  -t, --to <value>      Last date to process, in yyyy-MM-dd format; default is no limit
+  -t, --to <value>      Last date to process (inclusive), in yyyy-MM-dd format; default is no limit
+  -O, --output          Show output of OS commands executed
   -v, --verbose         Show OS commands executed and dots indicating progress
-  -y, --prev-365        Same as specifying --from=2016-08-10 --to=2017-08-10
+  -y, --prev-365        Same as specifying --from=2016-08-12 --to=2017-08-11
   --help                Print this usage text
 ```
 

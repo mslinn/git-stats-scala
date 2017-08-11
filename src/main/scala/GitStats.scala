@@ -38,21 +38,19 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
     ()
   }
 
-  private def report(commitsByLanguageByRepo: List[(Repo, Commits)]) = {
-    val between: String = (
-      for {
-        from <- config.dateFrom
-        to   =  config.dateTo.getOrElse(DateTime.now.withTimeAtStartOfDay)
-      } yield {
-        val days = Days.daysBetween(from, to).getDays
-        s"for the $days days "
-      }
+  lazy val between: String = (
+    for {
+      from <- config.dateFrom
+      to = config.dateTo.getOrElse(DateTime.now.withTimeAtStartOfDay)
+    } yield {
+      val days = Days.daysBetween(from, to).getDays + 1 // account for inclusive dates
+      s"for the $days days "
+    }
     ).getOrElse("")
 
-    val dateRange = s"${ config.fromFormatted.map(x => s"from $x").mkString } ${ config.toFormatted.map(x => s"to $x").mkString }".trim
-    val dateStr = between + (if (dateRange.nonEmpty) dateRange else "for all time")
-
-    println(s"Summary of commits in ${ commitsByLanguageByRepo.size } project${ if (commitsByLanguageByRepo.size>1) "s" else "" } $dateStr")
+  private def report(commitsByLanguageByRepo: List[(Repo, Commits)]) = {
+    val summary: String = resultMessage(commitsByLanguageByRepo)
+    println(summary)
 
     if (config.subtotals) commitsByLanguageByRepo.foreach {
       case (repo, commits) =>
@@ -69,7 +67,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
           .combine(commitsByLanguageByRepo.map(_._2))
 
       if (grandTotal.value.isEmpty) s"No activity across ${ commitsByLanguageByRepo.size } projects." else {
-        val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects$between)" else ""
+        val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects)" else ""
 
         if (config.excelWorkbook.isDefined)
           config.excelWorkbook.foreach(_.addSheet(title = s"Subtotals By Language$projects", Commit.zero, contents = grandTotal.value))
@@ -77,5 +75,12 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
           println(grandTotal.asAsciiTable(title = s"Subtotals By Language$projects"))
       }
     }
+  }
+
+  private def resultMessage(commitsByLanguageByRepo: List[(Repo, Commits)]) = {
+    val dateRange = s"${ config.fromFormatted.map(x => s"from $x").mkString } ${ config.toFormatted.map(x => s"to $x").mkString }".trim
+    val dateStr = between + (if (dateRange.nonEmpty) dateRange + ", inclusive" else "for all time")
+    val summary = s"Commits in ${ commitsByLanguageByRepo.size } project${ if (commitsByLanguageByRepo.size != 1) "s" else "" } under ${ config.directory.getAbsolutePath } $dateStr"
+    summary
   }
 }

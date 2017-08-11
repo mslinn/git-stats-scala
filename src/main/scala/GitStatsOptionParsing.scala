@@ -38,7 +38,7 @@ trait GitStatsOptionParsing {
 
     opt[String]('f', "from").action { (x, c) =>
       c.copy(dateFrom = Some(new DateTime(x).withTimeAtStartOfDay))
-    }.text("First date to process, in yyyy-MM-dd format; default is no limit")
+    }.text("First date to process (inclusive), in yyyy-MM-dd format; default is no limit")
 
     opt[String]('i', "ignore").action { (x, c) =>
       val c2 = c.copy(ignoredFileTypes = (x.split(",").toList ::: c.ignoredFileTypes).distinct.sorted)
@@ -67,7 +67,7 @@ trait GitStatsOptionParsing {
 
     opt[String]('t', "to").action { (x, c) =>
       c.copy(dateTo = Some(new DateTime(x).withTimeAtStartOfDay))
-    }.text("Last date to process, in yyyy-MM-dd format; default is no limit")
+    }.text("Last date to process (inclusive), in yyyy-MM-dd format; default is no limit")
 
     opt[Unit]('O', "output").action { (_, c) =>
       c.copy(output = true)

@@ -18,10 +18,10 @@ object ConfigGitStats {
   }
 
   lazy val today: DateTime     = DateTime.now.withTimeAtStartOfDay
-  lazy val lastYear: DateTime  = today.minusDays(365)
+  lazy val lastYear: DateTime  = today.minusDays(365 - 1) // git log dates are inclusive
 
-  lazy val last90days: DateTime = today.minusDays(90)
-  lazy val last30days: DateTime = today.minusDays(30)
+  lazy val last90days: DateTime = today.minusDays(90 - 1) // git log dates are inclusive
+  lazy val last30days: DateTime = today.minusDays(30 - 1) // git log dates are inclusive
   lazy val lastMonth: DateTime = today.minusMonths(1)
 
   lazy val todayFormatted: String     = ConfigGitStats.fmt_yyyyMMdd.print(today)
@@ -35,7 +35,7 @@ object ConfigGitStats {
 
 /** Configuration value object for this app.
   * @param dateFrom If specified, earliest date to process commits, otherwise there is no lower limit
-  * @param dateTo If specified, latest date to process commits, otherewise there is no upper limit
+  * @param dateTo If specified, latest date to process commits, otherwise there is no upper limit
   * @param directoryName Top of git directory tree
   * @param excelFileName output to an Excel file with the given name instead of an UTF-8 table
   * @param output Show output of OS commands
