@@ -27,7 +27,7 @@ JAR=target/scala-`SCALA_VERSION`/git-stats-scala-assembly-$VERSION.jar
 
 # -j option forces rebuild of jar
 if [ "$1" == -j ] || [ ! -f $JAR ]; then
-  echo "Building the binary"
+  echo "Building $JAR"
   sbt assembly
 
   if [ "$1" == -j ]; then shift; fi
