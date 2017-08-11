@@ -1,10 +1,10 @@
 package com.micronautics.gitStats
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFSheet
 
 case class Commits(value: List[Commit])
                   (implicit config: ConfigGitStats){
-  def asAsciiTable(title: String): String = {
+  @inline def asAsciiTable(title: String): String = {
     val subTotals: List[List[String]] =
       value.filter(c => c.added!=0 || c.deleted!=0).map { commit =>
         commit.asRow()
@@ -13,13 +13,13 @@ case class Commits(value: List[Commit])
     AsciiWidgets.asciiTable(title, total.asRow(), subTotals: _*)
   }
 
-  def asExcelSheet(excelOutput: ExcelOutput, title: String): XSSFWorkbook = {
+  @inline def asExcelSheet(excelOutput: ExcelOutput, title: String): XSSFSheet = {
     val subTotals: List[List[String]] =
       value.filter(c => c.added!=0 || c.deleted!=0).map { commit =>
         commit.asRow()
       }
 
-    excelOutput.addSheet(title, total.asRow(), subTotals: _*)
+    excelOutput.addSheet(title, subTotals: _*)
   }
 
   def byLanguage: Commits =
@@ -37,13 +37,13 @@ case class Commits(value: List[Commit])
         .sorted
     )
 
-  def combine(others: List[Commits]): Commits =
+  @inline def combine(others: List[Commits]): Commits =
     Commits(this.value ::: others.flatMap(_.value))
       .byLanguage
 
-  def languageTotals: LanguageTotals = LanguageTotals(this)
+  @inline def languageTotals: LanguageTotals = LanguageTotals(this)
 
-  def total: Commit = value.fold(Commit.zero) {
+  @inline def total: Commit = value.fold(Commit.zero) {
     case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
   }.copy(language = Commit.languageTotal)
 }

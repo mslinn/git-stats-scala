@@ -20,7 +20,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
       } yield new Repo(file)
 
     /** Each [[Commit]] returned is actually a summary of related `Commit`s */
-    def commitsByLanguageFor(repo: Repo): Commits = {
+    @inline def commitsByLanguageFor(repo: Repo): Commits = {
       val repoCommits: Commits = try {
         repo.commitsByLanguage
       } catch {
@@ -41,7 +41,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
   lazy val between: String = (
     for {
       from <- config.dateFrom
-      to = config.dateTo.getOrElse(DateTime.now.withTimeAtStartOfDay)
+      to   =  config.dateTo.getOrElse(DateTime.now.withTimeAtStartOfDay)
     } yield {
       val days = Days.daysBetween(from, to).getDays + 1 // account for inclusive dates
       s"for the $days days "
@@ -56,7 +56,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
       case (repo, commits) =>
         if (commits.value.nonEmpty)
           if (config.excelWorkbook.isDefined)
-            config.excelWorkbook.foreach(_.addSheet(title=repo.dir.getAbsolutePath, total=Commit.zero, contents=commits.value))
+            config.excelWorkbook.foreach(_.addSheetOfCommits(title=repo.dir.getAbsolutePath, commits=commits.value))
           else
             println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
@@ -70,7 +70,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
         val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects)" else ""
 
         if (config.excelWorkbook.isDefined)
-          config.excelWorkbook.foreach(_.addSheet(title = s"Subtotals By Language$projects", Commit.zero, contents = grandTotal.value))
+          config.excelWorkbook.foreach(_.addSheetOfCommits(title = s"Subtotals By Language$projects", commits=grandTotal.value))
         else
           println(grandTotal.asAsciiTable(title = s"Subtotals By Language$projects"))
       }

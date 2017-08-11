@@ -105,7 +105,7 @@ object Commit {
     "xml"        -> "XML"
   )
 
-  def suffixedIsDefined(fileName: String): Boolean = {
+  @inline def suffixedIsDefined(fileName: String): Boolean = {
     val i = fileName.lastIndexOf(".")
     if (i<0) false else {
       val suffix = fileName.substring(i+1)
@@ -113,7 +113,7 @@ object Commit {
     }
   }
 
-  def suffix(fileName: String): String = {
+  @inline def suffix(fileName: String): String = {
     val i = fileName.lastIndexOf(".")
     if (i<0) unknownLanguage else {
       val suffix = fileName.substring(i+1)
@@ -129,7 +129,7 @@ object Commit {
   }
 }
 
-//TODO Calculate language from fileType. Currently we parse fileName twice: for language, then for fileType.
+//TODO Calculate language from fileType. Currently the fileName is parses twice: for language, then for fileType.
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage)
                  (implicit config: ConfigGitStats) {
   import com.micronautics.gitStats.Commit._
@@ -153,6 +153,9 @@ case class Commit(added: Int, deleted: Int, fileName: String="", language: Strin
     (if (showLanguage) List(language) else Nil) :::
       List(intFormat(added), intFormat(-deleted), intFormat(delta))
 
-  override def toString: String =
+  @inline def asExcelRow(showLanguage: Boolean = true): List[Any] =
+    (if (showLanguage) List(language) else Nil) ::: List(added, -deleted, delta)
+
+  @inline override def toString: String =
     s"$language: added ${ intFormat(added) } lines and deleted ${ intFormat(deleted) } lines, net ${ intFormat(delta) } lines"
 }
