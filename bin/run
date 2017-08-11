@@ -23,11 +23,10 @@ SCALA_VERSION() {
 
 VERSION="$( grep "version :=" build.sbt | cut -d' ' -f 3 | tr -d \" )"
 JAR=target/scala-`SCALA_VERSION`/git-stats-scala-assembly-$VERSION.jar
-
-echo $JAR
+#echo $JAR
 
 # -j option forces rebuild of jar
-if [ -z "$JAR" ] || [ "$1" == -j ]; then
+if [ "$1" == -j ] || [ ! -f $JAR ]; then
   echo "Building the binary"
   sbt assembly
 
