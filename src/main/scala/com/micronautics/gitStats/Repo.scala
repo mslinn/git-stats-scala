@@ -37,10 +37,8 @@ class Repo(val dir: File)
         .filterNot(_.ignoredPath)
     )
 
-  val languageTotals: LanguageTotals = commits.languageTotals
-  //TODO Instead of hidden println, format output ... @tashoyan I do not undertstand this comment
+  //TODO Instead of hidden println, format output ... @tashoyan I do not understand this comment
   if (config.verbose) println("")
 
-  /*TODO We can write: commits.byLanguage. Hence languageTotals and LanguageTotals are redundant.*/
-  def commitsByLanguage: Commits = languageTotals.asCommits
+  def commitsByLanguage: Commits = commits.byLanguage
 }

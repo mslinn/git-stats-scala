@@ -41,8 +41,6 @@ case class Commits(value: List[Commit])
     Commits(this.value ::: others.flatMap(_.value))
       .byLanguage
 
-  @inline def languageTotals: LanguageTotals = LanguageTotals(this)
-
   @inline def total: Commit = value.fold(Commit.zero) {
     case (acc, elem) => Commit(acc.added + elem.added, acc.deleted + elem.deleted)
   }.copy(language = Commit.languageTotal)
