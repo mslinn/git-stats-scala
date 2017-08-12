@@ -136,6 +136,12 @@
                           Commit
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Commits.html" title=""></a>
+                        <a href="Commits.html" title="">
+                          Commits
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
                         <a class="class" href="ConfigGitStats.html" title="Configuration value object for this app."></a>
                         <a href="ConfigGitStats.html" title="Configuration value object for this app.">
@@ -143,21 +149,15 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="Constructs$.html" title=""></a>
-                        <a href="Constructs$.html" title="">
-                          Constructs
+                        <a class="class" href="ExcelOutput.html" title="Only processes summary table"></a>
+                        <a href="ExcelOutput.html" title="Only processes summary table">
+                          ExcelOutput
                         </a>
                       </li><li class="current-entities indented3">
-                        <span class="separator"></span>
+                        <a class="object" href="LanguageTotals$.html" title=""></a>
                         <a class="class" href="LanguageTotals.html" title=""></a>
                         <a href="LanguageTotals.html" title="">
                           LanguageTotals
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="Output$.html" title=""></a>
-                        <a href="Output$.html" title="">
-                          Output
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -265,7 +265,25 @@
       <span class="symbol">
         <a title="" href="Commit.html">
               <span class="name">Commit</span>
-            </a><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknown</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknownLanguage</a></span></span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.Commits" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CommitsextendsProductwithSerializable"></a><a id="Commits:Commits"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#CommitsextendsProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Commits.html">
+              <span class="name">Commits</span>
+            </a><span class="params">(<span name="value">value: <span class="extype" name="scala.List">List</span>[<a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -283,11 +301,29 @@
       <span class="symbol">
         <a title="Configuration value object for this app." href="ConfigGitStats.html">
               <span class="name">ConfigGitStats</span>
-            </a><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+            </a><span class="params">(<span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="excelFileName">excelFileName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="output">output: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="subtotals">subtotals: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Configuration value object for this app.</p><div class="fullcomment"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl></div>
-    </li><li name="com.micronautics.gitStats.LanguageTotals" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <p class="shortcomment cmt">Configuration value object for this app.</p><div class="fullcomment"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherwise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">excelFileName</dt><dd class="cmt"><p>output to an Excel file with the given name instead of an UTF-8 table</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd><dt class="param">output</dt><dd class="cmt"><p>Show output of OS commands</p></dd><dt class="param">subtotals</dt><dd class="cmt"><p>Set to see per-repo statistics as well as the grand totals</p></dd></dl></div>
+    </li><li name="com.micronautics.gitStats.ExcelOutput" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExcelOutputextendsAnyRef"></a><a id="ExcelOutput:ExcelOutput"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#ExcelOutputextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Only processes summary table" href="ExcelOutput.html">
+              <span class="name">ExcelOutput</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Only processes summary table</p>
+    </li><li name="com.micronautics.gitStats.LanguageTotals" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LanguageTotalsextendsAnyRef"></a><a id="LanguageTotals:LanguageTotals"></a>
       <span class="permalink">
       <a href="../../../com/micronautics/gitStats/index.html#LanguageTotalsextendsAnyRef" title="Permalink">
@@ -304,7 +340,7 @@
             </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+      
     </li><li name="com.micronautics.gitStats.Repo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RepoextendsAnyRef"></a><a id="Repo:Repo"></a>
       <span class="permalink">
@@ -350,9 +386,9 @@
               <h3>Value Members</h3>
               <ol>
                 <li name="com.micronautics.gitStats#getOutputFrom" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getOutputFrom(cwd:java.io.File,cmd:String*):String"></a><a id="getOutputFrom(File,String*):String"></a>
+      <a id="getOutputFrom(cwd:java.io.File,cmd:String*)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):String"></a><a id="getOutputFrom(File,String*)(ConfigGitStats):String"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#getOutputFrom(cwd:java.io.File,cmd:String*):String" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#getOutputFrom(cwd:java.io.File,cmd:String*)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -361,7 +397,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getOutputFrom</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">getOutputFrom</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -385,9 +421,9 @@
       
       
     </li><li name="com.micronautics.gitStats#gitProjectsUnder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="gitProjectsUnder(file:java.io.File):List[java.io.File]"></a><a id="gitProjectsUnder(File):List[File]"></a>
+      <a id="gitProjectsUnder(file:java.io.File)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):List[java.io.File]"></a><a id="gitProjectsUnder(File)(ConfigGitStats):List[File]"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#gitProjectsUnder(file:java.io.File):List[java.io.File]" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#gitProjectsUnder(file:java.io.File)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):List[java.io.File]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -396,7 +432,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">gitProjectsUnder</span><span class="params">(<span name="file">file: <span class="extype" name="java.io.File">File</span> = <span class="symbol">new File(sys.props(&quot;user.dir&quot;))</span></span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="java.io.File">File</span>]</span>
+        <span class="name">gitProjectsUnder</span><span class="params">(<span name="file">file: <span class="extype" name="java.io.File">File</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="java.io.File">File</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Handles special case where file points to a git directory, as well os a directory of git directories</p><div class="fullcomment"><div class="comment cmt"><p>Handles special case where file points to a git directory, as well os a directory of git directories</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>List[File] where each item is the root of a git repo's directory tree</p></dd></dl></div>
@@ -449,9 +485,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="com.micronautics.gitStats#run" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="run(cwd:java.io.File,cmd:String*):scala.sys.process.ProcessBuilder"></a><a id="run(File,String*):ProcessBuilder"></a>
+      <a id="run(cwd:java.io.File,cmd:String*)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):scala.sys.process.ProcessBuilder"></a><a id="run(File,String*)(ConfigGitStats):ProcessBuilder"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#run(cwd:java.io.File,cmd:String*):scala.sys.process.ProcessBuilder" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#run(cwd:java.io.File,cmd:String*)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):scala.sys.process.ProcessBuilder" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -460,7 +496,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">run</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.sys.process.ProcessBuilder">ProcessBuilder</span></span>
+        <span class="name">run</span><span class="params">(<span name="cwd">cwd: <span class="extype" name="java.io.File">File</span></span>, <span name="cmd">cmd: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result">: <span class="extype" name="scala.sys.process.ProcessBuilder">ProcessBuilder</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -556,10 +592,10 @@
       </span>
       
       <p class="shortcomment cmt"></p>
-    </li><li name="com.micronautics.gitStats.Constructs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Constructs"></a><a id="Constructs:Constructs"></a>
+    </li><li name="com.micronautics.gitStats.LanguageTotals" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LanguageTotals"></a><a id="LanguageTotals:LanguageTotals"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#Constructs" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/index.html#LanguageTotals" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -568,30 +604,12 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Constructs$.html">
-              <span class="name">Constructs</span>
+        <a title="" href="LanguageTotals$.html">
+              <span class="name">LanguageTotals</span>
             </a>
       </span>
       
-      
-    </li><li name="com.micronautics.gitStats.Output" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Output"></a><a id="Output:Output"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/index.html#Output" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="Output$.html">
-              <span class="name">Output</span>
-            </a>
-      </span>
-      
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="com.micronautics.gitStats.RichFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RichFile"></a><a id="RichFile:gitStats.RichFile"></a>
       <span class="permalink">

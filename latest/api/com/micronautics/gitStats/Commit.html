@@ -138,6 +138,12 @@
                           Commit
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Commits.html" title=""></a>
+                        <a href="Commits.html" title="">
+                          Commits
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
                         <a class="class" href="ConfigGitStats.html" title="Configuration value object for this app."></a>
                         <a href="ConfigGitStats.html" title="Configuration value object for this app.">
@@ -145,21 +151,15 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="Constructs$.html" title=""></a>
-                        <a href="Constructs$.html" title="">
-                          Constructs
+                        <a class="class" href="ExcelOutput.html" title="Only processes summary table"></a>
+                        <a href="ExcelOutput.html" title="Only processes summary table">
+                          ExcelOutput
                         </a>
                       </li><li class="current-entities indented3">
-                        <span class="separator"></span>
+                        <a class="object" href="LanguageTotals$.html" title=""></a>
                         <a class="class" href="LanguageTotals.html" title=""></a>
                         <a href="LanguageTotals.html" title="">
                           LanguageTotals
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="Output$.html" title=""></a>
-                        <a href="Output$.html" title="">
-                          Output
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -198,7 +198,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Commit</span><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknown</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Commit</span><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknownLanguage</a></span></span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -254,9 +254,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.micronautics.gitStats.Commit#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(added:Int,deleted:Int,fileName:String,language:String):com.micronautics.gitStats.Commit"></a><a id="&lt;init&gt;:Commit"></a>
+      <a id="&lt;init&gt;(added:Int,deleted:Int,fileName:String,language:String)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.Commit"></a><a id="&lt;init&gt;:Commit"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Commit.html#&lt;init&gt;(added:Int,deleted:Int,fileName:String,language:String):com.micronautics.gitStats.Commit" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/Commit.html#&lt;init&gt;(added:Int,deleted:Int,fileName:String,language:String)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.Commit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -265,7 +265,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Commit</span><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknown</a></span></span></span>)</span>
+        <span class="name">Commit</span><span class="params">(<span name="added">added: <span class="extype" name="scala.Int">Int</span></span>, <span name="deleted">deleted: <span class="extype" name="scala.Int">Int</span></span>, <span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="language">language: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Commit$.html">Commit.unknownLanguage</a></span></span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span>
       </span>
       
       
@@ -343,6 +343,25 @@
       </span>
       
       
+    </li><li name="com.micronautics.gitStats.Commit#asExcelRow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asExcelRow(showLanguage:Boolean):List[Any]"></a><a id="asExcelRow(Boolean):List[Any]"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Commit.html#asExcelRow(showLanguage:Boolean):List[Any]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asExcelRow</span><span class="params">(<span name="showLanguage">showLanguage: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -359,6 +378,25 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.micronautics.gitStats.Commit#asRow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asRow(showLanguage:Boolean):List[String]"></a><a id="asRow(Boolean):List[String]"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Commit.html#asRow(showLanguage:Boolean):List[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asRow</span><span class="params">(<span name="showLanguage">showLanguage: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -515,6 +553,38 @@
       </span>
       
       
+    </li><li name="com.micronautics.gitStats.Commit#ignoredFiletype" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ignoredFiletype:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Commit.html#ignoredFiletype:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ignoredFiletype</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.Commit#ignoredPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ignoredPath:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Commit.html#ignoredPath:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ignoredPath</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -544,22 +614,6 @@
       </span>
       <span class="symbol">
         <span class="name">language</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      
-      
-    </li><li name="com.micronautics.gitStats.Commit#lastFilePath" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="lastFilePath:String"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Commit.html#lastFilePath:String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">lazy val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">lastFilePath</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       
@@ -611,25 +665,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.micronautics.gitStats.Commit#summarize" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="summarize(userName:String,repoName:String,finalTotal:Boolean,displayLanguageInfo:Boolean):String"></a><a id="summarize(String,String,Boolean,Boolean):String"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Commit.html#summarize(userName:String,repoName:String,finalTotal:Boolean,displayLanguageInfo:Boolean):String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">summarize</span><span class="params">(<span name="userName">userName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repoName">repoName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="finalTotal">finalTotal: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="displayLanguageInfo">displayLanguageInfo: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@inline</span><span class="args">()</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -661,7 +696,10 @@
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.micronautics.gitStats.Commit">Commit</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.micronautics.gitStats.Commit">Commit</a> → AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@inline</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">

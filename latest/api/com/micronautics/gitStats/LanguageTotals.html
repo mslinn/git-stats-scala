@@ -138,6 +138,12 @@
                           Commit
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Commits.html" title=""></a>
+                        <a href="Commits.html" title="">
+                          Commits
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
                         <a class="class" href="ConfigGitStats.html" title="Configuration value object for this app."></a>
                         <a href="ConfigGitStats.html" title="Configuration value object for this app.">
@@ -145,21 +151,15 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="Constructs$.html" title=""></a>
-                        <a href="Constructs$.html" title="">
-                          Constructs
+                        <a class="class" href="ExcelOutput.html" title="Only processes summary table"></a>
+                        <a href="ExcelOutput.html" title="Only processes summary table">
+                          ExcelOutput
                         </a>
                       </li><li class="current-entities indented3">
-                        <span class="separator"></span>
+                        <a class="object" href="LanguageTotals$.html" title=""></a>
                         <a class="class" href="" title=""></a>
                         <a href="" title="">
                           LanguageTotals
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="Output$.html" title=""></a>
-                        <a href="Output$.html" title="">
-                          Output
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -180,14 +180,16 @@
           <div id="content">
             <body class="class type">
       <div id="definition">
-        <div class="big-circle class">c</div>
+        <div class="big-circle class-companion-object">c</div>
         <p id="owner"><a href="../../index.html" class="extype" name="com">com</a>.<a href="../index.html" class="extype" name="com.micronautics">micronautics</a>.<a href="index.html" class="extype" name="com.micronautics.gitStats">gitStats</a></p>
         <h1>LanguageTotals<span class="permalink">
       <a href="../../../com/micronautics/gitStats/LanguageTotals.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
-        <h3><span class="morelinks"></span></h3>
+        <h3><span class="morelinks"><div>
+            Companion <a href="LanguageTotals$.html" title="See companion object">object LanguageTotals</a>
+          </div></span></h3>
       </div>
 
       <h4 id="signature" class="signature">
@@ -201,7 +203,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -252,9 +254,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.micronautics.gitStats.LanguageTotals#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(map:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]):com.micronautics.gitStats.LanguageTotals"></a><a id="&lt;init&gt;:LanguageTotals"></a>
+      <a id="&lt;init&gt;(ltValue:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit])(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.LanguageTotals"></a><a id="&lt;init&gt;:LanguageTotals"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#&lt;init&gt;(map:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]):com.micronautics.gitStats.LanguageTotals" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#&lt;init&gt;(ltValue:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit])(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.LanguageTotals" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -263,7 +265,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">LanguageTotals</span><span class="params">(<span name="map">map: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>] = <span class="defval" name='<span class="name"><a href="Commit$.html">mutable.Map.empty.withDefaultValue(Commit.zero)</a></span>'>...</span></span>)</span>
+        <span class="name">LanguageTotals</span><span class="params">(<span name="ltValue">ltValue: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>] = <span class="defval" name='<span class="name"><a href="Commit$.html">mutable.Map.empty.withDefaultValue(Commit.zero)</a></span>'>...</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span>
       </span>
       
       
@@ -325,6 +327,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.micronautics.gitStats.LanguageTotals#asCommits" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="asCommits:com.micronautics.gitStats.Commits"></a><a id="asCommits:Commits"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#asCommits:com.micronautics.gitStats.Commits" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asCommits</span><span class="result">: <a href="Commits.html" class="extype" name="com.micronautics.gitStats.Commits">Commits</a></span>
+      </span>
+      
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -364,9 +382,9 @@
               
         </dd></dl></div>
     </li><li name="com.micronautics.gitStats.LanguageTotals#combine" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="combine(commit:com.micronautics.gitStats.Commit):Unit"></a><a id="combine(Commit):Unit"></a>
+      <a id="combine(commit:com.micronautics.gitStats.Commit)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):Unit"></a><a id="combine(Commit)(ConfigGitStats):Unit"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#combine(commit:com.micronautics.gitStats.Commit):Unit" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#combine(commit:com.micronautics.gitStats.Commit)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -375,7 +393,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">combine</span><span class="params">(<span name="commit">commit: <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">combine</span><span class="params">(<span name="commit">commit: <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
       
@@ -481,10 +499,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.micronautics.gitStats.LanguageTotals#map" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="map:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]"></a><a id="map:Map[String,Commit]"></a>
+    </li><li name="com.micronautics.gitStats.LanguageTotals#ltValue" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ltValue:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]"></a><a id="ltValue:Map[String,Commit]"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#map:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/LanguageTotals.html#ltValue:scala.collection.mutable.Map[String,com.micronautics.gitStats.Commit]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -493,7 +511,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">map</span><span class="result">: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>]</span>
+        <span class="name">ltValue</span><span class="result">: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>]</span>
       </span>
       
       

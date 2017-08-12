@@ -138,6 +138,12 @@
                           Commit
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Commits.html" title=""></a>
+                        <a href="Commits.html" title="">
+                          Commits
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
                         <a class="class" href="ConfigGitStats.html" title="Configuration value object for this app."></a>
                         <a href="ConfigGitStats.html" title="Configuration value object for this app.">
@@ -145,21 +151,15 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="Constructs$.html" title=""></a>
-                        <a href="Constructs$.html" title="">
-                          Constructs
+                        <a class="class" href="ExcelOutput.html" title="Only processes summary table"></a>
+                        <a href="ExcelOutput.html" title="Only processes summary table">
+                          ExcelOutput
                         </a>
                       </li><li class="current-entities indented3">
-                        <span class="separator"></span>
+                        <a class="object" href="LanguageTotals$.html" title=""></a>
                         <a class="class" href="LanguageTotals.html" title=""></a>
                         <a href="LanguageTotals.html" title="">
                           LanguageTotals
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="Output$.html" title=""></a>
-                        <a href="Output$.html" title="">
-                          Output
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -252,9 +252,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.micronautics.gitStats.Repo#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(config:com.micronautics.gitStats.ConfigGitStats,dir:java.io.File):com.micronautics.gitStats.Repo"></a><a id="&lt;init&gt;:Repo"></a>
+      <a id="&lt;init&gt;(dir:java.io.File)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.Repo"></a><a id="&lt;init&gt;:Repo"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Repo.html#&lt;init&gt;(config:com.micronautics.gitStats.ConfigGitStats,dir:java.io.File):com.micronautics.gitStats.Repo" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/Repo.html#&lt;init&gt;(dir:java.io.File)(implicitconfig:com.micronautics.gitStats.ConfigGitStats):com.micronautics.gitStats.Repo" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -263,7 +263,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Repo</span><span class="params">(<span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>, <span name="dir">dir: <span class="extype" name="java.io.File">File</span></span>)</span>
+        <span class="name">Repo</span><span class="params">(<span name="dir">dir: <span class="extype" name="java.io.File">File</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="config">config: <a href="ConfigGitStats.html" class="extype" name="com.micronautics.gitStats.ConfigGitStats">ConfigGitStats</a></span>)</span>
       </span>
       
       
@@ -341,6 +341,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.micronautics.gitStats.Repo#author" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="author:String"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Repo.html#author:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">author</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.Repo#authorFullName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="authorFullName:String"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/Repo.html#authorFullName:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">authorFullName</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -364,9 +396,9 @@
               
         </dd></dl></div>
     </li><li name="com.micronautics.gitStats.Repo#commits" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="commits:List[com.micronautics.gitStats.Commit]"></a><a id="commits:List[Commit]"></a>
+      <a id="commits:com.micronautics.gitStats.Commits"></a><a id="commits:Commits"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Repo.html#commits:List[com.micronautics.gitStats.Commit]" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/Repo.html#commits:com.micronautics.gitStats.Commits" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -375,23 +407,23 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">commits</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>]</span>
+        <span class="name">commits</span><span class="result">: <a href="Commits.html" class="extype" name="com.micronautics.gitStats.Commits">Commits</a></span>
       </span>
       
       
-    </li><li name="com.micronautics.gitStats.Repo#detailCommits" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="detailCommits:List[com.micronautics.gitStats.Commit]"></a><a id="detailCommits:List[Commit]"></a>
+    </li><li name="com.micronautics.gitStats.Repo#commitsByLanguage" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="commitsByLanguage:com.micronautics.gitStats.Commits"></a><a id="commitsByLanguage:Commits"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Repo.html#detailCommits:List[com.micronautics.gitStats.Commit]" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/Repo.html#commitsByLanguage:com.micronautics.gitStats.Commits" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">detailCommits</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a>]</span>
+        <span class="name">commitsByLanguage</span><span class="result">: <a href="Commits.html" class="extype" name="com.micronautics.gitStats.Commits">Commits</a></span>
       </span>
       
       
@@ -529,22 +561,6 @@
       </span>
       
       
-    </li><li name="com.micronautics.gitStats.Repo#grandTotalCommit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="grandTotalCommit:com.micronautics.gitStats.Commit"></a><a id="grandTotalCommit:Commit"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Repo.html#grandTotalCommit:com.micronautics.gitStats.Commit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">grandTotalCommit</span><span class="result">: <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a></span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -641,22 +657,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.micronautics.gitStats.Repo#process" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="process:com.micronautics.gitStats.Commit"></a><a id="process:Commit"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/Repo.html#process:com.micronautics.gitStats.Commit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">process</span><span class="result">: <a href="Commit.html" class="extype" name="com.micronautics.gitStats.Commit">Commit</a></span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">

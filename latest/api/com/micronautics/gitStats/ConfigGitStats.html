@@ -138,6 +138,12 @@
                           Commit
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Commits.html" title=""></a>
+                        <a href="Commits.html" title="">
+                          Commits
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="ConfigGitStats$.html" title=""></a>
                         <a class="class" href="" title="Configuration value object for this app."></a>
                         <a href="" title="Configuration value object for this app.">
@@ -145,21 +151,15 @@
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="object" href="Constructs$.html" title=""></a>
-                        <a href="Constructs$.html" title="">
-                          Constructs
+                        <a class="class" href="ExcelOutput.html" title="Only processes summary table"></a>
+                        <a href="ExcelOutput.html" title="Only processes summary table">
+                          ExcelOutput
                         </a>
                       </li><li class="current-entities indented3">
-                        <span class="separator"></span>
+                        <a class="object" href="LanguageTotals$.html" title=""></a>
                         <a class="class" href="LanguageTotals.html" title=""></a>
                         <a href="LanguageTotals.html" title="">
                           LanguageTotals
-                        </a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="Output$.html" title=""></a>
-                        <a href="Output$.html" title="">
-                          Output
                         </a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
@@ -198,12 +198,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ConfigGitStats</span><span class="params">(<span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="excelFileName">excelFileName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="output">output: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="subtotals">subtotals: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Configuration value object for this app.</p></div><dl class="paramcmts block"><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherwise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">excelFileName</dt><dd class="cmt"><p>output to an Excel file with the given name instead of an UTF-8 table</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd><dt class="param">output</dt><dd class="cmt"><p>Show output of OS commands</p></dd><dt class="param">subtotals</dt><dd class="cmt"><p>Set to see per-repo statistics as well as the grand totals</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -254,9 +254,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.micronautics.gitStats.ConfigGitStats#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean):com.micronautics.gitStats.ConfigGitStats"></a><a id="&lt;init&gt;:ConfigGitStats"></a>
+      <a id="&lt;init&gt;(dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,excelFileName:Option[String],verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean,output:Boolean,subtotals:Boolean):com.micronautics.gitStats.ConfigGitStats"></a><a id="&lt;init&gt;:ConfigGitStats"></a>
       <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#&lt;init&gt;(author:String,dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean):com.micronautics.gitStats.ConfigGitStats" title="Permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#&lt;init&gt;(dateFrom:Option[com.github.nscala_time.time.Imports.DateTime],dateTo:Option[com.github.nscala_time.time.Imports.DateTime],directoryName:String,excelFileName:Option[String],verbose:Boolean,ignoredFileTypes:List[String],ignoredSubDirectories:List[String],onlyKnown:Boolean,output:Boolean,subtotals:Boolean):com.micronautics.gitStats.ConfigGitStats" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -265,10 +265,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ConfigGitStats</span><span class="params">(<span name="author">author: <span class="extype" name="scala.Predef.String">String</span> = <span class="defval" name='<span class="name"><a href="ConfigGitStats$.html">ConfigGitStats.gitUserName(new File(&quot;.&quot;).getAbsoluteFile)</a></span>'>...</span></span>, <span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span>
+        <span class="name">ConfigGitStats</span><span class="params">(<span name="dateFrom">dateFrom: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="dateTo">dateTo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.github.nscala_time.time.TypeImports.DateTime">github.nscala_time.time.Imports.DateTime</span>] = <span class="symbol">None</span></span>, <span name="directoryName">directoryName: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">sys.props(&quot;user.dir&quot;)</span></span>, <span name="excelFileName">excelFileName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="verbose">verbose: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="ignoredFileTypes">ignoredFileTypes: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="defval" name="List(&quot;exe&quot;, &quot;gif&quot;, &quot;gz&quot;, &quot;jpg&quot;, &quot;log&quot;, &quot;png&quot;, &quot;pdf&quot;, &quot;tar&quot;, &quot;zip&quot;).sorted">...</span></span>, <span name="ignoredSubDirectories">ignoredSubDirectories: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">List(&quot;node_modules&quot;).sorted</span></span>, <span name="onlyKnown">onlyKnown: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="output">output: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="subtotals">subtotals: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">author</dt><dd class="cmt"><p>picked up from the git directories automatically; usually no need to specify this</p></dd><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherewise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">verbose</dt><dd class="cmt"><p>Set it to see per-repo statistics as well as the grand totals</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">dateFrom</dt><dd class="cmt"><p>If specified, earliest date to process commits, otherwise there is no lower limit</p></dd><dt class="param">dateTo</dt><dd class="cmt"><p>If specified, latest date to process commits, otherwise there is no upper limit</p></dd><dt class="param">directoryName</dt><dd class="cmt"><p>Top of git directory tree</p></dd><dt class="param">excelFileName</dt><dd class="cmt"><p>output to an Excel file with the given name instead of an UTF-8 table</p></dd><dt class="param">ignoredFileTypes</dt><dd class="cmt"><p>List of file types to ignore when processing the git commit log</p></dd><dt class="param">ignoredSubDirectories</dt><dd class="cmt"><p>List of subdirectories to ignore when processing the git commit log</p></dd><dt class="param">onlyKnown</dt><dd class="cmt"><p>If a file type is not hard-coded in the filetype match statement, do not process it.</p></dd><dt class="param">output</dt><dd class="cmt"><p>Show output of OS commands</p></dd><dt class="param">subtotals</dt><dd class="cmt"><p>Set to see per-repo statistics as well as the grand totals</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -343,38 +343,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.micronautics.gitStats.ConfigGitStats#author" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="author:String"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#author:String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">author</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      
-      
-    </li><li name="com.micronautics.gitStats.ConfigGitStats#authorFullName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="authorFullName:String"></a>
-      <span class="permalink">
-      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#authorFullName:String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">lazy val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">authorFullName</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -477,6 +445,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.micronautics.gitStats.ConfigGitStats#excelFileName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="excelFileName:Option[String]"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#excelFileName:Option[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">excelFileName</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.ConfigGitStats#excelWorkbook" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="excelWorkbook:Option[com.micronautics.gitStats.ExcelOutput]"></a><a id="excelWorkbook:Option[ExcelOutput]"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#excelWorkbook:Option[com.micronautics.gitStats.ExcelOutput]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">lazy val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">excelWorkbook</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="ExcelOutput.html" class="extype" name="com.micronautics.gitStats.ExcelOutput">ExcelOutput</a>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
@@ -656,6 +656,38 @@
       </span>
       <span class="symbol">
         <span class="name">onlyKnown</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.ConfigGitStats#output" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="output:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#output:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">output</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      
+    </li><li name="com.micronautics.gitStats.ConfigGitStats#subtotals" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="subtotals:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../com/micronautics/gitStats/ConfigGitStats.html#subtotals:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">subtotals</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       
