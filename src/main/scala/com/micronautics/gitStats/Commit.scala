@@ -4,7 +4,7 @@ import java.text.NumberFormat
 
 object Commit {
   implicit val defaultCommitOrdering: Ordering[Commit] = Ordering.by { commit: Commit =>
-    (-commit.delta, -commit.added, -commit.delta)
+    (-commit.delta, -commit.added, -commit.deleted)
   }
 
   lazy val unknownLanguage = "Unknown"
