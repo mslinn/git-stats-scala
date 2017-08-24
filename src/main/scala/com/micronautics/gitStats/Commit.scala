@@ -129,7 +129,7 @@ object Commit {
   }
 }
 
-//TODO Calculate language from fileType. Currently the fileName is parses twice: for language, then for fileType.
+//TODO Calculate language from fileType. Currently the fileName is parsed twice: for language, then for fileType.
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage)
                  (implicit config: ConfigGitStats) {
   import com.micronautics.gitStats.Commit._
