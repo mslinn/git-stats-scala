@@ -25,6 +25,8 @@ package object gitStats {
 
   lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
 
+  lazy val svnProgram: String = if (isWindows) "svn.exe" else "svn"
+
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
   def gitProjectsUnder(file: File)
