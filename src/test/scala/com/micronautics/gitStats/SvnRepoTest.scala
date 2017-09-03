@@ -10,6 +10,12 @@ class SvnRepoTest extends FunSuite {
     assert(res === Set(), "User names")
   }
 
+  test("getUserName - garbage svn auth output") {
+    val res = getUserNames("""Some
+                             |garbage""".stripMargin)
+    assert(res === Set(), "User names")
+  }
+
   test("getUserName - one entry in svn auth output") {
     val svnAuthOutput = """------------------------------------------------------------------------
                           |Credential kind: svn.simple
