@@ -1,22 +1,22 @@
 package com.micronautics.gitStats
 
 import org.scalatest.FunSuite
-import SvnRepo._
+import SvnUsers._
 
-class SvnRepoTest extends FunSuite {
+class SvnUsersTest extends FunSuite {
 
-  test("getUserName - empty svn auth output") {
-    val res = getUserNames("")
+  test("parseUserNames - empty svn auth output") {
+    val res = parseUserNames("")
     assert(res === Set(), "User names")
   }
 
-  test("getUserName - garbage svn auth output") {
-    val res = getUserNames("""Some
+  test("parseUserNames - garbage svn auth output") {
+    val res = parseUserNames("""Some
                              |garbage""".stripMargin)
     assert(res === Set(), "User names")
   }
 
-  test("getUserName - one entry in svn auth output") {
+  test("parseUserNames - one entry in svn auth output") {
     val svnAuthOutput = """------------------------------------------------------------------------
                           |Credential kind: svn.simple
                           |Authentication realm: <https://svn.host.domain.com:18580> Corporate Authorization Realm
@@ -24,11 +24,11 @@ class SvnRepoTest extends FunSuite {
                           |Username: firstname.lastname
                           |
                           |Credentials cache in '/home/user/.subversion' contains 1 credentials""".stripMargin
-    val res = getUserNames(svnAuthOutput)
+    val res = parseUserNames(svnAuthOutput)
     assert(res === Set("firstname.lastname"), "User names")
   }
 
-  test("getUserName - two identical entries in svn auth output") {
+  test("parseUserNames - two identical entries in svn auth output") {
     val svnAuthOutput = """------------------------------------------------------------------------
                           |Credential kind: svn.simple
                           |Authentication realm: <https://svn.host.domain.com:18580> Corporate Authorization Realm
@@ -42,11 +42,11 @@ class SvnRepoTest extends FunSuite {
                           |Username: firstname.lastname
                           |
                           |Credentials cache in '/home/user/.subversion' contains 2 credentials""".stripMargin
-    val res = getUserNames(svnAuthOutput)
+    val res = parseUserNames(svnAuthOutput)
     assert(res === Set("firstname.lastname"), "User names")
   }
 
-  test("getUserName - two different entries in svn auth output") {
+  test("parseUserNames - two different entries in svn auth output") {
     val svnAuthOutput = """------------------------------------------------------------------------
                           |Credential kind: svn.simple
                           |Authentication realm: <https://svn.host.domain.com:18580> Corporate Authorization Realm
@@ -60,7 +60,7 @@ class SvnRepoTest extends FunSuite {
                           |Username: firstname2.lastname2
                           |
                           |Credentials cache in '/home/user/.subversion' contains 2 credentials""".stripMargin
-    val res = getUserNames(svnAuthOutput)
+    val res = parseUserNames(svnAuthOutput)
     assert(res === Set("firstname1.lastname1", "firstname2.lastname2"), "User names")
   }
 }
