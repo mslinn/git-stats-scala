@@ -13,13 +13,19 @@ case class Version(major: String, minors: String*) extends Ordered[Version] {
   require(major != null, "Major version must not be null")
   require(!major.isEmpty, "Major version must not be empty string")
 
+  private val minorsList = minors.toList
+
   override def compare(that: Version): Int = {
-    comparePerComponent(this.major :: this.minors.toList,
-      that.major :: that.minors.toList)
+    comparePerComponent(this.major :: this.minorsList,
+      that.major :: that.minorsList)
   }
+
+  override def toString: String = (major :: minorsList).mkString(versionSeparator.toString)
 }
 
 object Version {
+
+  val versionSeparator: Char = '.'
 
   def comparePerComponent(versions1: List[String], versions2: List[String]): Int = {
     val versionPairs = versions1.zipAll(versions2, "0", "0")
@@ -33,7 +39,7 @@ object Version {
     require(str != null, "String must not be null")
     require(!str.isEmpty, "String must not be empty")
 
-    val components = str.split('.')
+    val components = str.split(versionSeparator)
     Version(components.head, components.tail: _*)
   }
 }
