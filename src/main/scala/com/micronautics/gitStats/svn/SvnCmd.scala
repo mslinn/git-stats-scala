@@ -2,8 +2,8 @@ package com.micronautics.gitStats.svn
 
 import java.io.File
 
-import com.micronautics.gitStats.{Cmd, ConfigGitStats, Version}
 import com.micronautics.gitStats.svn.SvnCmd._
+import com.micronautics.gitStats.{Cmd, ConfigGitStats, Version}
 
 class SvnCmd(implicit config: ConfigGitStats) {
 
