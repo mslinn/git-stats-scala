@@ -1,7 +1,7 @@
-package com.micronautics.gitStats
+package com.micronautics.gitStats.svn
 
+import com.micronautics.gitStats.svn.SvnUsers._
 import org.scalatest.FunSuite
-import SvnUsers._
 
 class SvnUsersTest extends FunSuite {
 

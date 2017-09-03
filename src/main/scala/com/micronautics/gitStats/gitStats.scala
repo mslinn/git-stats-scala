@@ -9,6 +9,7 @@ import scala.sys.process._
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
+  @deprecated("TODO Use Cmd object instead")
   @inline def getOutputFrom(cwd: File, cmd: String*)
                            (implicit config: ConfigGitStats): String =
     try {
@@ -25,8 +26,6 @@ package object gitStats {
 
   lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
 
-  lazy val svnProgram: String = if (isWindows) "svn.exe" else "svn"
-
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
   def gitProjectsUnder(file: File)
@@ -42,10 +41,13 @@ package object gitStats {
         childDirs.flatMap(gitProjectsUnder)
   }
 
+  @deprecated("TODO Use Cmd object instead")
   protected lazy val os: String = sys.props("os.name").toLowerCase
 
+  @deprecated("TODO Use Cmd object instead")
   lazy val isWindows: Boolean = os.indexOf("win") >= 0
 
+  @deprecated("TODO Use Cmd object instead")
   protected def which(program: String): Option[Path] = {
     val path = if (isWindows) sys.env("Path") else sys.env("PATH")
     path
@@ -55,12 +57,14 @@ package object gitStats {
       .map(_.resolve(program))
   }
 
+  @deprecated("TODO Use Cmd object instead")
   @inline protected def whichOrThrow(program: String): Path =
     which(program) match {
       case None => throw new Exception(program + " not found on path")
       case Some(programPath) => programPath
     }
 
+  @deprecated("TODO Use Cmd object instead")
   @inline def run(cwd: File, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
     if (config.verbose) println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))

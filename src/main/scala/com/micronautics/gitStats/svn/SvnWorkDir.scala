@@ -1,6 +1,8 @@
-package com.micronautics.gitStats
+package com.micronautics.gitStats.svn
 
 import java.io.File
+
+import com.micronautics.gitStats.ConfigGitStats
 
 class SvnWorkDir(val dir: File)
                 (implicit config: ConfigGitStats)  {
