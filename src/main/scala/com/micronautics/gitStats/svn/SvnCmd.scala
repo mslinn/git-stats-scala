@@ -2,16 +2,16 @@ package com.micronautics.gitStats.svn
 
 import java.io.File
 
-import com.micronautics.gitStats.{Cmd, ConfigGitStats}
+import com.micronautics.gitStats.{Cmd, ConfigGitStats, Version}
 import com.micronautics.gitStats.svn.SvnCmd._
 
 class SvnCmd(implicit config: ConfigGitStats) {
 
-  lazy val svnVersion: Option[String] = detectSvnVersion
+  lazy val svnVersion: Option[Version] = detectSvnVersion
 
-  protected def detectSvnVersion: Option[String] = {
+  protected def detectSvnVersion: Option[Version] = {
     val svnVersionOutput = Cmd.getOutputFrom(new File(sys.props("user.dir")), svnProgram, "--version")
-    parseSvnVersion(svnVersionOutput)
+    parseSvnVersion(svnVersionOutput).map(Version.parse)
   }
 }
 
