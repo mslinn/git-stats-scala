@@ -17,6 +17,8 @@ class SvnCmd(implicit config: ConfigGitStats) {
 
 object SvnCmd {
 
+  //TODO Non-interactive or let user enter his credentials if needed?
+//  lazy val svnProgram: String = List(if (Cmd.isWindows) "svn.exe" else "svn", "--non-interactive").mkString(" ")
   lazy val svnProgram: String = if (Cmd.isWindows) "svn.exe" else "svn"
 
   private val versionPattern = "\\s+version\\s+(\\S+)".r

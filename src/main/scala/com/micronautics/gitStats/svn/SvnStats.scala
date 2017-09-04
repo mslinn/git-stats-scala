@@ -13,7 +13,11 @@ object SvnStats extends App {
   val svnVersion: Version = svnCmd.svnVersion.get
   println(s"Subversion command version: $svnVersion")
 
-  val svnMinimalSupportedVersion = Version.parse("1.7")
+  /*
+  * --search is available from 1.8 onward.
+  * TODO Move to SvnCmd
+  * */
+  val svnMinimalSupportedVersion = Version.parse("1.8")
   if (svnVersion < svnMinimalSupportedVersion) {
     println(s"Unsupported Subversion version: $svnVersion; $svnMinimalSupportedVersion or higher is required")
     sys.exit(-1)
