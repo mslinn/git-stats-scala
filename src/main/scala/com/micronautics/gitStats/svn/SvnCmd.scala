@@ -21,7 +21,7 @@ object SvnCmd {
 //  lazy val svnProgram: String = List(if (Cmd.isWindows) "svn.exe" else "svn", "--non-interactive").mkString(" ")
   lazy val svnProgram: String = if (Cmd.isWindows) "svn.exe" else "svn"
 
-  private val versionPattern = "\\s+version\\s+(\\S+)".r
+  private val versionPattern = """\s+version\s+(\S+)""".r
 
   def parseSvnVersion(svnVersionOutput: String): Option[String] = {
     versionPattern.findFirstMatchIn(svnVersionOutput).map(_.group(1))

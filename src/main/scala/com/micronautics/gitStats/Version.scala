@@ -32,7 +32,7 @@ object Version {
       .getOrElse(0)
   }
 
-  private val componentPattern = "^(\\d+)\\D*".r
+  private val componentPattern = """^(\d+)\D*""".r
 
   /**
     * Parse version components from a string like 1.2.3.

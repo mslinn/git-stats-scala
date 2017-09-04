@@ -23,7 +23,7 @@ class SvnUsers(implicit config: ConfigGitStats) {
 
 object SvnUsers {
 
-  private val usernamePattern = "Username:\\s+(\\S+)".r
+  private val usernamePattern = """Username:\s+(\S+)""".r
 
   /**
     * Parse the output of 'svn auth' command to get Subversion user names.
