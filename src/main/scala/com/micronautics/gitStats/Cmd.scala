@@ -9,7 +9,7 @@ import scala.sys.process.{Process, ProcessBuilder}
 /**
   * Command line utilities.
   */
-//TODO Refactor to trait?
+//TODO Refactor to trait and derive SvnCmd and GitCmd from it?
 object Cmd {
 
   protected lazy val os: String = sys.props("os.name").toLowerCase
