@@ -50,7 +50,7 @@ class TestyMcTestFace extends WordSpec with MustMatchers {
 
   "Poi" should {
     "work" in {
-      val wb = new ExcelOutput("test")
+      val wb = new ExcelOutput("target/test")
       wb.addSheet(title="Test", contents=List(List("a", "b", "c")):_*)
       wb.save()
     }
