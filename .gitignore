@@ -10,6 +10,5 @@
 *.stackdump
 project/target/
 target/
-*.txt
-*.log
+*.sw?
 logs/
