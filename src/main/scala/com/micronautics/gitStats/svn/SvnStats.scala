@@ -2,7 +2,7 @@ package com.micronautics.gitStats.svn
 
 import com.micronautics.gitStats.{ConfigGitStats, Version}
 
-//TODO Embed into th main app, remove main method from here
+//TODO Embed into the main app, remove main method from here
 object SvnStats extends App {
 
   implicit val config: ConfigGitStats = ConfigGitStats()
