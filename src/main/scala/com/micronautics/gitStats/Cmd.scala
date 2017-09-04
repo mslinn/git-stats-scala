@@ -6,6 +6,10 @@ import java.util.regex.Pattern
 
 import scala.sys.process.{Process, ProcessBuilder}
 
+/**
+  * Command line utilities.
+  */
+//TODO Refactor to trait?
 object Cmd {
 
   protected lazy val os: String = sys.props("os.name").toLowerCase
