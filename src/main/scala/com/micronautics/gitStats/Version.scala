@@ -2,8 +2,6 @@ package com.micronautics.gitStats
 
 import com.micronautics.gitStats.Version._
 
-import scala.math.signum
-
 /**
   * Multi-component numerical version, like 1.2.3.
   *
@@ -29,7 +27,7 @@ object Version {
   def comparePerComponent(versions1: List[Int], versions2: List[Int]): Int = {
     val versionPairs = versions1.zipAll(versions2, 0, 0)
     versionPairs
-      .map { case (v1, v2) => signum(v1 compareTo v2) }
+      .map { case (v1, v2) => v1 compareTo v2 }
       .find(_ != 0)
       .getOrElse(0)
   }

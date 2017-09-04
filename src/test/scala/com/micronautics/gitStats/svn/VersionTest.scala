@@ -17,28 +17,28 @@ class VersionTest extends FunSuite {
     val v1 = Version(0)
     val v2 = Version(1)
     val res = v1 compare v2
-    assert(res === -1, "compare result")
+    assert(res < 0, "compare result")
   }
 
   test("compare - 1 and 0") {
     val v1 = Version(1)
     val v2 = Version(0)
     val res = v1 compare v2
-    assert(res === 1, "compare result")
+    assert(res > 0, "compare result")
   }
 
   test("compare - 1.1 and 1.0") {
     val v1 = Version(1, 1)
     val v2 = Version(1, 0)
     val res = v1 compare v2
-    assert(res === 1, "compare result")
+    assert(res > 0, "compare result")
   }
 
   test("compare - 1.0 and 1.1") {
     val v1 = Version(1, 0)
     val v2 = Version(1, 1)
     val res = v1 compare v2
-    assert(res === -1, "compare result")
+    assert(res < 0, "compare result")
   }
 
   test("compare - 1 and 1.0") {
@@ -59,7 +59,7 @@ class VersionTest extends FunSuite {
     val v1 = Version(1, 9, 5)
     val v2 = Version(1, 10)
     val res = v1 compare v2
-    assert(res === -1, "compare result")
+    assert(res < 0, "compare result")
   }
 
 
