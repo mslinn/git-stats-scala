@@ -92,9 +92,9 @@ class VersionTest extends FunSuite {
     assert(res === Version(1, 0), "version")
   }
 
-  test("parse - 1.2.3-u1") {
-    val res = parse("1.2.3-u1")
-    assert(res === Version(1, 2, 3), "version")
+  test("parse - 1.10.0-alpha3") {
+    val res = parse("1.10.0-alpha3")
+    assert(res === Version(1, 10, 0), "version")
   }
 
   test("parse - 1.2.u1") {
