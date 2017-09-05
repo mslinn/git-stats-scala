@@ -1,7 +1,6 @@
 package com.micronautics.gitStats.svn
 
-import java.io.{BufferedReader, InputStream, InputStreamReader}
-import java.nio.charset.{Charset, CharsetDecoder, CodingErrorAction}
+import java.nio.charset.CodingErrorAction
 
 import com.micronautics.gitStats.svn.SvnCommit._
 import org.scalatest.FunSuite
@@ -40,19 +39,5 @@ class SvnCommitTest extends FunSuite {
     val input = Source.fromInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log"))(codec)
     val res = commitEntriesIterator(input.getLines())
     assert(res.size === 71, "Number of commits")
-  }
-
-  ignore("bad input") {
-    val inputStream: InputStream = getClass.getResourceAsStream("svn-log-kotkov-danielsh.log")
-    val charset: Charset = Charset forName "UTF-8"
-    val charsetDecoder: CharsetDecoder = charset.newDecoder()
-    charsetDecoder.onMalformedInput(CodingErrorAction.IGNORE)
-    val inputStreamReader: InputStreamReader = new InputStreamReader(inputStream, charsetDecoder)
-    val bufferedReader: BufferedReader = new BufferedReader(inputStreamReader, Source.DefaultBufSize)
-    var line: String = null
-    do {
-      line = bufferedReader.readLine()
-      println(s"----- $line")
-    } while (line != null)
   }
 }
