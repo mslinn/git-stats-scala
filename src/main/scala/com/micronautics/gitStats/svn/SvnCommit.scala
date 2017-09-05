@@ -5,26 +5,30 @@ package com.micronautics.gitStats.svn
   * In practice, one Subversion commit may contain modifications to many files.
   * This class treats such commit as a set of commits for each file individually.
   *
-  * @param fileName File name, cannot be null or empty string.
-  * @param linesAdded Number of added lines. Negative number means deleted lines.
+  * @param userName User name, cannot be null or empty string.
+  * @param fileModifs File modifications in this commit, cannot be null or empty.
   */
-case class SvnCommit(fileName: String, linesAdded: Int) {
+case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
+  require(userName != null, "User name must not be null")
+  require(!userName.isEmpty, "User name must not be empty string")
+  require(fileModifs != null, "File modifications cannot be null")
+  require(!fileModifs.isEmpty, "File modifications cannot be empty string")
+}
+
+/**
+  * One file modification within a commit to Subversion.
+  *
+  * @param fileName File name, cannot be null or empty string.
+  * @param linesAdded Number of added lines. Negative number means more lines were deleted rather than added.
+  */
+case class FileModif(fileName: String, linesAdded: Int) {
   require(fileName != null, "File name must not be null")
   require(!fileName.isEmpty, "File name must not be empty string")
 }
 
 object SvnCommit {
 
-  val fileCommitPattern ="""
-      |Index:\s+(.+)
-      |=+
-      |---.+
-      |+++.+
-      |(@@\s+-\d+,\d++\s++\\d+,\d+\s+@@@
-      |.*)+
-    """.r
-
-  def parse(svnLogOutput: String): Set[SvnCommit] = {
+  def parse(svnLogOutputLines: Iterator[String]): Set[SvnCommit] = {
     ???
   }
 }
