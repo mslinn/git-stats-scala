@@ -28,30 +28,41 @@ case class FileModif(fileName: String, linesAdded: Int) {
 
 object SvnCommit {
 
-  def parse(svnLogOutputLines: Iterator[String]): Set[SvnCommit] = {
-    ???
-  }
-}
+  def commitEntriesIterator(svnLogOutputLines: Iterator[String]): Iterator[List[String]] = {
+    require(svnLogOutputLines != null, "svn log output must not be null")
 
-import scala.util.parsing.combinator._
+    def readFirstCommitEntry: List[String] = {
+      svnLogOutputLines
+        .takeWhile(line => !isCommitDelimiter(line))
+        .filter(line => isUseful(line))
+        .toList
+    }
 
-case class WordFreq(word: String, count: Int) {
-  override def toString = "Word <" + word + "> " +
-    "occurs with frequency " + count
-}
-
-class SimpleParser extends RegexParsers {
-  def word: Parser[String]   = """[a-z]+""".r       ^^ { _.toString }
-  def number: Parser[Int]    = """(0|[1-9]\d*)""".r ^^ { _.toInt }
-  def freq: Parser[WordFreq] = word ~ number        ^^ { case wd ~ fr => WordFreq(wd,fr) }
-}
-
-object TestSimpleParser extends SimpleParser {
-  def main(args: Array[String]) = {
-    parse(freq, "johnny 121") match {
-      case Success(matched,_) => println(matched)
-      case Failure(msg,_) => println("FAILURE: " + msg)
-      case Error(msg,_) => println("ERROR: " + msg)
+    if (svnLogOutputLines.hasNext)
+      svnLogOutputLines.next()
+    new Iterator[List[String]] {
+      override def hasNext = svnLogOutputLines.hasNext
+      override def next() = readFirstCommitEntry
     }
   }
+
+  private val commitDelimiterPattern = """-{5,}""".r
+
+  def isCommitDelimiter(line: String): Boolean =
+    commitDelimiterPattern.pattern.matcher(line).matches()
+
+  private val commitHeadlinePattern = """r\d+\s+\|\s+(\S+)\s+\|.+?|.+""".r("userName")
+  private val fileIndexPattern = """Index:\s+(\S+)""".r("fileName")
+  private val lineCountsPattern = """@@\s+-\d+,(\d+)\s++\d+,(\d+)\s+@@""".r("oldCount", "newCount")
+  private val usefulLinesPatterns = List(
+    commitHeadlinePattern,
+    fileIndexPattern,
+    lineCountsPattern
+  )
+
+  def isUseful(line: String): Boolean =
+    usefulLinesPatterns.exists(p => p.pattern.matcher(line).matches())
+
+  def parseUserName(line: String): Option[String] =
+    fileIndexPattern.findFirstMatchIn(line).map(_.group("userName"))
 }

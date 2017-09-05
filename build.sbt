@@ -39,7 +39,6 @@ libraryDependencies ++= Seq(
   "com.github.scopt"         %% "scopt"           % "3.6.0"  withSources(),
   "de.vandermeer"            %  "asciitable"      % "0.3.2"  withSources(),
   "org.apache.poi"           %  "poi-ooxml"       % "3.16"   withSources(),
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.6" withSources(),
   //
   "org.scalatest"            %% "scalatest"       % "3.0.1" % Test withSources(),
   "junit"                    %  "junit"           % "4.12"  % Test
