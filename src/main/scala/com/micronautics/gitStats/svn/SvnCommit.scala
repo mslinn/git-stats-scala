@@ -53,17 +53,21 @@ object SvnCommit {
   def isCommitDelimiter(line: String): Boolean =
     commitDelimiterPattern.pattern.matcher(line).matches()
 
-  private val commitHeadlinePattern = """^r\d+\s+\|\s+(\S+)\s+\|.+?|.+$""".r("userName")
+  private val commitHeadlinePattern = """^r\d+\s+\|\s+(\S+)\s+\|.+?\|.+$""".r("userName")
   private val fileIndexPattern = """^Index:\s+(\S+)$""".r("fileName")
-  private val lineCountsPattern = """^@@\s+-\d+,(\d+)\s++\d+,(\d+)\s+@@$""".r("oldCount", "newCount")
-  private val usefulLinesPatterns = List(
-    commitHeadlinePattern,
-    fileIndexPattern,
-    lineCountsPattern
-  )
+  private val lineCountsPattern = """^@@\s+\-\d+,(\d+)\s+\+\d+,(\d+)\s+@@$""".r("oldCount", "newCount")
 
   def isUseful(line: String): Boolean =
-    usefulLinesPatterns.exists(p => p.pattern.matcher(line).matches())
+    isCommitHeadline(line) || isFileIndex(line) || isLineCounts(line)
+
+  def isCommitHeadline(line: String): Boolean =
+    commitHeadlinePattern.pattern.matcher(line).matches()
+
+  def isFileIndex(line: String): Boolean =
+    fileIndexPattern.pattern.matcher(line).matches()
+
+  def isLineCounts(line: String): Boolean =
+    lineCountsPattern.pattern.matcher(line).matches()
 
   def parseUserName(line: String): Option[String] =
     fileIndexPattern.findFirstMatchIn(line).map(_.group("userName"))
