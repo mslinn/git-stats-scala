@@ -12,7 +12,7 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(userName != null, "User name must not be null")
   require(!userName.isEmpty, "User name must not be empty string")
   require(fileModifs != null, "File modifications cannot be null")
-  require(!fileModifs.isEmpty, "File modifications cannot be empty string")
+  require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 }
 
 /**
@@ -38,22 +38,24 @@ object SvnCommit {
         .toList
     }
 
+    /* svn command output starts with a commit delimiter line; skip this first commit delimiter. */
     if (svnLogOutputLines.hasNext)
       svnLogOutputLines.next()
+
     new Iterator[List[String]] {
-      override def hasNext = svnLogOutputLines.hasNext
-      override def next() = readFirstCommitEntry
+      override def hasNext: Boolean = svnLogOutputLines.hasNext
+      override def next(): List[String] = readFirstCommitEntry
     }
   }
 
-  private val commitDelimiterPattern = """-{5,}""".r
+  private val commitDelimiterPattern = """^-{5,}$""".r
 
   def isCommitDelimiter(line: String): Boolean =
     commitDelimiterPattern.pattern.matcher(line).matches()
 
-  private val commitHeadlinePattern = """r\d+\s+\|\s+(\S+)\s+\|.+?|.+""".r("userName")
-  private val fileIndexPattern = """Index:\s+(\S+)""".r("fileName")
-  private val lineCountsPattern = """@@\s+-\d+,(\d+)\s++\d+,(\d+)\s+@@""".r("oldCount", "newCount")
+  private val commitHeadlinePattern = """^r\d+\s+\|\s+(\S+)\s+\|.+?|.+$""".r("userName")
+  private val fileIndexPattern = """^Index:\s+(\S+)$""".r("fileName")
+  private val lineCountsPattern = """^@@\s+-\d+,(\d+)\s++\d+,(\d+)\s+@@$""".r("oldCount", "newCount")
   private val usefulLinesPatterns = List(
     commitHeadlinePattern,
     fileIndexPattern,

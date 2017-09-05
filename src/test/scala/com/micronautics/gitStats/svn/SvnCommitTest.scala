@@ -1,9 +1,10 @@
 package com.micronautics.gitStats.svn
 
-import java.io.FilterInputStream
+import java.io.{BufferedReader, InputStream, InputStreamReader}
+import java.nio.charset.{Charset, CharsetDecoder, CodingErrorAction}
 
+import com.micronautics.gitStats.svn.SvnCommit._
 import org.scalatest.FunSuite
-import SvnCommit._
 
 import scala.io.{Codec, Source}
 
@@ -35,24 +36,23 @@ class SvnCommitTest extends FunSuite {
   }
 
   test("commitEntriesIterator - svn log output from a real sample") {
-    val stream = new FilterInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log")) {
-      override def read(): Int = {
-        val b = super.read()
-
-        b
-      }
-    }
-    val input = Source.fromInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log"))//(Codec("windows-1252"))
+    val codec: Codec = Codec.UTF8.onMalformedInput(CodingErrorAction.IGNORE)
+    val input = Source.fromInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log"))(codec)
     val res = commitEntriesIterator(input.getLines())
-    assert(!res.isEmpty, "Commit entries iterator")
-    var i = 0
-    while (res.hasNext) {
-      println(s"----------------- $i")
-      println(res.next().mkString("\n"))
-      println()
-      i = i +1
-    }
+    assert(res.size === 71, "Number of commits")
+  }
 
-//    assert(res.size === 5511, "Number of commits")
+  ignore("bad input") {
+    val inputStream: InputStream = getClass.getResourceAsStream("svn-log-kotkov-danielsh.log")
+    val charset: Charset = Charset forName "UTF-8"
+    val charsetDecoder: CharsetDecoder = charset.newDecoder()
+    charsetDecoder.onMalformedInput(CodingErrorAction.IGNORE)
+    val inputStreamReader: InputStreamReader = new InputStreamReader(inputStream, charsetDecoder)
+    val bufferedReader: BufferedReader = new BufferedReader(inputStreamReader, Source.DefaultBufSize)
+    var line: String = null
+    do {
+      line = bufferedReader.readLine()
+      println(s"----- $line")
+    } while (line != null)
   }
 }
