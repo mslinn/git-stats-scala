@@ -9,6 +9,32 @@ import scala.io.{Codec, Source}
 
 class SvnCommitTest extends FunSuite {
 
+  test("SvnCommit - null user name") {
+    intercept[IllegalArgumentException] {
+      SvnCommit(null, Set(FileModif("a", 1)))
+    }
+  }
+
+  test("SvnCommit - empty user name") {
+    intercept[IllegalArgumentException] {
+      SvnCommit("", Set(FileModif("a", 1)))
+    }
+  }
+
+  test("SvnCommit - null file modifications") {
+    intercept[IllegalArgumentException] {
+      SvnCommit("user", null)
+    }
+  }
+
+  test("SvnCommit - empty file modifications") {
+    intercept[IllegalArgumentException] {
+      SvnCommit("user", Set())
+    }
+  }
+
+
+
   test("FileModif - null file name") {
     intercept[IllegalArgumentException] {
       FileModif(null, 4)
