@@ -27,7 +27,7 @@ case class FileModif(fileName: String, linesAdded: Int) {
   require(fileName != null, "File name must not be null")
   require(!fileName.isEmpty, "File name must not be empty string")
 }
-
+//TODO Document all public API
 object SvnCommit {
 
   //TODO Maybe Iterator[String] is enough instead of List[String]
