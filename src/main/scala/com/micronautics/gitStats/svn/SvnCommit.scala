@@ -97,7 +97,4 @@ object SvnCommit {
         fileModifEntries.map { case (fileName, linesAdded) => FileModif(fileName, linesAdded) }.toSet)
     }.filter(_.fileModifs.nonEmpty)
   }
-
-  def parseUserName(line: String): Option[String] =
-    fileIndexPattern.findFirstMatchIn(line).map(_.group("userName"))
 }
