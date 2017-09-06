@@ -16,6 +16,8 @@ class SvnCmdTest extends FunSuite {
     assert(res === None, "Version")
   }
 
+  //TODO Move string samples to sample files
+
   test("parseSvnVersion - output from svn available on RHEL") {
     val svnVersionOutput = """svn, version 1.7.14 (r1542130)
                              |   compiled Aug 12 2015, 15:46:21
