@@ -37,8 +37,8 @@ object SvnCommit {
 
     def readFirstCommitEntry: List[String] = {
       svnLogOutputLines
-        .takeWhile(line => !isCommitDelimiter(line))
-        .filter(line => isUseful(line))
+        .takeWhile(!isCommitDelimiter(_))
+        .filter(isUseful)
         .toList
     }
 
