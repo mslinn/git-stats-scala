@@ -53,7 +53,10 @@ object Version {
 
     val components = str.split(versionSeparator)
     val major = components.head.toInt
-    val minors = components.tail.map(c => componentPattern.findFirstMatchIn(c).map(_.group(1).toInt).getOrElse(0))
+    val minors = components.tail.map {
+      case componentPattern(minor) => minor.toInt
+      case _ => 0
+    }
     Version(major, minors: _*)
   }
 }
