@@ -131,4 +131,17 @@ class SvnCommitTest extends FunSuite {
       assert(fileModifs(fileName) === expectation._2, s"Number of lines for file: $fileName")
     }
   }
+
+
+
+  test("commitEntriesIterator and parseSvnCommit - svn log output from a real sample") {
+    val codec: Codec = Codec.UTF8.onMalformedInput(CodingErrorAction.IGNORE)
+    val input = Source.fromInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log"))(codec)
+    val commitEntries = commitEntriesIterator(input.getLines())
+    val svnCommits = commitEntries.map(parseSvnCommit(_)).flatMap(_.iterator)
+    assert(svnCommits.size === 71, "Number of commits")
+    svnCommits.foreach{ commit =>
+      assert(commit.fileModifs.nonEmpty, s"Number of files in commit: $commit")
+    }
+  }
 }
