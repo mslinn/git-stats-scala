@@ -89,13 +89,16 @@ object SvnCommit {
           fileNameOpt.foreach { fileName =>
             fileModifEntries(fileName) = fileModifEntries(fileName) - oldCount.toInt + newCount.toInt
           }
-        case _=>
+        case _ =>
           println(s"WARNING: Unexpected line: $line")
       }
     }
-    userNameOpt.map { userName =>
-      SvnCommit(userName,
-        fileModifEntries.map { case (fileName, linesAdded) => FileModif(fileName, linesAdded) }.toSet)
-    }.filter(_.fileModifs.nonEmpty)
+    userNameOpt.flatMap { userName =>
+      if (fileModifEntries.isEmpty) None
+      else {
+        val fileModifs = fileModifEntries.map { case (fileName, linesAdded) => FileModif(fileName, linesAdded) }.toSet
+        Some(SvnCommit(userName, fileModifs))
+      }
+    }
   }
 }
