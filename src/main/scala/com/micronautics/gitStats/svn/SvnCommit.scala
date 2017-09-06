@@ -1,5 +1,7 @@
 package com.micronautics.gitStats.svn
 
+import scala.collection.mutable
+
 /**
   * One file commit to Subversion.
   * In practice, one Subversion commit may contain modifications to many files.
@@ -28,6 +30,8 @@ case class FileModif(fileName: String, linesAdded: Int) {
 
 object SvnCommit {
 
+  //TODO Maybe Iterator[String] is enough instead of List[String]
+  //TODO Introduce type alias CommitEntry
   def commitEntriesIterator(svnLogOutputLines: Iterator[String]): Iterator[List[String]] = {
     require(svnLogOutputLines != null, "svn log output must not be null")
 
@@ -53,9 +57,9 @@ object SvnCommit {
   def isCommitDelimiter(line: String): Boolean =
     commitDelimiterPattern.pattern.matcher(line).matches()
 
-  private val commitHeadlinePattern = """^r\d+\s+\|\s+(\S+)\s+\|.+?\|.+$""".r("userName")
-  private val fileIndexPattern = """^Index:\s+(\S+)$""".r("fileName")
-  private val lineCountsPattern = """^@@\s+\-\d+,(\d+)\s+\+\d+,(\d+)\s+@@$""".r("oldCount", "newCount")
+  private val commitHeadlinePattern = """^r\d+\s+\|\s+(\S+)\s+\|.+?\|.+$""".r
+  private val fileIndexPattern = """^Index:\s+(\S+)$""".r
+  private val lineCountsPattern = """^@@\s+\-\d+,(\d+)\s+\+\d+,(\d+)\s+@@$""".r
 
   def isUseful(line: String): Boolean =
     isCommitHeadline(line) || isFileIndex(line) || isLineCounts(line)
@@ -68,6 +72,31 @@ object SvnCommit {
 
   def isLineCounts(line: String): Boolean =
     lineCountsPattern.pattern.matcher(line).matches()
+
+  def parseSvnCommit(commitEntry: List[String]): Option[SvnCommit] = {
+    var userNameOpt: Option[String] = None
+    var fileNameOpt: Option[String] = None
+    val fileModifEntries: mutable.Map[String, Int] = mutable.Map()
+    for (line <- commitEntry) {
+      line match {
+        case commitHeadlinePattern(userName) =>
+          userNameOpt = Some(userName)
+        case fileIndexPattern(fileName) =>
+          fileNameOpt = Some(fileName)
+          fileModifEntries += (fileName -> 0)
+        case lineCountsPattern(oldCount, newCount) =>
+          fileNameOpt.foreach { fileName =>
+            fileModifEntries(fileName) = fileModifEntries(fileName) - oldCount.toInt + newCount.toInt
+          }
+        case _=>
+          println(s"WARNING: Unexpected line: $line")
+      }
+    }
+    userNameOpt.map { userName =>
+      SvnCommit(userName,
+        fileModifEntries.map { case (fileName, linesAdded) => FileModif(fileName, linesAdded) }.toSet)
+    }.filter(_.fileModifs.nonEmpty)
+  }
 
   def parseUserName(line: String): Option[String] =
     fileIndexPattern.findFirstMatchIn(line).map(_.group("userName"))

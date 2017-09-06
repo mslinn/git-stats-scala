@@ -1,0 +1,28 @@
+r1803639 | kotkov | 2017-08-01 15:18:23 +0300 (Tue, 01 Aug 2017) | 45 lines
+Index: trunk/win-tests.py
+@@ -113,7 +113,7 @@
+@@ -191,7 +191,7 @@
+@@ -287,7 +287,7 @@
+@@ -1113,7 +1113,7 @@
+Index: trunk/build/run_tests.py
+@@ -33,7 +33,7 @@
+@@ -276,8 +276,8 @@
+@@ -1026,9 +1026,8 @@
+Index: trunk/subversion/tests/cmdline/svntest/main.py
+@@ -1043,14 +1043,14 @@
+@@ -1737,8 +1737,8 @@
+@@ -2151,9 +2151,8 @@
+@@ -2203,9 +2202,9 @@
+Index: trunk/subversion/libsvn_fs_fs/fs_fs.c
+@@ -683,6 +683,60 @@
+@@ -709,8 +763,6 @@
+@@ -727,14 +779,6 @@
+@@ -742,7 +786,6 @@
+@@ -816,6 +859,68 @@
+@@ -947,23 +1052,25 @@
+Index: trunk/subversion/libsvn_fs_fs/fs.h
+@@ -118,6 +118,7 @@
+@@ -298,6 +299,13 @@
+@@ -473,7 +481,10 @@
+Index: trunk/subversion/libsvn_fs_fs/transaction.c
+@@ -2168,27 +2168,24 @@

@@ -91,4 +91,44 @@ class SvnCommitTest extends FunSuite {
       commitEntry.foreach(line => assert(isUseful(line), "Commit entry contains only lines with useful info"))
     }
   }
+
+  //TODO commitEntriesIterator - tests for bad input
+
+
+
+  test("parseSvnCommit - one file, one line count") {
+    val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-one-file-one-line-count.log")).getLines().toList
+    val res = parseSvnCommit(commitEntry).get
+    assert(res.userName === "danielsh", "User name")
+    assert(res.fileModifs.size === 1, "Number of files")
+    assert(res.fileModifs.head === FileModif("branches/1.9.x/STATUS", 1), "File modification")
+  }
+
+  test("parseSvnCommit - one file, many line counts") {
+    val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-one-file-many-line-counts.log")).getLines().toList
+    val res = parseSvnCommit(commitEntry).get
+    assert(res.userName === "kotkov", "User name")
+    assert(res.fileModifs.size === 1, "Number of files")
+    assert(res.fileModifs.head === FileModif("trunk/subversion/libsvn_fs_fs/fs.h", -3), "File modification")
+  }
+
+  test("parseSvnCommit - many files, many line counts") {
+    val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-many-files.log")).getLines().toList
+    val res = parseSvnCommit(commitEntry).get
+    assert(res.userName === "kotkov", "User name")
+    assert(res.fileModifs.size === 6, "Number of files")
+    val fileModifs = res.fileModifs.map(modif => modif.fileName -> modif.linesAdded).toMap
+    val expectations = Iterable(
+      "trunk/win-tests.py" -> 0,
+      "trunk/build/run_tests.py" -> -1,
+      "trunk/subversion/tests/cmdline/svntest/main.py" -> -1,
+      "trunk/subversion/libsvn_fs_fs/fs_fs.c" -> 107,
+      "trunk/subversion/libsvn_fs_fs/fs.h" -> 11,
+      "trunk/subversion/libsvn_fs_fs/transaction.c" -> -3
+    )
+    for (expectation <- expectations) {
+      val fileName = expectation._1
+      assert(fileModifs(fileName) === expectation._2, s"Number of lines for file: $fileName")
+    }
+  }
 }

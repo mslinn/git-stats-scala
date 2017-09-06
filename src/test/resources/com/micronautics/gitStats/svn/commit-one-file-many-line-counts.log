@@ -1,0 +1,4 @@
+r1803640 | kotkov | 2017-08-01 15:21:22 +0300 (Tue, 01 Aug 2017) | 4 lines
+Index: trunk/subversion/libsvn_fs_fs/fs.h
+@@ -163,6 +163,9 @@
+@@ -185,9 +188,3 @@
