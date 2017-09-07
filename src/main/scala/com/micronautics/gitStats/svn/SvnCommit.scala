@@ -10,7 +10,7 @@ import scala.collection.mutable
   * @param userName User name, cannot be null or empty string.
   * @param fileModifs File modifications in this commit, cannot be null or empty.
   */
-//TODO Parse also timestamp
+//TODO Parse also timestamp - will need it for time-window aggregations
 case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(userName != null, "User name must not be null")
   require(!userName.isEmpty, "User name must not be empty string")
