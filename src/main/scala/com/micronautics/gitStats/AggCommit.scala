@@ -1,6 +1,6 @@
 package com.micronautics.gitStats
 
-import scala.collection.GenIterable
+import scala.collection._
 
 case class AggCommit(fileType: String, linesAdded: Int) {
   require(fileType != null, "File type must not be null")
@@ -18,9 +18,10 @@ object AggCommit {
     */
   def aggregateByFileType(commits: GenIterable[AggCommit]): GenIterable[AggCommit] = {
     require(commits != null, "Commits must not be null")
-    val aggMap: Map[String, Int] = commits.aggregate(Map[String, Int]().withDefaultValue(0))(
-      (agg, commit) => agg.updated(commit.fileType, agg(commit.fileType) + commit.linesAdded),
-      (agg1, agg2) => agg1 ++ agg2
+
+    val aggMap: Map[String, Int] = commits.aggregate(mutable.Map[String, Int]().withDefaultValue(0))(
+      (agg, commit) => agg += ((commit.fileType, agg(commit.fileType) + commit.linesAdded)),
+      (agg1, agg2) => agg1 ++= agg2
     )
     aggMap.map { case (fileType, linesAdded) => AggCommit(fileType, linesAdded) }
   }
