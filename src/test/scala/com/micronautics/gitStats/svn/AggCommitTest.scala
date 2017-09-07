@@ -6,13 +6,13 @@ import com.micronautics.gitStats.AggCommit._
 
 class AggCommitTest extends FunSuite {
 
-  test("AggCommit - file type is null") {
+  test("AggCommit - language is null") {
     intercept[IllegalArgumentException] {
       AggCommit(null, 5)
     }
   }
 
-  test("AggCommit - file type is empty string") {
+  test("AggCommit - language is empty string") {
     intercept[IllegalArgumentException] {
       AggCommit("", 5)
     }
@@ -20,35 +20,35 @@ class AggCommitTest extends FunSuite {
 
 
 
-  test("aggregateByFileType - null commits") {
+  test("aggregateByLanguage - null commits") {
     intercept[IllegalArgumentException] {
-      aggregateByFileType(null)
+      aggregateByLanguage(null)
     }
   }
 
-  test("aggregateByFileType - empty commits") {
-    val res = aggregateByFileType(Iterable.empty)
+  test("aggregateByLanguage - empty commits") {
+    val res = aggregateByLanguage(Iterable.empty)
     assert(res.isEmpty, "Result is empty")
   }
 
-  test("aggregateByFileType - one commit") {
-    val res = aggregateByFileType(List(AggCommit("Scala", 1)))
+  test("aggregateByLanguage - one commit") {
+    val res = aggregateByLanguage(List(AggCommit("Scala", 1)))
     assert(res.size === 1, "Number of commits")
     assert(res.head === AggCommit("Scala", 1))
   }
 
-  test("aggregateByFileType - many commits, same file type") {
+  test("aggregateByLanguage - many commits, same language") {
     val sample = List(
       AggCommit("Scala", 1),
       AggCommit("Scala", -10),
       AggCommit("Scala", 3)
     )
-    val res = aggregateByFileType(sample)
+    val res = aggregateByLanguage(sample)
     assert(res.size === 1, "Number of commits")
     assert(res.head === AggCommit("Scala", -6), "Number of lines added")
   }
 
-  test("aggregateByFileType - many commits, different file types") {
+  test("aggregateByLanguage - many commits, different languages") {
     val sample = List(
       AggCommit("Scala", 1),
       AggCommit("Groovy", -10),
@@ -57,14 +57,14 @@ class AggCommitTest extends FunSuite {
       AggCommit("Java", -1),
       AggCommit("Groovy", 15),
     )
-    val res = aggregateByFileType(sample)
+    val res = aggregateByLanguage(sample)
     assert(res.size === 3, "Number of commits")
     res.foreach { commit =>
-      commit.fileType match {
+      commit.language match {
         case "Scala" => assert(commit.linesAdded === 4, "Number of lines added")
         case "Groovy" => assert(commit.linesAdded === 5, "Number of lines added")
         case "Java" => assert(commit.linesAdded === 4, "Number of lines added")
-        case _ @ fileType => fail(s"Unexpected file type: $fileType")
+        case _ @ language => fail(s"Unexpected language: $language")
       }
     }
   }
