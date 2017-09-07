@@ -1,8 +1,7 @@
-package com.micronautics.gitStats.svn
+package com.micronautics.gitStats
 
-import org.scalatest.FunSuite
-import com.micronautics.gitStats.AggCommit
 import com.micronautics.gitStats.AggCommit._
+import org.scalatest.FunSuite
 
 class AggCommitTest extends FunSuite {
 
