@@ -40,4 +40,39 @@ class LanguageTest extends FunSuite {
     val res = fileSuffix("Test.groovy.bkp")
     assert(res === Some("bkp"), "File suffix")
   }
+
+
+
+  test("fileLanguage - file name is null") {
+    intercept[IllegalArgumentException] {
+      fileLanguage(null)
+    }
+  }
+
+  test("fileLanguage - file name is empty") {
+    intercept[IllegalArgumentException] {
+      fileLanguage("")
+    }
+  }
+
+  test("fileLanguage - file name has known suffix") {
+    val res = fileLanguage("Test.scala")
+    assert(res === "Scala", "File language")
+  }
+
+  test("fileLanguage - file name does not have suffix but has known name") {
+    val res = fileLanguage("Dockerfile")
+    assert(res === "Dockerfile", "File language")
+  }
+
+  test("fileLanguage - file name starts with dot") {
+    val res = fileLanguage(".gitignore")
+    assert(res === "Miscellaneous", "File language")
+  }
+
+  test("fileLanguage - file does not exist") {
+    val res = fileLanguage("/no/such/file")
+    assert(res === "Unknown", "File language")
+  }
+
 }
