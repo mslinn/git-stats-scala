@@ -33,11 +33,12 @@ case class FileModif(fileName: String, linesAdded: Int) {
 object SvnCommit {
 
   //TODO Maybe Iterator[String] is enough instead of List[String]
-  //TODO Introduce type alias CommitEntry
-  def commitEntriesIterator(svnLogOutputLines: Iterator[String]): Iterator[List[String]] = {
+  type CommitEntry = List[String]
+
+  def commitEntriesIterator(svnLogOutputLines: Iterator[String]): Iterator[CommitEntry] = {
     require(svnLogOutputLines != null, "svn log output must not be null")
 
-    def readFirstCommitEntry: List[String] = {
+    def readFirstCommitEntry: CommitEntry = {
       svnLogOutputLines
         .takeWhile(!isCommitDelimiter(_))
         .filter(isUseful)
@@ -48,9 +49,9 @@ object SvnCommit {
     if (svnLogOutputLines.hasNext)
       svnLogOutputLines.next()
 
-    new Iterator[List[String]] {
+    new Iterator[CommitEntry] {
       override def hasNext: Boolean = svnLogOutputLines.hasNext
-      override def next(): List[String] = readFirstCommitEntry
+      override def next(): CommitEntry = readFirstCommitEntry
     }
   }
 
@@ -75,7 +76,7 @@ object SvnCommit {
   def isLineCounts(line: String): Boolean =
     lineCountsPattern.pattern.matcher(line).matches()
 
-  def parseSvnCommit(commitEntry: List[String]): Option[SvnCommit] = {
+  def parseSvnCommit(commitEntry: CommitEntry): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
     val fileModifEntries: mutable.Map[String, Int] = mutable.Map()
