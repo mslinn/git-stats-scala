@@ -2,6 +2,7 @@ package com.micronautics.gitStats
 
 import java.text.NumberFormat
 
+@deprecated("For git-specific part introduce GitCommit. For generic part use AvgCommit, Language plus introduce generic facility for output.")
 object Commit {
   implicit val defaultCommitOrdering: Ordering[Commit] = Ordering.by { commit: Commit =>
     (-commit.delta, -commit.added, -commit.deleted)
@@ -121,6 +122,7 @@ object Commit {
     }
   }
 
+  @deprecated("TODO Use Language instead")
   def language(fileName: String): String = fileName.toLowerCase match {
     case f if suffixedIsDefined(f) => suffix(f)
     case f if f.startsWith(".") => miscellaneousLanguage
@@ -130,6 +132,7 @@ object Commit {
 }
 
 //TODO Calculate language from fileType. Currently the fileName is parsed twice: for language, then for fileType.
+@deprecated("TODO Use AvgCommit instead + implement git-specific GitCommit")
 case class Commit(added: Int, deleted: Int, fileName: String="", language: String=Commit.unknownLanguage)
                  (implicit config: ConfigGitStats) {
   import com.micronautics.gitStats.Commit._

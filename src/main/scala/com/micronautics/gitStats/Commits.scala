@@ -2,6 +2,7 @@ package com.micronautics.gitStats
 
 import org.apache.poi.xssf.usermodel.XSSFSheet
 
+@deprecated("TODO Use AvgCommit instead - it does not depend neither on Git nor on presentation format")
 case class Commits(value: List[Commit])
                   (implicit config: ConfigGitStats){
   @inline def asAsciiTable(title: String): String = {
