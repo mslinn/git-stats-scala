@@ -9,7 +9,7 @@ object Language {
     *
     * @param fileName Source file name.
     * @return Programming language.
-    * @throws IllegalArgumentException File name is null or empty string
+    * @throws IllegalArgumentException File name is null or empty string.
     */
   def fileLanguage(fileName: String): String = {
     require(fileName != null, "File name must not be null")
