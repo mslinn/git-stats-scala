@@ -13,7 +13,7 @@ import scala.collection.mutable
 //TODO Parse also timestamp - will need it for time-window aggregations
 case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(userName != null, "User name must not be null")
-  require(!userName.isEmpty, "User name must not be empty string")
+  require(userName.nonEmpty, "User name must not be empty string")
   require(fileModifs != null, "File modifications cannot be null")
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 }
@@ -26,7 +26,7 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   */
 case class FileModif(fileName: String, linesAdded: Int) {
   require(fileName != null, "File name must not be null")
-  require(!fileName.isEmpty, "File name must not be empty string")
+  require(fileName.nonEmpty, "File name must not be empty string")
 }
 
 //TODO Document all public API

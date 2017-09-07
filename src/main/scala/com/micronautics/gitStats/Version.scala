@@ -49,7 +49,7 @@ object Version {
     */
   def parse(str: String): Version = {
     require(str != null, "String must not be null")
-    require(!str.isEmpty, "String must not be empty")
+    require(str.nonEmpty, "String must not be empty string")
 
     val components = str.split(versionSeparator)
     val major = components.head.toInt

@@ -4,7 +4,7 @@ import scala.collection._
 
 case class AggCommit(language: String, linesAdded: Int) {
   require(language != null, "Language must not be null")
-  require(!language.isEmpty, "Language must not be empty string")
+  require(language.nonEmpty, "Language must not be empty string")
 }
 
 object AggCommit {
