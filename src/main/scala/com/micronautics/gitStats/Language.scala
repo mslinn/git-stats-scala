@@ -36,6 +36,7 @@ object Language {
 
     fileName.toLowerCase match {
       case name if name.startsWith("dockerfile") => Some("Dockerfile")
+      case name if name.startsWith("makefile") => Some("Makefile")
       case name if name.startsWith(".") => Some(miscellaneousLanguage)
       case _ => None
     }
