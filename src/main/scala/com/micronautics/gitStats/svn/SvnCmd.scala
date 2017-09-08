@@ -13,6 +13,18 @@ class SvnCmd(implicit config: ConfigGitStats) {
     val svnVersionOutput = Cmd.getOutputFrom(new File(sys.props("user.dir")), svnProgram, "--version")
     parseSvnVersion(svnVersionOutput).map(Version.parse)
   }
+
+  /**
+    * Command line option to specify date range.
+    * -r {2017-08-01}:{2017-09-01}
+    * If `from` date is not set, then set it to 1970-01-01.
+    * If `to` date is not set, then set it to today.
+    */
+  lazy val dateRangeOption: String = {
+    val from = config.fromFormatted.getOrElse(ConfigGitStats.zeroFormatted)
+    val to = config.toFormatted.getOrElse(ConfigGitStats.todayFormatted)
+    s"-r {$from}:{$to}"
+  }
 }
 
 object SvnCmd {

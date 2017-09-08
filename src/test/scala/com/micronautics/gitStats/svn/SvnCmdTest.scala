@@ -1,6 +1,9 @@
 package com.micronautics.gitStats.svn
 
+import com.github.nscala_time.time.Imports.DateTime
+import com.micronautics.gitStats.ConfigGitStats
 import com.micronautics.gitStats.svn.SvnCmd._
+import org.joda.time.format.DateTimeFormat
 import org.scalatest.FunSuite
 
 class SvnCmdTest extends FunSuite {
@@ -69,5 +72,43 @@ class SvnCmdTest extends FunSuite {
                              |* GPG-Agent""".stripMargin
     val res = parseSvnVersion(svnVersionOutput)
     assert(res === Some("1.9.5"), "Version")
+  }
+
+
+
+  test("dateRangeOption - from and to dates are both set") {
+    val cmd = new SvnCmd()(ConfigGitStats(
+      dateFrom = Some(new DateTime("2017-08-01")),
+      dateTo = Some(new DateTime("2017-09-01"))
+    ))
+    assert(cmd.dateRangeOption === "-r {2017-08-01}:{2017-09-01}", "Date range option")
+  }
+
+  test("dateRangeOption - from date is set, to date is unset") {
+    val cmd = new SvnCmd()(ConfigGitStats(
+      dateFrom = Some(new DateTime("2017-08-01")),
+      dateTo = None
+    ))
+    val today = DateTime.now.withTimeAtStartOfDay
+    val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
+    assert(cmd.dateRangeOption === s"-r {2017-08-01}:{$todayFormatted}", "Date range option")
+  }
+
+  test("dateRangeOption - from date is unset, to date is set") {
+    val cmd = new SvnCmd()(ConfigGitStats(
+      dateFrom = None,
+      dateTo = Some(new DateTime("2017-09-01"))
+    ))
+    assert(cmd.dateRangeOption === "-r {1970-01-01}:{2017-09-01}", "Date range option")
+  }
+
+  test("dateRangeOption - from and to dates are both unset") {
+    val cmd = new SvnCmd()(ConfigGitStats(
+      dateFrom = None,
+      dateTo = None
+    ))
+    val today = DateTime.now.withTimeAtStartOfDay
+    val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
+    assert(cmd.dateRangeOption === s"-r {1970-01-01}:{$todayFormatted}", "Date range option")
   }
 }

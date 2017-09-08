@@ -1,6 +1,7 @@
 package com.micronautics.gitStats
 
 import java.io.File
+
 import com.github.nscala_time.time.Imports.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
@@ -17,6 +18,7 @@ object ConfigGitStats {
     if (isWindows) "\"" + userName + "\"" else userName.replace(" ", "\\ ")
   }
 
+  lazy val zero: DateTime      = new DateTime(0)
   lazy val today: DateTime     = DateTime.now.withTimeAtStartOfDay
   lazy val lastYear: DateTime  = today.minusDays(365 - 1) // git log dates are inclusive
 
@@ -24,6 +26,7 @@ object ConfigGitStats {
   lazy val last30days: DateTime = today.minusDays(30 - 1) // git log dates are inclusive
   lazy val lastMonth: DateTime = today.minusMonths(1)
 
+  lazy val zeroFormatted: String      = ConfigGitStats.fmt_yyyyMMdd.print(zero)
   lazy val todayFormatted: String     = ConfigGitStats.fmt_yyyyMMdd.print(today)
   lazy val last30Formatted: String    = ConfigGitStats.fmt_yyyyMMdd.print(last30days)
   lazy val last90Formatted: String    = ConfigGitStats.fmt_yyyyMMdd.print(last90days)
