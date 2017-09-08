@@ -9,9 +9,9 @@ import java.nio.file.{Files, Path, Paths}
 * - Don't invent a wheel.
 * */
 
-class ProjectDir(val dir: Path)
-                (implicit config: ConfigGitStats) {
+trait ProjectDir {
 
+  val aggCommits: List[AggCommit]
 }
 
 object ProjectDir {
