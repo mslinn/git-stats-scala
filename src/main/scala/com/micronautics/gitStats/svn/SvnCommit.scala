@@ -92,7 +92,7 @@ object SvnCommit {
             fileModifEntries(fileName) = fileModifEntries(fileName) - oldCount.toInt + newCount.toInt
           }
         case _ =>
-          println(s"WARNING: Unexpected line: $line")
+          System.err.println(s"WARNING: Unexpected line: $line; last recognized user name: $userNameOpt, last recognized file: $fileNameOpt")
       }
     }
     userNameOpt.flatMap { userName =>
