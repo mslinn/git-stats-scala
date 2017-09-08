@@ -4,7 +4,7 @@ organization := "com.micronautics"
 
 name := "git-stats-scala"
 
-version := "0.2.1-SNAPSHOT"
+version := "0.2.1"
 
 scalaVersion := "2.12.3"
 
