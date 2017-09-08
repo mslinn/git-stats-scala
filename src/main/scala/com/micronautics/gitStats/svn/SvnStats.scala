@@ -1,5 +1,8 @@
 package com.micronautics.gitStats.svn
 
+import java.io.File
+import java.nio.file.{Files, Path, Paths}
+
 import com.micronautics.gitStats.{ConfigGitStats, Version}
 
 //TODO Embed into the main app, remove main method from here
@@ -28,5 +31,25 @@ object SvnStats extends App {
   if (svnUsers.userNames.isEmpty) {
     Console.err.println("Failed to detect Subversion users; exiting")
     sys.exit(-1)
+  }
+
+
+
+
+  lazy val workDirs = getProjectDirs(config.directory.toPath)(isSvnWorkDir)
+
+  lazy val dotSvn: Path = Paths.get(".svn")
+
+  def isSvnWorkDir(dir: Path): Boolean = {
+    Files.isDirectory(dir) && {
+      Files.list(dir)
+        .filter(child => Files.isDirectory(child) && child.endsWith(dotSvn))
+        .findAny()
+        .isPresent
+    }
+  }
+
+  def getProjectDirs(rootDir: Path)(isWorkDir: Path => Boolean): Iterable[File] = {
+    ???
   }
 }
