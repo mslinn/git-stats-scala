@@ -1,6 +1,7 @@
 package com.micronautics.gitStats
 
 import scala.io.Source
+import scala.util.matching.Regex
 
 object Language {
 
@@ -40,6 +41,13 @@ object Language {
     }
   }
 
+  private lazy val shellContentRegexes: Set[Regex] = Set(
+    """#!/bin/bash""".r,
+    """#!/bin/sh""".r,
+    """#!/usr/bin/env\s+bash""".r,
+    """#!/usr/bin/env\s+sh""".r
+  )
+
   def contentToLanguage(fileName: String): Option[String] = {
     val fileContent = try {
       /* Read only the first 100 chars - just enough to decide about the language.
@@ -48,10 +56,10 @@ object Language {
     } catch {
       case _: Exception => ""
     }
-    fileContent match {
-      case content if content.startsWith("#!/bin/bash") || content.startsWith("#!/bin/sh") => Some("Shell")
-      case _ => None
-    }
+    if (shellContentRegexes.exists(_.findFirstMatchIn(fileContent).isDefined))
+      Some("Shell")
+    else
+      None
   }
 
   val suffixToLanguage: Map[String, String] = Map(
@@ -110,6 +118,6 @@ object Language {
     "xml"        -> "XML"
   )
 
-  lazy val unknownLanguage = "Unknown"
-  lazy val miscellaneousLanguage = "Miscellaneous"
+  private lazy val unknownLanguage = "Unknown"
+  private lazy val miscellaneousLanguage = "Miscellaneous"
 }

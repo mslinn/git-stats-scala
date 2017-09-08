@@ -1,7 +1,9 @@
 package com.micronautics.gitStats
 
+import java.nio.file.Paths
+
+import com.micronautics.gitStats.Language._
 import org.scalatest.FunSuite
-import Language._
 
 class LanguageTest extends FunSuite {
 
@@ -68,6 +70,14 @@ class LanguageTest extends FunSuite {
   test("fileLanguage - file name starts with dot") {
     val res = fileLanguage(".gitignore")
     assert(res === "Miscellaneous", "File language")
+  }
+
+  test("fileLanguage - file does not have suffix but its content is Shell") {
+    val path = Paths.get(sys.props("user.dir"), "bin", "run")
+    if (path.toFile.canRead) {
+      val res = fileLanguage(path.toString)
+      assert(res === "Shell", "File language")
+    }
   }
 
   test("fileLanguage - file does not exist") {
