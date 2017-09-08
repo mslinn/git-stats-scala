@@ -2,6 +2,7 @@ package com.micronautics.gitStats.svn
 
 import java.nio.charset.CodingErrorAction
 
+import com.micronautics.gitStats.AggCommit
 import com.micronautics.gitStats.svn.SvnCommit._
 import org.scalatest.FunSuite
 
@@ -169,5 +170,43 @@ class SvnCommitTest extends FunSuite {
     svnCommits.foreach{ commit =>
       assert(commit.fileModifs.nonEmpty, s"Number of files in commit: $commit")
     }
+  }
+
+
+
+  test("aggCommits - one file modification") {
+    val svnCommit = SvnCommit("moses", Set(FileModif("commandments.txt", 10)))
+    val res = svnCommit.aggCommits
+    assert(res.size === 1, "Number of commits")
+    assert(res.head === AggCommit("Unknown", 10), "Commit")
+  }
+
+  test("aggCommits - many file modifications, different file types") {
+    val svnCommit = SvnCommit("linus.torvalds",
+      Set(
+        FileModif("Makefile", 10),
+        FileModif("fs.h", 20),
+        FileModif("README", -30)
+      )
+    )
+    val res = svnCommit.aggCommits
+    assert(res.size === 3, "Number of commits")
+    assert(res.contains(AggCommit("Makefile", 10)), "Commit with 10 lines added")
+    assert(res.contains(AggCommit("C/C++", 20)), "Commit with 20 lines added")
+    assert(res.contains(AggCommit("Unknown", -30)), "Commit with -30 lines added")
+  }
+
+  test("aggCommits - many file modifications, same file type") {
+    val svnCommit = SvnCommit("mark.twain",
+      Set(
+        FileModif("tom_sawyer.txt", 500),
+        FileModif("connecticut_yankee.txt", 500),
+        FileModif("mysterious_stranger.txt", -200)
+      )
+    )
+    val res = svnCommit.aggCommits
+    assert(res.size === 3, "Number of commits")
+    assert(res.filter(_ == AggCommit("Unknown", 500)).size === 2, "Commits with 500 lines added")
+    assert(res.contains(AggCommit("Unknown", -200)), "Commit with -200 lines added")
   }
 }

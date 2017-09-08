@@ -1,5 +1,7 @@
 package com.micronautics.gitStats.svn
 
+import com.micronautics.gitStats.{AggCommit, Language}
+
 import scala.collection.mutable
 
 /**
@@ -16,6 +18,9 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(userName.nonEmpty, "User name must not be empty string")
   require(fileModifs != null, "File modifications cannot be null")
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
+
+  lazy val aggCommits: List[AggCommit] =
+    fileModifs.toList.map(modif => AggCommit(Language.fileLanguage(modif.fileName), modif.linesAdded))
 }
 
 /**
