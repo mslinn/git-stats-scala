@@ -81,7 +81,7 @@ class SvnCmdTest extends FunSuite {
       dateFrom = Some(new DateTime("2017-08-01")),
       dateTo = Some(new DateTime("2017-09-01"))
     ))
-    assert(res === "-r {2017-08-01}:{2017-09-01}", "Date range option")
+    assert(res === List("-r", "{2017-08-01}:{2017-09-01}"), "Date range option")
   }
 
   test("generateDateRangeOption - from date is set, to date is unset") {
@@ -91,7 +91,7 @@ class SvnCmdTest extends FunSuite {
     ))
     val today = DateTime.now.withTimeAtStartOfDay
     val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
-    assert(res === s"-r {2017-08-01}:{$todayFormatted}", "Date range option")
+    assert(res === List("-r", s"{2017-08-01}:{$todayFormatted}"), "Date range option")
   }
 
   test("generateDateRangeOption - from date is unset, to date is set") {
@@ -99,7 +99,7 @@ class SvnCmdTest extends FunSuite {
       dateFrom = None,
       dateTo = Some(new DateTime("2017-09-01"))
     ))
-    assert(res === "-r {1970-01-01}:{2017-09-01}", "Date range option")
+    assert(res === List("-r", "{1970-01-01}:{2017-09-01}"), "Date range option")
   }
 
   test("generateDateRangeOption - from and to dates are both unset") {
@@ -109,6 +109,6 @@ class SvnCmdTest extends FunSuite {
     ))
     val today = DateTime.now.withTimeAtStartOfDay
     val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
-    assert(res === s"-r {1970-01-01}:{$todayFormatted}", "Date range option")
+    assert(res === List("-r", s"{1970-01-01}:{$todayFormatted}"), "Date range option")
   }
 }

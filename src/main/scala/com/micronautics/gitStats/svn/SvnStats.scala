@@ -14,7 +14,12 @@ import scala.util.{Failure, Success}
 //TODO Embed into the main app, remove main method from here
 object SvnStats extends App {
 
-  implicit val config: ConfigGitStats = ConfigGitStats(directoryName = "/work/workspace", dateFrom = Some(ConfigGitStats.last30days))
+  implicit val config: ConfigGitStats = ConfigGitStats(
+    directoryName = "/work/workspace",
+    dateFrom = Some(ConfigGitStats.last30days),
+    verbose = true
+  )
+  println(s"Configuration: $config")
 
   val svnUsers: Set[String] = autoDetectUserNames
   println(s"Subversion user names: $svnUsers")
@@ -38,7 +43,12 @@ object SvnStats extends App {
 
   val svnLogCmd = generateSvnLogCmd(svnUsers)
 
-  val projectDirs: Iterable[Path] = findProjectDirs(config.directory.toPath)(isSvnWorkDir)
+  val projectDirs: Iterable[Path] = findProjectDirs3(config.directory).map(_.toPath)
+//  val projectDirs: Iterable[Path] = findProjectDirs2(config.directory.toPath)
+//    val projectDirs: Iterable[Path] = findProjectDirs(config.directory.toPath)(isSvnWorkDir)
+//  val projectDirs: Iterable[Path] = com.micronautics.gitStats.gitProjectsUnder(config.directory).map(_.toPath)
+  println(s"Project dirs: ${projectDirs.mkString("\n")}")
+
   val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs.map(new SvnWorkDir(_, svnLogCmd))
   val (perDirCommits, perDirFailures) =
     svnWorkDirs.map { workDir =>
@@ -54,8 +64,8 @@ object SvnStats extends App {
       case (_, Success(commits)) => commits
       case _ => Iterator.empty
     }
-  val allByLanguage = aggregateByLanguage(allCommits)
-  println(allByLanguage.mkString("=== All Subversion commits grouped by language ===", "\n", "========================"))
+  val allByLanguage = aggregateByLanguage(allCommits).toList.sortBy(-_.linesAdded)
+  println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "========================"))
 
   perDirFailures
     .collect { case (workDir, Failure(e)) => (workDir, e) }

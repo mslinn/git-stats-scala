@@ -34,8 +34,8 @@ object SvnCmd {
     val dateRangeOption = generateDateRangeOption
     svnProgram ++
       List("log", "--diff") ++
-      userNames.map(userName => s"--search $userName") ++
-      List(dateRangeOption)
+      userNames.flatMap(userName => List("--search", userName)) ++
+      dateRangeOption
   }
 
   /**
@@ -44,9 +44,9 @@ object SvnCmd {
     * If `from` date is not set, then set it to 1970-01-01.
     * If `to` date is not set, then set it to today.
     */
-  def generateDateRangeOption(implicit config: ConfigGitStats): String = {
+  def generateDateRangeOption(implicit config: ConfigGitStats): List[String] = {
     val from = config.fromFormatted.getOrElse(ConfigGitStats.zeroFormatted)
     val to = config.toFormatted.getOrElse(ConfigGitStats.todayFormatted)
-    s"-r {$from}:{$to}"
+    List("-r", s"{$from}:{$to}")
   }
 }
