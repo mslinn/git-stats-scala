@@ -2,13 +2,21 @@ package com.micronautics.gitStats.svn
 
 import java.nio.file.{Files, Path, Paths}
 
-import com.micronautics.gitStats.{AggCommit, ProjectDir}
+import com.micronautics.gitStats.{AggCommit, ProjectDir, Cmd}
+import Cmd._
+import SvnCommit._
 
-class SvnWorkDir(dir: Path) extends ProjectDir {
+class SvnWorkDir(val dir: Path, svnCmd: SvnCmd) extends ProjectDir {
+  require(dir != null, "Directory must not be null")
+  require(svnCmd != null, "Svn cmd must not be null")
 
-  lazy val svnCommits: Set[SvnCommit] = ???
+  lazy val svnCommits: Iterable[SvnCommit] = {
+    val processBuilder = run(dir.toFile, svnCmd.svnLogCmd: _*)
+    val commitEntries = commitEntriesIterator(processBuilder.lineStream.iterator)
+    commitEntries.map(parseSvnCommit).flatMap(_.iterator).toIterable
+  }
 
-  lazy val aggCommits: List[AggCommit] = svnCommits.toList.flatMap(_.aggCommits)
+  lazy val aggCommits: Iterable[AggCommit] = svnCommits.flatMap(_.aggCommits)
 }
 
 object SvnWorkDir {

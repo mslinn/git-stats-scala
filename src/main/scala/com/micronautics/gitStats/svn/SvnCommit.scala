@@ -40,6 +40,13 @@ object SvnCommit {
   //TODO Maybe Iterator[String] is enough instead of List[String]
   type CommitEntry = List[String]
 
+  /**
+    * Creates an iterator for commit entries by parsing lines from Subversion command output.
+    *
+    * @param svnLogOutputLines Lines from `svn log --diff` output.
+    * @return Iterator over commit entries.
+    * @throws IllegalArgumentException svn log entries is null.
+    */
   def commitEntriesIterator(svnLogOutputLines: Iterator[String]): Iterator[CommitEntry] = {
     require(svnLogOutputLines != null, "svn log output must not be null")
 
@@ -81,6 +88,13 @@ object SvnCommit {
   def isLineCounts(line: String): Boolean =
     lineCountsPattern.pattern.matcher(line).matches()
 
+  /**
+    * Parses a commit entry from Subversion command output.
+    *
+    * @param commitEntry One commit entry extracted from `svn log --diff` output.
+    * @return Some object with SvnCommit inside when parsing was successful, otherwise None.
+    * @throws IllegalArgumentException commit entry is null.
+    */
   def parseSvnCommit(commitEntry: CommitEntry): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
