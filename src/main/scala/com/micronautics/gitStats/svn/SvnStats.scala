@@ -7,7 +7,6 @@ import com.micronautics.gitStats.ConfigGitStats
 import com.micronautics.gitStats.ProjectDir._
 import com.micronautics.gitStats.svn.SvnCmd._
 import com.micronautics.gitStats.svn.SvnUsers._
-import com.micronautics.gitStats.svn.SvnWorkDir._
 
 import scala.util.{Failure, Success}
 
@@ -65,7 +64,7 @@ object SvnStats extends App {
       case _ => Iterator.empty
     }
   val allByLanguage = aggregateByLanguage(allCommits).toList.sortBy(-_.linesAdded)
-  println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "========================"))
+  println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "\n========================"))
 
   perDirFailures
     .collect { case (workDir, Failure(e)) => (workDir, e) }
