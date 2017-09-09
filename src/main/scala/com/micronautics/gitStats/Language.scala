@@ -16,6 +16,7 @@ object Language {
     require(fileName != null, "File name must not be null")
     require(fileName.nonEmpty, "File name must not be empty string")
 
+    //TODO If verbose, print files with unknown language
     fileSuffix(fileName)
       .flatMap(suffixToLanguage.get)
       .orElse(nameToLanguage(fileName))
@@ -49,7 +50,10 @@ object Language {
     """#!/usr/bin/env\s+sh""".r
   )
 
+  private lazy val groovyContentRegex: Regex = """#!/usr/bin/env\s+groovy""".r
+
   def contentToLanguage(fileName: String): Option[String] = {
+    //TODO Skip binary files
     val fileContent = try {
       /* Read only the first 100 chars - just enough to decide about the language.
        * The performance improvement can be visible, as we check _all_ files with unrecognized suffixes.*/
@@ -59,6 +63,8 @@ object Language {
     }
     if (shellContentRegexes.exists(_.findFirstMatchIn(fileContent).isDefined))
       Some("Shell")
+    else if (groovyContentRegex.findFirstMatchIn(fileContent).isDefined)
+      Some("Groovy")
     else
       None
   }
@@ -84,6 +90,7 @@ object Language {
     "fsx"        -> "F#",
     "fsscript"   -> "F#",
     "go"         -> "Go",
+    "gradle"     -> "Gradle",
     "groovy"     -> "Groovy",
     "h"          -> "C/C++",
     "H"          -> "C/C++",
