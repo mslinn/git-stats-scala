@@ -12,6 +12,7 @@ object Language {
     * @return Programming language.
     * @throws IllegalArgumentException File name is null or empty string.
     */
+  //TODO Test with file samples
   def fileLanguage(fileName: String): String = {
     require(fileName != null, "File name must not be null")
     require(fileName.nonEmpty, "File name must not be empty string")
@@ -53,6 +54,7 @@ object Language {
   private lazy val groovyContentRegex: Regex = """#!/usr/bin/env\s+groovy""".r
 
   def contentToLanguage(fileName: String): Option[String] = {
+    //TODO This does not work because fileName is relative to the working dir
     //TODO Skip binary files
     val fileContent = try {
       /* Read only the first 100 chars - just enough to decide about the language.
