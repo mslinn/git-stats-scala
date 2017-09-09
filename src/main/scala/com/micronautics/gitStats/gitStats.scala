@@ -19,6 +19,7 @@ package object gitStats {
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)
+        //TODO Beware of NPE: cause may be null
         if (e.getCause.toString.nonEmpty) Console.err.println(e.getCause)
         Console.err.println(e.getStackTrace.mkString("\n"))
         sys.exit(-1)

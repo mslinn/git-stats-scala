@@ -19,13 +19,16 @@ object Cmd {
   @inline def getOutputFrom(cwd: File, cmd: String*)
                            (implicit config: ConfigGitStats): String =
     try {
-      val result = run(cwd, cmd:_*).!!.trim
+      val result = run(cwd, cmd: _*).!!.trim
       if (config.output) println(result)
       result
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)
-        if (e.getCause.toString.nonEmpty) Console.err.println(e.getCause)
+        Option(e.getCause).map(_.toString).foreach { cause =>
+          if (cause.nonEmpty)
+            Console.err.println(cause)
+        }
         Console.err.println(e.getStackTrace.mkString("\n"))
         sys.exit(-1)
     }

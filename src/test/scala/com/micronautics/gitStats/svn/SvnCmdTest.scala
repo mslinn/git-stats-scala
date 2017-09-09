@@ -76,39 +76,39 @@ class SvnCmdTest extends FunSuite {
 
 
 
-  test("dateRangeOption - from and to dates are both set") {
-    val cmd = new SvnCmd()(ConfigGitStats(
+  test("generateDateRangeOption - from and to dates are both set") {
+    val res = generateDateRangeOption(ConfigGitStats(
       dateFrom = Some(new DateTime("2017-08-01")),
       dateTo = Some(new DateTime("2017-09-01"))
     ))
-    assert(cmd.dateRangeOption === "-r {2017-08-01}:{2017-09-01}", "Date range option")
+    assert(res === "-r {2017-08-01}:{2017-09-01}", "Date range option")
   }
 
-  test("dateRangeOption - from date is set, to date is unset") {
-    val cmd = new SvnCmd()(ConfigGitStats(
+  test("generateDateRangeOption - from date is set, to date is unset") {
+    val res = generateDateRangeOption(ConfigGitStats(
       dateFrom = Some(new DateTime("2017-08-01")),
       dateTo = None
     ))
     val today = DateTime.now.withTimeAtStartOfDay
     val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
-    assert(cmd.dateRangeOption === s"-r {2017-08-01}:{$todayFormatted}", "Date range option")
+    assert(res === s"-r {2017-08-01}:{$todayFormatted}", "Date range option")
   }
 
-  test("dateRangeOption - from date is unset, to date is set") {
-    val cmd = new SvnCmd()(ConfigGitStats(
+  test("generateDateRangeOption - from date is unset, to date is set") {
+    val res = generateDateRangeOption(ConfigGitStats(
       dateFrom = None,
       dateTo = Some(new DateTime("2017-09-01"))
     ))
-    assert(cmd.dateRangeOption === "-r {1970-01-01}:{2017-09-01}", "Date range option")
+    assert(res === "-r {1970-01-01}:{2017-09-01}", "Date range option")
   }
 
-  test("dateRangeOption - from and to dates are both unset") {
-    val cmd = new SvnCmd()(ConfigGitStats(
+  test("generateDateRangeOption - from and to dates are both unset") {
+    val res = generateDateRangeOption(ConfigGitStats(
       dateFrom = None,
       dateTo = None
     ))
     val today = DateTime.now.withTimeAtStartOfDay
     val todayFormatted = DateTimeFormat.forPattern("yyyy-MM-dd").print(today)
-    assert(cmd.dateRangeOption === s"-r {1970-01-01}:{$todayFormatted}", "Date range option")
+    assert(res === s"-r {1970-01-01}:{$todayFormatted}", "Date range option")
   }
 }

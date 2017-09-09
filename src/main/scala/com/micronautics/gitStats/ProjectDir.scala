@@ -11,7 +11,7 @@ import java.nio.file.{Files, Path, Paths}
 
 trait ProjectDir {
 
-  val aggCommits: List[AggCommit]
+  val aggCommits: Iterable[AggCommit]
 }
 
 object ProjectDir {
