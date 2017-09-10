@@ -2,7 +2,7 @@ package com.micronautics.gitStats.svn
 
 import java.nio.file.{Path, Paths}
 
-import com.micronautics.gitStats.{AggCommit, Language}
+import com.micronautics.gitStats.{AggCommit, ConfigGitStats, FileModification}
 
 import scala.collection.mutable
 
@@ -16,25 +16,14 @@ import scala.collection.mutable
   */
 //TODO Parse also timestamp - will need it for time-window aggregations
 //TODO Maybe also need workDir
-case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
+case class SvnCommit(userName: String, fileModifs: Set[FileModification]) {
   require(userName != null, "User name must not be null")
   require(userName.nonEmpty, "User name must not be empty string")
   require(fileModifs != null, "File modifications cannot be null")
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 
   lazy val aggCommits: List[AggCommit] =
-    fileModifs.toList.map(modif => AggCommit(Language.fileLanguage(modif.file), modif.linesAdded))
-}
-
-/**
-  * One file modification within a commit to Subversion.
-  *
-  * @param file File, cannot be null.
-  * @param linesAdded Number of added lines. Negative number means more lines were deleted rather than added.
-  */
-case class FileModif(file: Path, linesAdded: Int) {
-  require(file != null, "File name must not be null")
-  require(file.toString.nonEmpty, "File path must not be empty string")
+    fileModifs.toList.map(modif => AggCommit(modif.language, modif.linesAdded))
 }
 
 //TODO Document all public API
@@ -99,7 +88,7 @@ object SvnCommit {
     * @return Some object with SvnCommit inside when parsing was successful, otherwise None.
     * @throws IllegalArgumentException commit entry is null.
     */
-  def parseSvnCommit(commitEntry: CommitEntry, workDir: Path): Option[SvnCommit] = {
+  def parseSvnCommit(commitEntry: CommitEntry, workDir: Path)(implicit config: ConfigGitStats): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
     val fileModifEntries: mutable.Map[String, Int] = mutable.Map()
@@ -125,7 +114,10 @@ object SvnCommit {
           /* Do not resolve file path here:
           * - the file may not exist already
           * - resolve takes time, but we do not need file content at this time*/
-          .map { case (fileName, linesAdded) => FileModif(Paths.get(workDir.toString, fileName), linesAdded) }
+          .map { case (fileName, linesAdded) => FileModification(Paths.get(workDir.toString, fileName), linesAdded) }
+          .filterNot(_.isIgnoredFileType)
+          .filterNot(_.isIgnoredPath)
+          .filterNot(config.onlyKnown && _.isUnrecognizedLanguage)
           .toSet
         Some(SvnCommit(userName, fileModifs))
       }

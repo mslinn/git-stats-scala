@@ -3,8 +3,8 @@ package com.micronautics.gitStats.svn
 import java.nio.charset.CodingErrorAction
 import java.nio.file.Paths
 
-import com.micronautics.gitStats.AggCommit
 import com.micronautics.gitStats.svn.SvnCommit._
+import com.micronautics.gitStats.{AggCommit, ConfigGitStats, FileModification}
 import org.scalatest.FunSuite
 
 import scala.io.{Codec, Source}
@@ -13,13 +13,13 @@ class SvnCommitTest extends FunSuite {
 
   test("SvnCommit - null user name") {
     intercept[IllegalArgumentException] {
-      SvnCommit(null, Set(FileModif(Paths.get("a"), 1)))
+      SvnCommit(null, Set(FileModification(Paths.get("a"), 1)))
     }
   }
 
   test("SvnCommit - empty user name") {
     intercept[IllegalArgumentException] {
-      SvnCommit("", Set(FileModif(Paths.get("a"), 1)))
+      SvnCommit("", Set(FileModification(Paths.get("a"), 1)))
     }
   }
 
@@ -32,20 +32,6 @@ class SvnCommitTest extends FunSuite {
   test("SvnCommit - empty file modifications") {
     intercept[IllegalArgumentException] {
       SvnCommit("user", Set())
-    }
-  }
-
-
-
-  test("FileModif - file is null") {
-    intercept[IllegalArgumentException] {
-      FileModif(null, 4)
-    }
-  }
-
-  test("FileModif - file path is empty string") {
-    intercept[IllegalArgumentException] {
-      FileModif(Paths.get(""), 4)
     }
   }
 
@@ -121,16 +107,17 @@ class SvnCommitTest extends FunSuite {
   }
 
   //TODO commitEntriesIterator - tests for bad input
-  //TODO parseSvnCommit - tests for bad input
+  //TODO parseSvnCommit - tests for bad input, for ignored file types, for ignored directories, for only known languages
 
 
+  implicit val config: ConfigGitStats = ConfigGitStats()
 
   test("parseSvnCommit - one file, one line count") {
     val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-one-file-one-line-count.log")).getLines().toList
     val res = parseSvnCommit(commitEntry, Paths.get("/workdir")).get
     assert(res.userName === "danielsh", "User name")
     assert(res.fileModifs.size === 1, "Number of files")
-    assert(res.fileModifs.head === FileModif(Paths.get("/workdir/branches/1.9.x/STATUS"), 1), "File modification")
+    assert(res.fileModifs.head === FileModification(Paths.get("/workdir/branches/1.9.x/STATUS"), 1), "File modification")
   }
 
   test("parseSvnCommit - one file, many line counts") {
@@ -138,7 +125,7 @@ class SvnCommitTest extends FunSuite {
     val res = parseSvnCommit(commitEntry, Paths.get("/workdir")).get
     assert(res.userName === "kotkov", "User name")
     assert(res.fileModifs.size === 1, "Number of files")
-    assert(res.fileModifs.head === FileModif(Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/fs.h"), -3), "File modification")
+    assert(res.fileModifs.head === FileModification(Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/fs.h"), -3), "File modification")
   }
 
   test("parseSvnCommit - many files, many line counts") {
@@ -177,7 +164,7 @@ class SvnCommitTest extends FunSuite {
 
 
   test("aggCommits - one file modification") {
-    val svnCommit = SvnCommit("moses", Set(FileModif(Paths.get("commandments.txt"), 10)))
+    val svnCommit = SvnCommit("moses", Set(FileModification(Paths.get("commandments.txt"), 10)))
     val res = svnCommit.aggCommits
     assert(res.size === 1, "Number of commits")
     assert(res.head === AggCommit("Unknown", 10), "Commit")
@@ -186,9 +173,9 @@ class SvnCommitTest extends FunSuite {
   test("aggCommits - many file modifications, different file types") {
     val svnCommit = SvnCommit("linus.torvalds",
       Set(
-        FileModif(Paths.get("Makefile"), 10),
-        FileModif(Paths.get("fs.h"), 20),
-        FileModif(Paths.get("README"), -30)
+        FileModification(Paths.get("Makefile"), 10),
+        FileModification(Paths.get("fs.h"), 20),
+        FileModification(Paths.get("README"), -30)
       )
     )
     val res = svnCommit.aggCommits
@@ -201,9 +188,9 @@ class SvnCommitTest extends FunSuite {
   test("aggCommits - many file modifications, same file type") {
     val svnCommit = SvnCommit("mark.twain",
       Set(
-        FileModif(Paths.get("tom_sawyer.txt"), 500),
-        FileModif(Paths.get("connecticut_yankee.txt"), 500),
-        FileModif(Paths.get("mysterious_stranger.txt"), -200)
+        FileModification(Paths.get("tom_sawyer.txt"), 500),
+        FileModification(Paths.get("connecticut_yankee.txt"), 500),
+        FileModification(Paths.get("mysterious_stranger.txt"), -200)
       )
     )
     val res = svnCommit.aggCommits

@@ -45,7 +45,9 @@ object SvnStats extends App {
   val projectDirs: Iterable[Path] = findScmProjectDirs(config.directory.toPath)
   println(s"Project dirs: ${projectDirs.mkString("\n")}")
 
-  val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs.filter(_.isSvnWorkDir).map(new SvnWorkDir(_, svnLogCmd))
+  val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs
+    .filter(_.isSvnWorkDir)
+    .map(new SvnWorkDir(_, svnLogCmd))
   val (perDirCommits, perDirFailures) =
     svnWorkDirs.map { workDir =>
       try {

@@ -2,6 +2,8 @@ package com.micronautics.gitStats
 
 import java.nio.file.Path
 
+import com.micronautics.gitStats.ProjectDir.RichPath
+
 import scala.io.Source
 import scala.util.matching.Regex
 
@@ -20,19 +22,11 @@ object Language {
     require(file.toString.nonEmpty, "File path must not be empty string")
 
     //TODO If verbose, print files with unknown language
-    fileSuffix(file)
+    file.fileSuffix
       .flatMap(suffixToLanguage.get)
       .orElse(nameToLanguage(file))
       .orElse(contentToLanguage(file))
       .getOrElse(unknownLanguage)
-  }
-
-  def fileSuffix(file: Path): Option[String] = {
-    require(file != null, "File name must not be null")
-
-    val idx = file.toString.lastIndexOf(".")
-    if (idx < 0) None
-    else Some(file.toString.substring(idx + 1))
   }
 
   def nameToLanguage(file: Path): Option[String] = {
@@ -129,6 +123,6 @@ object Language {
     "xml"        -> "XML"
   )
 
-  private lazy val unknownLanguage = "Unknown"
-  private lazy val miscellaneousLanguage = "Miscellaneous"
+  lazy val unknownLanguage = "Unknown"
+  lazy val miscellaneousLanguage = "Miscellaneous"
 }

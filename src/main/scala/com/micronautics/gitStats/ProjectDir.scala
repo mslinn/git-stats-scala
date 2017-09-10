@@ -36,9 +36,11 @@ object ProjectDir {
       children.flatMap(findScmProjectDirs)
   }
 
+  //TODO Move to the top level?
   implicit class RichPath(val path: Path) extends AnyVal {
     import RichPath._
 
+    @inline
     def listChildren: Iterable[Path] =
     /* Using File.listFiles(),
      * because java.nio.file.Files.list(Path) may lead to "too many open files" exception
@@ -47,6 +49,13 @@ object ProjectDir {
         .toIterable
         .flatMap(_.iterator)
         .map(_.toPath)
+
+    @inline
+    def fileSuffix: Option[String] = {
+      val idx = path.toString.lastIndexOf(".")
+      if (idx < 0) None
+      else Some(path.toString.substring(idx + 1))
+    }
 
     @inline
     def isIgnoreMarker: Boolean = Files.isRegularFile(path) && path.endsWith(ignoreMarker)
