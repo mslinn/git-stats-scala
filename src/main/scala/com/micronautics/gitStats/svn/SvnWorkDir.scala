@@ -1,6 +1,6 @@
 package com.micronautics.gitStats.svn
 
-import java.nio.file.{Files, Path, Paths}
+import java.nio.file.Path
 
 import com.micronautics.gitStats.Cmd._
 import com.micronautics.gitStats.svn.SvnCommit._
@@ -18,31 +18,4 @@ class SvnWorkDir(val dir: Path, svnLogCmd: List[String])(implicit config: Config
   }
 
   lazy val aggCommits: Iterable[AggCommit] = svnCommits.flatMap(_.aggCommits)
-}
-
-object SvnWorkDir {
-
-  lazy val dotSvn: Path = Paths.get(".svn")
-
-  /**
-    * Checks if this path points to a Subversion working directory.
-    * Criteria are:
-    * <ol>
-    * <li> it is a directory
-    * <li> it has a subdirectory .svn
-    * </ol>
-    *
-    * @param path Path to check
-    * @return true if this path points to a Subversion working directory.
-    * @throws IllegalArgumentException Path is null
-    */
-  def isSvnWorkDir(path: Path): Boolean = {
-    require(path != null, "Path must not be null")
-
-    Files.isDirectory(path) &&
-      Files.list(path)
-        .filter(child => Files.isDirectory(child) && child.endsWith(dotSvn))
-        .findAny()
-        .isPresent
-  }
 }
