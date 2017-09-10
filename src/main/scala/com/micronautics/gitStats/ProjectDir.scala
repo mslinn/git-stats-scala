@@ -1,15 +1,8 @@
 package com.micronautics.gitStats
 
-import java.io.File
 import java.nio.file.{Files, Path, Paths}
 
-/*
-* TODO Remove this comment
-* - gitProjectsUnder in gitStats.scala is specific to Git. Need generic.
-* - Hard to test in unit tests - use standard API.
-* - Don't invent a wheel.
-* */
-
+//TODO Do we really need this trait? Maybe remove.
 trait ProjectDir {
 
   val aggCommits: Iterable[AggCommit]
@@ -17,97 +10,67 @@ trait ProjectDir {
 
 object ProjectDir {
 
-  import java.util.{stream => jus}
-  import scala.collection.JavaConverters._
-
-  def findProjectDirs3(rootDir: File)(implicit config: ConfigGitStats): Iterable[File] = {
-    if (rootDir.isDirectory) {
-      val childs = Option(rootDir.listFiles).toList.flatMap(_.toList)
-      if (childs.exists(child => child.isFile && child.getAbsolutePath.endsWith(ignoreMarker.toString)))
-        Iterable.empty
-      else if (childs.exists(child => child.isDirectory && child.getAbsolutePath.endsWith(".svn"))) {
-        if (config.verbose) print(".")
-        Iterable(rootDir.getAbsoluteFile)
-      } else
-        childs.flatMap(findProjectDirs3)
-    } else
-      Iterable.empty
-  }
-
-  def findProjectDirs2(rootDir: Path)(implicit config: ConfigGitStats): Iterable[Path] = {
-    if (Files.isDirectory(rootDir)) {
-      val childs = Files.list(rootDir).collect(jus.Collectors.toList[Path]).asScala
-      if (childs.exists(child => Files.isRegularFile(child) && child.endsWith(ignoreMarker)))
-        Iterable.empty
-      else if (childs.exists(child => Files.isDirectory(child) && child.endsWith(".svn"))) {
-        if (config.verbose) print(".")
-        Iterable(rootDir.toAbsolutePath)
-      } else
-        childs.flatMap(findProjectDirs2)
-    } else
-      Iterable.empty
-  }
-
   /**
-    * Finds project directories under the root directory.
-    * Recursively scans the root directory to get all directories, that
+    * Finds project directories under the given directory.
+    * A directory is considered as SCM project directory when:
     * <ol>
-    * <li> meet the given predicate
-    * <li> does not have ignore marker file
+    * <li> it has an SCM-specific directory in it, like .git or .svn
+    * <li> it does not have ignore marker file in it
     * </ol>
     *
-    * @param rootDir      Search in this directory.
-    * @param isProjectDir Predicate to recognize project directories.
-    * @return Collection of project directories.
-    * @throws IllegalArgumentException Path is null
+    * @param baseDir Base directory.
+    * @param config Predicate to recognize project directories.
+    * @return Collection of SCM project directories.
+    * @throws IllegalArgumentException Base directory is null.
     */
-  def findProjectDirs(rootDir: Path)(isProjectDir: Path => Boolean): Iterable[Path] = {
-    println(s"-------- $rootDir")
+  def findScmProjectDirs(baseDir: Path)(implicit config: ConfigGitStats): Iterable[Path] = {
+    require(baseDir != null, "Base directory must not be null")
 
-    import java.util.{stream => jus}
-
-    def findProjectDirs0(path: Path): jus.Stream[Path] = {
-      if (!Files.isDirectory(path))
-        jus.Stream.empty()
-      else {
-        println(s"+++ directory: $path")
-        Files.list(path)
-          .filter(isProjectDir(_))
-          .filter(isNotIgnoredDir)
-          .flatMap(findProjectDirs0(_))
-      }
-    }
-
-    def findProjectDirs1(path: Path): jus.Stream[Path] = {
-      if (!Files.isDirectory(path))
-        jus.Stream.empty()
-      else if (isIgnoredDir(path))
-        jus.Stream.empty()
-      else if (isProjectDir(path))
-        jus.Stream.of[Path](path)
-      else
-        Files.list(path).flatMap(findProjectDirs1)
-    }
-
-    import scala.collection.JavaConverters._
-    val res0 = findProjectDirs1(rootDir).collect(jus.Collectors.toList[Path])
-    println(s"-------- $res0")
-    val res = res0
-      .asScala
-    println(s"-------- $res")
-    res
+    val children = baseDir.listChildren
+    if (children.exists(_.isIgnoreMarker))
+      Iterable.empty
+    else if (children.exists(_.isScmDir)) {
+      if (config.verbose) print(".")
+      Iterable(baseDir)
+    } else
+      children.flatMap(findScmProjectDirs)
   }
 
-  lazy val ignoreMarker: Path = Paths.get(".ignore.stats")
+  implicit class RichPath(val path: Path) extends AnyVal {
+    import RichPath._
 
-  def isNotIgnoredDir(path: Path): Boolean = !isIgnoredDir(path)
+    def listChildren: Iterable[Path] =
+    /* Using File.listFiles(),
+     * because java.nio.file.Files.list(Path) may lead to "too many open files" exception
+     * when scanning deep directories recursively. */
+      Option(path.toFile.listFiles())
+        .toIterable
+        .flatMap(_.iterator)
+        .map(_.toPath)
 
-  def isIgnoredDir(path: Path): Boolean = {
-    Files.isDirectory(path) &&
-      Files.list(path)
-        .filter(child => Files.isRegularFile(child) && child.endsWith(ignoreMarker))
-        .findAny()
-        .isPresent
+    @inline
+    def isIgnoreMarker: Boolean = Files.isRegularFile(path) && path.endsWith(ignoreMarker)
+
+    @inline
+    def isScmDir: Boolean = isDotGit || isDotSvn
+
+    @inline
+    def isDotSvn: Boolean = Files.isDirectory(path) && path.endsWith(dotSvn)
+
+    @inline
+    def isDotGit: Boolean = Files.isDirectory(path) && path.endsWith(dotGit)
+
+    @inline
+    def isGitRepo: Boolean = Files.isDirectory(path) && listChildren.exists(_.isDotGit)
+
+    @inline
+    def isSvnWorkDir: Boolean = Files.isDirectory(path) && listChildren.exists(_.isDotSvn)
+  }
+
+  object RichPath {
+    lazy val ignoreMarker: Path = Paths.get(".ignore.stats")
+    lazy val dotSvn: Path = Paths.get(".svn")
+    lazy val dotGit: Path = Paths.get(".git")
   }
 
 }

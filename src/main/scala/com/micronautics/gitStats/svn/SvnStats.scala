@@ -42,13 +42,10 @@ object SvnStats extends App {
 
   val svnLogCmd = generateSvnLogCmd(svnUsers)
 
-  val projectDirs: Iterable[Path] = findProjectDirs3(config.directory).map(_.toPath)
-//  val projectDirs: Iterable[Path] = findProjectDirs2(config.directory.toPath)
-//    val projectDirs: Iterable[Path] = findProjectDirs(config.directory.toPath)(isSvnWorkDir)
-//  val projectDirs: Iterable[Path] = com.micronautics.gitStats.gitProjectsUnder(config.directory).map(_.toPath)
+  val projectDirs: Iterable[Path] = findScmProjectDirs(config.directory.toPath)
   println(s"Project dirs: ${projectDirs.mkString("\n")}")
 
-  val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs.map(new SvnWorkDir(_, svnLogCmd))
+  val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs.filter(_.isSvnWorkDir).map(new SvnWorkDir(_, svnLogCmd))
   val (perDirCommits, perDirFailures) =
     svnWorkDirs.map { workDir =>
       try {
