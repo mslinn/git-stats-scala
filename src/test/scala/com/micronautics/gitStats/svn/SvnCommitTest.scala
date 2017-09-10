@@ -1,6 +1,7 @@
 package com.micronautics.gitStats.svn
 
 import java.nio.charset.CodingErrorAction
+import java.nio.file.Paths
 
 import com.micronautics.gitStats.AggCommit
 import com.micronautics.gitStats.svn.SvnCommit._
@@ -12,13 +13,13 @@ class SvnCommitTest extends FunSuite {
 
   test("SvnCommit - null user name") {
     intercept[IllegalArgumentException] {
-      SvnCommit(null, Set(FileModif("a", 1)))
+      SvnCommit(null, Set(FileModif(Paths.get("a"), 1)))
     }
   }
 
   test("SvnCommit - empty user name") {
     intercept[IllegalArgumentException] {
-      SvnCommit("", Set(FileModif("a", 1)))
+      SvnCommit("", Set(FileModif(Paths.get("a"), 1)))
     }
   }
 
@@ -36,15 +37,15 @@ class SvnCommitTest extends FunSuite {
 
 
 
-  test("FileModif - null file name") {
+  test("FileModif - file is null") {
     intercept[IllegalArgumentException] {
       FileModif(null, 4)
     }
   }
 
-  test("FileModif - empty file name") {
+  test("FileModif - file path is empty string") {
     intercept[IllegalArgumentException] {
-      FileModif("", 4)
+      FileModif(Paths.get(""), 4)
     }
   }
 
@@ -120,42 +121,43 @@ class SvnCommitTest extends FunSuite {
   }
 
   //TODO commitEntriesIterator - tests for bad input
+  //TODO parseSvnCommit - tests for bad input
 
 
 
   test("parseSvnCommit - one file, one line count") {
     val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-one-file-one-line-count.log")).getLines().toList
-    val res = parseSvnCommit(commitEntry).get
+    val res = parseSvnCommit(commitEntry, Paths.get("/workdir")).get
     assert(res.userName === "danielsh", "User name")
     assert(res.fileModifs.size === 1, "Number of files")
-    assert(res.fileModifs.head === FileModif("branches/1.9.x/STATUS", 1), "File modification")
+    assert(res.fileModifs.head === FileModif(Paths.get("/workdir/branches/1.9.x/STATUS"), 1), "File modification")
   }
 
   test("parseSvnCommit - one file, many line counts") {
     val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-one-file-many-line-counts.log")).getLines().toList
-    val res = parseSvnCommit(commitEntry).get
+    val res = parseSvnCommit(commitEntry, Paths.get("/workdir")).get
     assert(res.userName === "kotkov", "User name")
     assert(res.fileModifs.size === 1, "Number of files")
-    assert(res.fileModifs.head === FileModif("trunk/subversion/libsvn_fs_fs/fs.h", -3), "File modification")
+    assert(res.fileModifs.head === FileModif(Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/fs.h"), -3), "File modification")
   }
 
   test("parseSvnCommit - many files, many line counts") {
     val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-many-files.log")).getLines().toList
-    val res = parseSvnCommit(commitEntry).get
+    val res = parseSvnCommit(commitEntry, Paths.get("/workdir")).get
     assert(res.userName === "kotkov", "User name")
     assert(res.fileModifs.size === 6, "Number of files")
-    val fileModifs = res.fileModifs.map(modif => modif.fileName -> modif.linesAdded).toMap
+    val fileModifs = res.fileModifs.map(modif => modif.file -> modif.linesAdded).toMap
     val expectations = Iterable(
-      "trunk/win-tests.py" -> 0,
-      "trunk/build/run_tests.py" -> -1,
-      "trunk/subversion/tests/cmdline/svntest/main.py" -> -1,
-      "trunk/subversion/libsvn_fs_fs/fs_fs.c" -> 107,
-      "trunk/subversion/libsvn_fs_fs/fs.h" -> 11,
-      "trunk/subversion/libsvn_fs_fs/transaction.c" -> -3
+      Paths.get("/workdir/trunk/win-tests.py") -> 0,
+      Paths.get("/workdir/trunk/build/run_tests.py") -> -1,
+      Paths.get("/workdir/trunk/subversion/tests/cmdline/svntest/main.py") -> -1,
+      Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/fs_fs.c") -> 107,
+      Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/fs.h") -> 11,
+      Paths.get("/workdir/trunk/subversion/libsvn_fs_fs/transaction.c") -> -3
     )
     for (expectation <- expectations) {
-      val fileName = expectation._1
-      assert(fileModifs(fileName) === expectation._2, s"Number of lines for file: $fileName")
+      val file = expectation._1
+      assert(fileModifs(file) === expectation._2, s"Number of lines for file: $file")
     }
   }
 
@@ -165,7 +167,7 @@ class SvnCommitTest extends FunSuite {
     val codec: Codec = Codec.UTF8.onMalformedInput(CodingErrorAction.IGNORE)
     val input = Source.fromInputStream(getClass.getResourceAsStream("svn-log-kotkov-danielsh.log"))(codec)
     val commitEntries = commitEntriesIterator(input.getLines())
-    val svnCommits = commitEntries.map(parseSvnCommit).flatMap(_.iterator)
+    val svnCommits = commitEntries.map(parseSvnCommit(_, Paths.get("/workdir"))).flatMap(_.iterator)
     assert(svnCommits.size === 71, "Number of commits")
     svnCommits.foreach{ commit =>
       assert(commit.fileModifs.nonEmpty, s"Number of files in commit: $commit")
@@ -175,7 +177,7 @@ class SvnCommitTest extends FunSuite {
 
 
   test("aggCommits - one file modification") {
-    val svnCommit = SvnCommit("moses", Set(FileModif("commandments.txt", 10)))
+    val svnCommit = SvnCommit("moses", Set(FileModif(Paths.get("commandments.txt"), 10)))
     val res = svnCommit.aggCommits
     assert(res.size === 1, "Number of commits")
     assert(res.head === AggCommit("Unknown", 10), "Commit")
@@ -184,9 +186,9 @@ class SvnCommitTest extends FunSuite {
   test("aggCommits - many file modifications, different file types") {
     val svnCommit = SvnCommit("linus.torvalds",
       Set(
-        FileModif("Makefile", 10),
-        FileModif("fs.h", 20),
-        FileModif("README", -30)
+        FileModif(Paths.get("Makefile"), 10),
+        FileModif(Paths.get("fs.h"), 20),
+        FileModif(Paths.get("README"), -30)
       )
     )
     val res = svnCommit.aggCommits
@@ -199,14 +201,14 @@ class SvnCommitTest extends FunSuite {
   test("aggCommits - many file modifications, same file type") {
     val svnCommit = SvnCommit("mark.twain",
       Set(
-        FileModif("tom_sawyer.txt", 500),
-        FileModif("connecticut_yankee.txt", 500),
-        FileModif("mysterious_stranger.txt", -200)
+        FileModif(Paths.get("tom_sawyer.txt"), 500),
+        FileModif(Paths.get("connecticut_yankee.txt"), 500),
+        FileModif(Paths.get("mysterious_stranger.txt"), -200)
       )
     )
     val res = svnCommit.aggCommits
     assert(res.size === 3, "Number of commits")
-    assert(res.filter(_ == AggCommit("Unknown", 500)).size === 2, "Commits with 500 lines added")
+    assert(res.count(_ == AggCommit("Unknown", 500)) === 2, "Commits with 500 lines added")
     assert(res.contains(AggCommit("Unknown", -200)), "Commit with -200 lines added")
   }
 }

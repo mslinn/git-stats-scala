@@ -1,5 +1,7 @@
 package com.micronautics.gitStats
 
+import java.nio.file.Path
+
 import scala.io.Source
 import scala.util.matching.Regex
 
@@ -8,35 +10,35 @@ object Language {
   /**
     * Determines programming language for the given source file.
     *
-    * @param fileName Source file name.
+    * @param file Path to the source file.
     * @return Programming language.
     * @throws IllegalArgumentException File name is null or empty string.
     */
   //TODO Test with file samples
-  def fileLanguage(fileName: String): String = {
-    require(fileName != null, "File name must not be null")
-    require(fileName.nonEmpty, "File name must not be empty string")
+  def fileLanguage(file: Path): String = {
+    require(file != null, "File must not be null")
+    require(file.toString.nonEmpty, "File path must not be empty string")
 
     //TODO If verbose, print files with unknown language
-    fileSuffix(fileName)
+    fileSuffix(file)
       .flatMap(suffixToLanguage.get)
-      .orElse(nameToLanguage(fileName))
-      .orElse(contentToLanguage(fileName))
+      .orElse(nameToLanguage(file))
+      .orElse(contentToLanguage(file))
       .getOrElse(unknownLanguage)
   }
 
-  def fileSuffix(fileName: String): Option[String] = {
-    require(fileName != null, "File name must not be null")
+  def fileSuffix(file: Path): Option[String] = {
+    require(file != null, "File name must not be null")
 
-    val idx = fileName.lastIndexOf(".")
+    val idx = file.toString.lastIndexOf(".")
     if (idx < 0) None
-    else Some(fileName.substring(idx + 1))
+    else Some(file.toString.substring(idx + 1))
   }
 
-  def nameToLanguage(fileName: String): Option[String] = {
-    require(fileName != null, "File name must not be null")
+  def nameToLanguage(file: Path): Option[String] = {
+    require(file != null, "File name must not be null")
 
-    fileName.toLowerCase match {
+    file.toString.toLowerCase match {
       case name if name.startsWith("dockerfile") => Some("Dockerfile")
       case name if name.startsWith("makefile") => Some("Makefile")
       case name if name.startsWith(".") => Some(miscellaneousLanguage)
@@ -53,13 +55,12 @@ object Language {
 
   private lazy val groovyContentRegex: Regex = """#!/usr/bin/env\s+groovy""".r
 
-  def contentToLanguage(fileName: String): Option[String] = {
-    //TODO This does not work because fileName is relative to the working dir
+  def contentToLanguage(file: Path): Option[String] = {
     //TODO Skip binary files
     val fileContent = try {
       /* Read only the first 100 chars - just enough to decide about the language.
        * The performance improvement can be visible, as we check _all_ files with unrecognized suffixes.*/
-      Source.fromFile(fileName).take(100).mkString
+      Source.fromFile(file.toFile).take(100).mkString
     } catch {
       case _: Exception => ""
     }

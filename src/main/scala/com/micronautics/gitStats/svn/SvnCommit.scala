@@ -1,5 +1,7 @@
 package com.micronautics.gitStats.svn
 
+import java.nio.file.{Path, Paths}
+
 import com.micronautics.gitStats.{AggCommit, Language}
 
 import scala.collection.mutable
@@ -13,6 +15,7 @@ import scala.collection.mutable
   * @param fileModifs File modifications in this commit, cannot be null or empty.
   */
 //TODO Parse also timestamp - will need it for time-window aggregations
+//TODO Maybe also need workDir
 case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(userName != null, "User name must not be null")
   require(userName.nonEmpty, "User name must not be empty string")
@@ -20,18 +23,18 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModif]) {
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 
   lazy val aggCommits: List[AggCommit] =
-    fileModifs.toList.map(modif => AggCommit(Language.fileLanguage(modif.fileName), modif.linesAdded))
+    fileModifs.toList.map(modif => AggCommit(Language.fileLanguage(modif.file), modif.linesAdded))
 }
 
 /**
   * One file modification within a commit to Subversion.
   *
-  * @param fileName File name, cannot be null or empty string.
+  * @param file File, cannot be null.
   * @param linesAdded Number of added lines. Negative number means more lines were deleted rather than added.
   */
-case class FileModif(fileName: String, linesAdded: Int) {
-  require(fileName != null, "File name must not be null")
-  require(fileName.nonEmpty, "File name must not be empty string")
+case class FileModif(file: Path, linesAdded: Int) {
+  require(file != null, "File name must not be null")
+  require(file.toString.nonEmpty, "File path must not be empty string")
 }
 
 //TODO Document all public API
@@ -92,10 +95,11 @@ object SvnCommit {
     * Parses a commit entry from Subversion command output.
     *
     * @param commitEntry One commit entry extracted from `svn log --diff` output.
+    * @param workDir Working directory
     * @return Some object with SvnCommit inside when parsing was successful, otherwise None.
     * @throws IllegalArgumentException commit entry is null.
     */
-  def parseSvnCommit(commitEntry: CommitEntry): Option[SvnCommit] = {
+  def parseSvnCommit(commitEntry: CommitEntry, workDir: Path): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
     val fileModifEntries: mutable.Map[String, Int] = mutable.Map()
@@ -117,7 +121,12 @@ object SvnCommit {
     userNameOpt.flatMap { userName =>
       if (fileModifEntries.isEmpty) None
       else {
-        val fileModifs = fileModifEntries.map { case (fileName, linesAdded) => FileModif(fileName, linesAdded) }.toSet
+        val fileModifs = fileModifEntries
+          /* Do not resolve file path here:
+          * - the file may not exist already
+          * - resolve takes time, but we do not need file content at this time*/
+          .map { case (fileName, linesAdded) => FileModif(Paths.get(workDir.toString, fileName), linesAdded) }
+          .toSet
         Some(SvnCommit(userName, fileModifs))
       }
     }

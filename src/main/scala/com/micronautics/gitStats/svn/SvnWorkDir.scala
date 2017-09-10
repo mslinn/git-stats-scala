@@ -14,7 +14,7 @@ class SvnWorkDir(val dir: Path, svnLogCmd: List[String])(implicit config: Config
   lazy val svnCommits: Iterable[SvnCommit] = {
     val processBuilder = run(dir.toFile, svnLogCmd: _*)
     val commitEntries = commitEntriesIterator(processBuilder.lineStream.iterator)
-    commitEntries.map(parseSvnCommit).flatMap(_.iterator).toIterable
+    commitEntries.map(parseSvnCommit(_, dir)).flatMap(_.iterator).toIterable
   }
 
   lazy val aggCommits: Iterable[AggCommit] = svnCommits.flatMap(_.aggCommits)
