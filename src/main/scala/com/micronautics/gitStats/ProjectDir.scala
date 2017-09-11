@@ -42,13 +42,19 @@ object ProjectDir {
 
     @inline
     def listChildren: Iterable[Path] =
-    /* Using File.listFiles(),
+      try {
+        /* Using File.listFiles(),
      * because java.nio.file.Files.list(Path) may lead to "too many open files" exception
      * when scanning deep directories recursively. */
-      Option(path.toFile.listFiles())
-        .toIterable
-        .flatMap(_.iterator)
-        .map(_.toPath)
+        Option(path.toFile.listFiles())
+          .toIterable
+          .flatMap(_.iterator)
+          .map(_.toPath)
+      } catch {
+        case e: Exception =>
+          Console.err.println(s"${e.getMessage} ${e.getCause} ${e.getStackTrace.mkString("\n")}")
+          Nil
+      }
 
     @inline
     def fileSuffix: Option[String] = {
