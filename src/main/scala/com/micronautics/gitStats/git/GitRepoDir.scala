@@ -3,8 +3,8 @@ package com.micronautics.gitStats.git
 import java.nio.file.Path
 
 import com.micronautics.gitStats.git.GitCmd._
-import com.micronautics.gitStats.{AggCommit, Cmd, ConfigGitStats, ProjectDir, Repo}
-import GitCommit._
+import com.micronautics.gitStats.git.GitCommit._
+import com.micronautics.gitStats.{AggCommit, Cmd, ConfigGitStats, ProjectDir}
 
 class GitRepoDir(val dir: Path)(implicit config: ConfigGitStats) extends ProjectDir {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
