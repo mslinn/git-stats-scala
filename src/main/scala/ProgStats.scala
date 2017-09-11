@@ -1,6 +1,9 @@
+import com.micronautics.gitStats.AggCommit.aggregateByLanguage
+import com.micronautics.gitStats.ConfigGitStats
 import com.micronautics.gitStats.ProjectDir._
 import com.micronautics.gitStats.svn.SvnStats
-import com.micronautics.gitStats.{ConfigGitStats, git}
+
+import scala.util.{Failure, Success}
 
 object ProgStats extends App with GitStatsOptionParsing {
 
@@ -17,8 +20,22 @@ object ProgStats extends App with GitStatsOptionParsing {
       println(dirsReport)
     }
 
-    val gitCommits = git.GitStats.commits(scmProjectDirs)
+    val gitCommits = Iterable.empty// git.GitStats.commits(scmProjectDirs)
+    //TODO Run Subversion stats only when user asked for it
     val svnCommits = SvnStats.commits(scmProjectDirs)
-    val allCommits = gitCommits ++ svnCommits
+    val (perProjectCommits, perProjectFailures) = (gitCommits ++ svnCommits).partition { case (_, t) => t.isSuccess }
+    val allProjectCommits = perProjectCommits.flatMap {
+      case (_, Success(projectCommits)) => projectCommits
+      case _ => Iterator.empty
+    }
+    val allByLanguage = aggregateByLanguage(allProjectCommits).toList.sortBy(-_.netChange)
+    println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "\n========================"))
+
+    //TODO Pretty failure report
+    perProjectFailures
+      .collect { case (workDir, Failure(e)) => (workDir, e) }
+      .foreach { case (workDir, e) =>
+        println(s"Directory ${workDir}: ${e.getMessage}")
+      }
   }
 }

@@ -14,6 +14,8 @@ case class AggCommit(language: String, linesAdded: Int, linesDeleted: Int) {
 
 object AggCommit {
 
+  type AggCommits = Iterable[AggCommit]
+
   /**
     * Aggregates commits by language.
     *
@@ -21,7 +23,7 @@ object AggCommit {
     * @return Collection of commits where line counts are aggregations for each language.
     * @throws IllegalArgumentException commits is null.
     */
-  def aggregateByLanguage(commits: GenIterable[AggCommit]): GenIterable[AggCommit] = {
+  def aggregateByLanguage(commits: AggCommits): AggCommits = {
     require(commits != null, "Commits must not be null")
 
     val aggMap: Map[String, (Int, Int)] = commits.aggregate(mutable.Map[String, (Int, Int)]().withDefaultValue((0, 0)))(
