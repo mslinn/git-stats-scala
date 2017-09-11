@@ -89,6 +89,12 @@ object SvnCommit {
     * @return Some object with SvnCommit inside when parsing was successful, otherwise None.
     * @throws IllegalArgumentException commit entry is null.
     */
+  /* TODO This simple parser implementation just takes numbers from unified diff output
+  * and treats them as added/deleted lines count. Although it gives correct net changes,
+  * but it overstates added/deleted line counts.
+  * More accurate implementation should count lines starting with '-' and '+'
+  * in the unified diff output.
+  * But only net change makes sense.*/
   def parseSvnCommit(commitEntry: CommitEntry, workDir: Path)(implicit config: ConfigGitStats): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
