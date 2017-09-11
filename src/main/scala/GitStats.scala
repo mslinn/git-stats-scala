@@ -1,6 +1,7 @@
 import com.micronautics.gitStats._
 import org.joda.time.{DateTime, Days}
 
+@deprecated("TODO Use ProgStats as an entry point instead")
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args, ConfigGitStats()) match {
     case Some(config) => new AllRepos()(config).process()

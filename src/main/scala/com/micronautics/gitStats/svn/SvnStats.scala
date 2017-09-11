@@ -3,12 +3,12 @@ package com.micronautics.gitStats.svn
 import java.nio.file.Path
 
 import com.micronautics.gitStats.AggCommit._
-import com.micronautics.gitStats.ConfigGitStats
+import com.micronautics.gitStats.{AggCommit, ConfigGitStats}
 import com.micronautics.gitStats.ProjectDir._
 import com.micronautics.gitStats.svn.SvnCmd._
 import com.micronautics.gitStats.svn.SvnUsers._
 
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Success, Try}
 
 //TODO Embed into the main app, remove main method from here
 object SvnStats extends App {
@@ -48,7 +48,7 @@ object SvnStats extends App {
   val svnWorkDirs: Iterable[SvnWorkDir] = projectDirs
     .filter(_.isSvnWorkDir)
     .map(new SvnWorkDir(_, svnLogCmd))
-  val (perDirCommits, perDirFailures) =
+  val (perDirCommits, perDirFailures): (Iterable[(SvnWorkDir, Try[Iterable[AggCommit]])], Iterable[(SvnWorkDir, Try[Iterable[AggCommit]])]) =
     svnWorkDirs.map { workDir =>
       try {
         workDir -> Success(workDir.aggCommits)
@@ -70,4 +70,8 @@ object SvnStats extends App {
     .foreach { case (workDir, e) =>
       println(s"Directory ${workDir.dir}: ${e.getMessage}")
     }
+
+  def commits(scmProjectDirs: Iterable[Path]): Iterable[(Path, Try[AggCommit])] = {
+    ???
+  }
 }
