@@ -30,7 +30,7 @@ object Cmd {
             Console.err.println(cause)
         }
         Console.err.println(e.getStackTrace.mkString("\n"))
-        sys.exit(-1)
+        throw e
     }
 
   @inline def run(cwd: File, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
