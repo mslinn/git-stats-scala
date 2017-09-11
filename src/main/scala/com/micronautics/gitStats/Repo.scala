@@ -3,7 +3,7 @@ package com.micronautics.gitStats
 import java.io.File
 
 /** Process repo at directory `dir` */
-@deprecated("TODO: Merge with git.GitRepoDir")
+@deprecated("TODO Use git.GitRepoDir instead", "0.2.1")
 class Repo(val dir: File)
           (implicit config: ConfigGitStats) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
