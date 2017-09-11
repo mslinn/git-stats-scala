@@ -1,7 +1,7 @@
 import com.micronautics.gitStats.AggCommit.aggregateByLanguage
-import com.micronautics.gitStats.ConfigGitStats
 import com.micronautics.gitStats.ProjectDir._
 import com.micronautics.gitStats.svn.SvnStats
+import com.micronautics.gitStats.{ConfigGitStats, git}
 
 import scala.util.{Failure, Success}
 
@@ -20,8 +20,8 @@ object ProgStats extends App with GitStatsOptionParsing {
       println(dirsReport)
     }
 
-    val gitCommits = Iterable.empty// git.GitStats.commits(scmProjectDirs)
-    //TODO Run Subversion stats only when user asked for it
+    val gitCommits = git.GitStats.commits(scmProjectDirs)
+    //TODO Run Subversion stats only when user asked for it. It is much slower than Git stats.
     val svnCommits = SvnStats.commits(scmProjectDirs)
     val (perProjectCommits, perProjectFailures) = (gitCommits ++ svnCommits).partition { case (_, t) => t.isSuccess }
     val allProjectCommits = perProjectCommits.flatMap {
@@ -29,7 +29,7 @@ object ProgStats extends App with GitStatsOptionParsing {
       case _ => Iterator.empty
     }
     val allByLanguage = aggregateByLanguage(allProjectCommits).toList.sortBy(-_.netChange)
-    println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "\n========================"))
+    println(allByLanguage.mkString("=== All commits grouped by language ===\n", "\n", "\n========================"))
 
     //TODO Pretty failure report
     perProjectFailures

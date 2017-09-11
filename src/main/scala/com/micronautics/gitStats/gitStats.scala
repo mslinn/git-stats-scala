@@ -25,10 +25,12 @@ package object gitStats {
         sys.exit(-1)
     }
 
+  //TODO Move to git package
   lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
+  @deprecated("TODO Use generic ProjectDir.findScmProjectDirs() instead")
   def gitProjectsUnder(file: File)
                       (implicit config: ConfigGitStats): List[File] = {
     val childFiles = file.childFiles
