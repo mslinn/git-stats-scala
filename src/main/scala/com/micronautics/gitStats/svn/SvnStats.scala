@@ -62,7 +62,7 @@ object SvnStats extends App {
       case (_, Success(commits)) => commits
       case _ => Iterator.empty
     }
-  val allByLanguage = aggregateByLanguage(allCommits).toList.sortBy(-_.linesAdded)
+  val allByLanguage = aggregateByLanguage(allCommits).toList.sortBy(-_.netChange)
   println(allByLanguage.mkString("=== All Subversion commits grouped by language ===\n", "\n", "\n========================"))
 
   perDirFailures

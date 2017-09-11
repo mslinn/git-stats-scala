@@ -2,6 +2,7 @@ package com.micronautics.gitStats.svn
 
 import java.nio.file.{Path, Paths}
 
+import com.micronautics.gitStats.FileModification.RichIntTuple2
 import com.micronautics.gitStats.{AggCommit, ConfigGitStats, FileModification}
 
 import scala.collection.mutable
@@ -23,7 +24,7 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModification]) {
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 
   lazy val aggCommits: List[AggCommit] =
-    fileModifs.toList.map(modif => AggCommit(modif.language, modif.linesAdded))
+    fileModifs.toList.map(modif => AggCommit(modif.language, modif.linesAdded, modif.linesDeleted))
 }
 
 //TODO Document all public API
@@ -91,17 +92,17 @@ object SvnCommit {
   def parseSvnCommit(commitEntry: CommitEntry, workDir: Path)(implicit config: ConfigGitStats): Option[SvnCommit] = {
     var userNameOpt: Option[String] = None
     var fileNameOpt: Option[String] = None
-    val fileModifEntries: mutable.Map[String, Int] = mutable.Map()
+    val fileModifEntries: mutable.Map[String, (Int, Int)] = mutable.Map()
     for (line <- commitEntry) {
       line match {
         case commitHeadlinePattern(userName) =>
           userNameOpt = Some(userName)
         case fileIndexPattern(fileName) =>
           fileNameOpt = Some(fileName)
-          fileModifEntries += (fileName -> 0)
-        case lineCountsPattern(oldCount, newCount) =>
+          fileModifEntries += (fileName -> ((0, 0)))
+        case lineCountsPattern(deleted, added) =>
           fileNameOpt.foreach { fileName =>
-            fileModifEntries(fileName) = fileModifEntries(fileName) - oldCount.toInt + newCount.toInt
+            fileModifEntries(fileName) = fileModifEntries(fileName) + ((added.toInt, deleted.toInt))
           }
         case _ =>
           Console.err.println(s"WARNING: Unexpected line: $line; last recognized user name: $userNameOpt, last recognized file: $fileNameOpt")
@@ -114,7 +115,7 @@ object SvnCommit {
           /* Do not resolve file path here:
           * - the file may not exist already
           * - resolve takes time, but we do not need file content at this time*/
-          .map { case (fileName, linesAdded) => FileModification(Paths.get(workDir.toString, fileName), linesAdded) }
+          .map { case (fileName, (linesAdded, linesDeleted)) => FileModification(Paths.get(workDir.toString, fileName), linesAdded, linesDeleted) }
           .filterNot(_.isIgnoredFileType)
           .filterNot(_.isIgnoredPath)
           .filterNot(config.onlyKnown && _.isUnrecognizedLanguage)

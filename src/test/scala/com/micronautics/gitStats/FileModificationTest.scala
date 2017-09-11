@@ -10,13 +10,13 @@ class FileModificationTest extends FunSuite {
 
   test("FileModification - file is null") {
     intercept[IllegalArgumentException] {
-      FileModification(null, 4)
+      FileModification(null, 4, 5)
     }
   }
 
   test("FileModification - file path is empty string") {
     intercept[IllegalArgumentException] {
-      FileModification(Paths.get(""), 4)
+      FileModification(Paths.get(""), 4, 5)
     }
   }
 
