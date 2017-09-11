@@ -180,9 +180,9 @@ class SvnCommitTest extends FunSuite {
     )
     val res = svnCommit.aggCommits
     assert(res.size === 3, "Number of commits")
-    assert(res.contains(AggCommit("Makefile", 10, 5)), "Commit for Makefile")
-    assert(res.contains(AggCommit("C/C++", 20, 15)), "Commit for C/C++")
-    assert(res.contains(AggCommit("Unknown", 30, 0)), "Commit for Unknown")
+    assert(res.asInstanceOf[List[_]].contains(AggCommit("Makefile", 10, 5)), "Commit for Makefile")
+    assert(res.asInstanceOf[List[_]].contains(AggCommit("C/C++", 20, 15)), "Commit for C/C++")
+    assert(res.asInstanceOf[List[_]].contains(AggCommit("Unknown", 30, 0)), "Commit for Unknown")
   }
 
   test("aggCommits - many file modifications, same file type") {
@@ -196,6 +196,6 @@ class SvnCommitTest extends FunSuite {
     val res = svnCommit.aggCommits
     assert(res.size === 3, "Number of commits")
     assert(res.count(_ == AggCommit("Unknown", 500, 100)) === 2, "Commits with 500 lines added and 100 lines deleted")
-    assert(res.contains(AggCommit("Unknown", 0, 200)), "Commit with -0 lines added and 200 lines deleted")
+    assert(res.asInstanceOf[List[_]].contains(AggCommit("Unknown", 0, 200)), "Commit with -0 lines added and 200 lines deleted")
   }
 }

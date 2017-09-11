@@ -2,6 +2,7 @@ package com.micronautics.gitStats.svn
 
 import java.nio.file.{Path, Paths}
 
+import com.micronautics.gitStats.AggCommit.AggCommits
 import com.micronautics.gitStats.FileModification.RichIntTuple2
 import com.micronautics.gitStats.{AggCommit, ConfigGitStats, FileModification}
 
@@ -23,7 +24,7 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModification]) {
   require(fileModifs != null, "File modifications cannot be null")
   require(fileModifs.nonEmpty, "File modifications cannot be empty string")
 
-  lazy val aggCommits: List[AggCommit] =
+  lazy val aggCommits: AggCommits =
     fileModifs.toList.map(modif => AggCommit(modif.language, modif.linesAdded, modif.linesDeleted))
 }
 

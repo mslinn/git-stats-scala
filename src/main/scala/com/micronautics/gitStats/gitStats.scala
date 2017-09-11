@@ -25,7 +25,7 @@ package object gitStats {
         sys.exit(-1)
     }
 
-  //TODO Move to git package
+  @deprecated("TODO Use git.GitCmd instead")
   lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
