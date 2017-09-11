@@ -34,4 +34,4 @@ if [ "$1" == -j ] || [ ! -f $JAR ]; then
 fi
 
 # --help option gives usage
-java -cp "$JAR" GitStats "$@"
+java -cp "$JAR" ProgStats "$@"

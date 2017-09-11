@@ -7,8 +7,11 @@ import scala.util.{Failure, Success}
 
 object ProgStats extends App with GitStatsOptionParsing {
 
-  //TODO Don't forget remove this hardcode (added for tests)
-  parser.parse(args, ConfigGitStats(verbose = true, directoryName = "/work/workspace", dateFrom = Some(ConfigGitStats.last30days))) match {
+  parser.parse(args,
+    ConfigGitStats()
+    //TODO Don't forget remove this hardcode (added for tests)
+//    ConfigGitStats(verbose = true, directoryName = "/work/workspace", dateFrom = Some(ConfigGitStats.last30days))
+  ) match {
     case Some(config) => process(config)
     case None => // arguments are bad, error message will have been displayed
   }
