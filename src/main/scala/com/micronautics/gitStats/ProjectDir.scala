@@ -30,7 +30,8 @@ object ProjectDir {
     if (children.exists(_.isIgnoreMarker))
       Iterable.empty
     else if (children.exists(_.isScmDir)) {
-      if (config.verbose) print(".")
+      if (config.verbose)
+        print(".")
       Iterable(baseDir)
     } else
       children.flatMap(findScmProjectDirs)

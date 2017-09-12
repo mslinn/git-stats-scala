@@ -20,7 +20,8 @@ object Cmd {
                            (implicit config: ConfigGitStats): String =
     try {
       val result = run(cwd, cmd: _*).!!.trim
-      if (config.output) println(result)
+      if (config.output)
+        println(result)
       result
     } catch {
       case e: Exception =>
@@ -36,8 +37,8 @@ object Cmd {
   @inline def run(cwd: Path, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
     if (config.verbose)
-      println(s"[${ cwd.toAbsolutePath }] " + command.mkString(" "))
-    Process(command=command, cwd=cwd.toFile)
+      println(s"[${cwd.toAbsolutePath}] " + command.mkString(" "))
+    Process(command = command, cwd = cwd.toFile)
   }
 
   @inline protected def whichOrThrow(program: String): Path =
