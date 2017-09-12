@@ -16,7 +16,7 @@ object Cmd {
 
   lazy val isWindows: Boolean = os.indexOf("win") >= 0
 
-  @inline def getOutputFrom(cwd: File, cmd: String*)
+  @inline def getOutputFrom(cwd: Path, cmd: String*)
                            (implicit config: ConfigGitStats): String =
     try {
       val result = run(cwd, cmd: _*).!!.trim
@@ -33,10 +33,11 @@ object Cmd {
         throw e
     }
 
-  @inline def run(cwd: File, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
+  @inline def run(cwd: Path, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
-    if (config.verbose) println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))
-    Process(command=command, cwd=cwd)
+    if (config.verbose)
+      println(s"[${ cwd.toAbsolutePath }] " + command.mkString(" "))
+    Process(command=command, cwd=cwd.toFile)
   }
 
   @inline protected def whichOrThrow(program: String): Path =

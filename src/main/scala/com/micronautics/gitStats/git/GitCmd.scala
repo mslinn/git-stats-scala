@@ -12,7 +12,7 @@ object GitCmd {
   @inline
   def gitUserName(cwd: Path)(implicit config: ConfigGitStats): String = {
     val gitConfigCmd = gitProgram ++ List("config", "user.name")
-    val userName = Cmd.getOutputFrom(cwd.toFile, gitConfigCmd: _*)
+    val userName = Cmd.getOutputFrom(cwd, gitConfigCmd: _*)
     if (Cmd.isWindows)
       "\"" + userName + "\""
     else

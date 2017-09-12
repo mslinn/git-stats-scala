@@ -1,6 +1,6 @@
 package com.micronautics.gitStats.svn
 
-import java.io.File
+import java.nio.file.Paths
 
 import com.micronautics.gitStats.{Cmd, ConfigGitStats, Version}
 
@@ -20,7 +20,7 @@ object SvnCmd {
 
   def detectSvnVersion(implicit config: ConfigGitStats): Option[Version] = {
     val svnVersionCmd = svnProgram :+ "--version"
-    val svnVersionOutput = Cmd.getOutputFrom(new File(sys.props("user.dir")), svnVersionCmd: _*)
+    val svnVersionOutput = Cmd.getOutputFrom(Paths.get(sys.props("user.dir")), svnVersionCmd: _*)
     parseSvnVersion(svnVersionOutput).map(Version.parse)
   }
 

@@ -1,6 +1,6 @@
 package com.micronautics.gitStats.svn
 
-import java.io.File
+import java.nio.file.Paths
 
 import com.micronautics.gitStats.Cmd.getOutputFrom
 import com.micronautics.gitStats.ConfigGitStats
@@ -15,7 +15,7 @@ object SvnUsers {
   //TODO Provide the ability to explicitly specify Svn user name (in config?) without relying on autodetect
   def autoDetectUserNames(implicit config: ConfigGitStats): Set[String] = {
     val svnAuthCmd = svnProgram :+ "auth"
-    val svnAuthOutput = getOutputFrom(new File(sys.props("user.dir")), svnAuthCmd: _*)
+    val svnAuthOutput = getOutputFrom(Paths.get(sys.props("user.dir")), svnAuthCmd: _*)
     parseUserNames(svnAuthOutput)
   }
 

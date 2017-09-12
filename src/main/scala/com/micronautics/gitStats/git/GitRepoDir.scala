@@ -19,7 +19,7 @@ class GitRepoDir(val dir: Path)(implicit config: ConfigGitStats) extends Project
       (if (toOption.isEmpty) Nil else List(toOption))
 
   val gitResponse: List[String] =
-    Cmd.getOutputFrom(dir.toFile, gitLogCmd: _*)
+    Cmd.getOutputFrom(dir, gitLogCmd: _*)
       .split("\n")
       .filter(_.nonEmpty)
       .toList

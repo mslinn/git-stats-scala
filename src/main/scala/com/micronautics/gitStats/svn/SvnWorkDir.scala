@@ -12,7 +12,7 @@ class SvnWorkDir(val dir: Path, svnLogCmd: List[String])(implicit config: Config
 
   //TODO Filter-out commits belonging to wrong users.
   lazy val svnCommits: Iterable[SvnCommit] = {
-    val processBuilder = run(dir.toFile, svnLogCmd: _*)
+    val processBuilder = run(dir, svnLogCmd: _*)
     val commitEntries = commitEntriesIterator(processBuilder.lineStream.iterator)
     commitEntries.map(parseSvnCommit(_, dir)).flatMap(_.iterator).toIterable
   }
