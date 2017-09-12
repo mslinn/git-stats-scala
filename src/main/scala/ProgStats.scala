@@ -38,7 +38,7 @@ object ProgStats extends App with GitStatsOptionParsing {
     perProjectFailures
       .collect { case (workDir, Failure(e)) => (workDir, e) }
       .foreach { case (workDir, e) =>
-        println(s"Directory ${workDir}: ${e.getMessage}")
+        println(s"Directory $workDir: ${e.getMessage}")
       }
   }
 }
