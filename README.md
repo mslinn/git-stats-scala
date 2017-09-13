@@ -25,11 +25,12 @@ Git allows history queries via local operations only, Subversion on the contrary
 Therefore, by default GitStats collects only statistics for Git repositories.
 To enable statistics for Subversion directories as well, user has to explicitly allow remote operations.
 
-Ignores working directories containing a file called `.ignore.stats` in the root of the directory tree.
-Obtains Git repo histories by examining the output of `git log`.
-Obtains Subversion repo histories by examining the output of `svn log`.
-The user name for each Git repository is obtained by running `git config user.name` in each repository.
-The user name for all Subversion repositories is obtained by running `svn auth` once before processing Subversion directories.
+Implementation details:
+* Ignores working directories containing a file called `.ignore.stats` in the root of the directory tree.
+* Obtains Git repo histories by examining the output of `git log`.
+* Obtains Subversion repo histories by examining the output of `svn log`.
+* The user name for each Git repository is obtained by running `git config user.name` in each repository.
+* The user name for all Subversion repositories is obtained by running `svn auth` once before processing Subversion directories.
 
 Note that Subversion queries are much slower than Git's due to their remote implementation.
 Subversion speed depends on the network channel bandwidth and the server capabilities.
