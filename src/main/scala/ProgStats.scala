@@ -33,8 +33,7 @@ object ProgStats extends App with GitStatsOptionParsing {
 
     //TODO commits() return ProjectDir -> Iterable instead of Path -> Iterable?
     val gitCommits = git.GitStats.commits(scmProjectDirs)
-    //TODO Run Subversion stats only when user asked for it. It is much slower than Git stats.
-    val svnCommits = SvnStats.commits(scmProjectDirs)
+    val svnCommits = if (config.remote) SvnStats.commits(scmProjectDirs) else Nil
     val (successes, failures) = (gitCommits ++ svnCommits).partition { case (_, t) => t.isSuccess }
 
     val perProjectCommits: Iterable[(Path, AggCommits)] = successes.flatMap {

@@ -56,7 +56,8 @@ case class ConfigGitStats(
   ignoredSubDirectories: List[String] = List("node_modules").sorted,
   onlyKnown: Boolean = false,
   output: Boolean = false,
-  subtotals: Boolean = false
+  subtotals: Boolean = false,
+  remote: Boolean = false
 ) {
   import com.micronautics.gitStats.ConfigGitStats._
 
