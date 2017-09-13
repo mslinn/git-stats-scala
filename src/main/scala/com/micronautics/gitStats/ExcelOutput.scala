@@ -6,6 +6,7 @@ import org.apache.poi.ss.util.CellRangeAddress
 
 // See http://svn.apache.org/repos/asf/poi/trunk/src/examples/src/org/apache/poi/ss/examples/LoanCalculator.java
 /** Only processes summary table */
+@deprecated("TODO Move to render package, merge with ExcelRenderer", "0.2.1")
 class ExcelOutput(val fileName: String) {
   val workbook = new XSSFWorkbook
 
@@ -62,7 +63,8 @@ class ExcelOutput(val fileName: String) {
       }
     }
 
-    val ssRow = sheet.createRow(contents.size + 2)
+    val rowNumber = contents.size
+    val ssRow = sheet.createRow(rowNumber + 2)
 
     val cell = ssRow.createCell(0)
     cell.setCellValue("Total")
@@ -72,7 +74,7 @@ class ExcelOutput(val fileName: String) {
     (1 to 3).foreach { i =>
       val cell = ssRow.createCell(i)
       val col: String = ('A'.toInt + i).toChar.toString
-      cell.setCellFormula(s"SUM(${col}3:${col}10)")
+      cell.setCellFormula(s"SUM(${col}3:$col${2 + rowNumber})")
       cell.setCellStyle(totalStyle)
     }
     sheet

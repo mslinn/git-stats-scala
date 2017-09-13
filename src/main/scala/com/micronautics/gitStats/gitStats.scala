@@ -9,6 +9,7 @@ import scala.sys.process._
 package object gitStats {
   val logger: Logger = org.slf4j.LoggerFactory.getLogger("gitStats")
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   @inline def getOutputFrom(cwd: File, cmd: String*)
                            (implicit config: ConfigGitStats): String =
     try {
@@ -18,15 +19,18 @@ package object gitStats {
     } catch {
       case e: Exception =>
         Console.err.println(e.getMessage)
+        //TODO Beware of NPE: cause may be null
         if (e.getCause.toString.nonEmpty) Console.err.println(e.getCause)
         Console.err.println(e.getStackTrace.mkString("\n"))
         sys.exit(-1)
     }
 
+  @deprecated("TODO Use git.GitCmd instead", "0.2.1")
   lazy val gitProgram: String = if (isWindows) "git.exe" else "git"
 
   /** Handles special case where file points to a git directory, as well os a directory of git directories
     * @return List[File] where each item is the root of a git repo's directory tree */
+  @deprecated("TODO Use generic ProjectDir.findScmProjectDirs() instead", "0.2.1")
   def gitProjectsUnder(file: File)
                       (implicit config: ConfigGitStats): List[File] = {
     val childFiles = file.childFiles
@@ -40,10 +44,13 @@ package object gitStats {
         childDirs.flatMap(gitProjectsUnder)
   }
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   protected lazy val os: String = sys.props("os.name").toLowerCase
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   lazy val isWindows: Boolean = os.indexOf("win") >= 0
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   protected def which(program: String): Option[Path] = {
     val path = if (isWindows) sys.env("Path") else sys.env("PATH")
     path
@@ -53,12 +60,14 @@ package object gitStats {
       .map(_.resolve(program))
   }
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   @inline protected def whichOrThrow(program: String): Path =
     which(program) match {
       case None => throw new Exception(program + " not found on path")
       case Some(programPath) => programPath
     }
 
+  @deprecated("TODO Use Cmd object instead", "0.2.1")
   @inline def run(cwd: File, cmd: String*)(implicit config: ConfigGitStats): ProcessBuilder = {
     val command: List[String] = whichOrThrow(cmd(0)).toString :: cmd.tail.toList
     if (config.verbose) println(s"[${ cwd.getAbsolutePath }] " + command.mkString(" "))

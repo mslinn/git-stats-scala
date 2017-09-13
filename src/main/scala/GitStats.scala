@@ -1,8 +1,11 @@
 import com.micronautics.gitStats._
 import org.joda.time.{DateTime, Days}
 
+@deprecated("TODO Use ProgStats as an entry point instead", "0.2.1")
 object GitStats extends App with GitStatsOptionParsing {
-  parser.parse(args, ConfigGitStats()) match {
+  parser.parse(args,
+    ConfigGitStats()
+  ) match {
     case Some(config) => new AllRepos()(config).process()
 
     case None => // arguments are bad, error message will have been displayed
@@ -56,7 +59,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
       case (repo, commits) =>
         if (commits.value.nonEmpty)
           if (config.excelWorkbook.isDefined)
-            config.excelWorkbook.foreach(_.addSheetOfCommits(title=repo.dir.getAbsolutePath, commits=commits.value))
+            config.excelWorkbook.foreach(_.addSheetOfCommits(title=repo.dir.getName, commits=commits.value))
           else
             println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
@@ -66,6 +69,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
         Commits(Nil)
           .combine(commitsByLanguageByRepo.map(_._2))
 
+      //TODO Lost println?
       if (grandTotal.value.isEmpty) s"No activity across ${ commitsByLanguageByRepo.size } projects." else {
         val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects)" else ""
 

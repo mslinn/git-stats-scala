@@ -81,6 +81,10 @@ trait GitStatsOptionParsing {
       c.copy(dateFrom = Some(lastYear), dateTo = Some(today))
     }.text(s"Same as specifying --from=$lastYearFormatted --to=$todayFormatted")
 
+    opt[Unit]('r', "remote").action { (_, c) =>
+      c.copy(remote = true)
+    }.text("Allow remote operations. Required to collect statistics on Subversion repositories.")
+
     help("help").text("Print this usage text")
   }
 }

@@ -2,6 +2,7 @@ package com.micronautics.gitStats
 
 import de.vandermeer.asciitable._
 
+//TODO Move to render package
 object AsciiWidgets {
   def asciiTable(title: String, total: List[String], contents: List[String]*): String = {
     assert(contents.nonEmpty)

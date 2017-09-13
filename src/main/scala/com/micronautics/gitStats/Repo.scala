@@ -3,6 +3,7 @@ package com.micronautics.gitStats
 import java.io.File
 
 /** Process repo at directory `dir` */
+@deprecated("TODO Use git.GitRepoDir instead", "0.2.1")
 class Repo(val dir: File)
           (implicit config: ConfigGitStats) {
   val fromOption: String = config.fromFormatted.map(from => s"--since={$from}").mkString
@@ -11,7 +12,7 @@ class Repo(val dir: File)
   val author: String = ConfigGitStats.gitUserName(dir.getAbsoluteFile)
   lazy val authorFullName: String = author.replace("\\", "")
 
-  //TODO Instead of hidden println, format output ... @tashoyan I do not understand this comment
+  //TODO Instead of println here, format the debug output where the command is invoked - Cmd.run()
   if (config.verbose) println()
 
   // git log --author="Mike Slinn" --pretty=tformat: --numstat
@@ -37,7 +38,7 @@ class Repo(val dir: File)
         .filterNot(_.ignoredPath)
     )
 
-  //TODO Instead of hidden println, format output ... @tashoyan I do not understand this comment
+  //TODO Instead of println here, format the debug output where the command is invoked - Cmd.run()
   if (config.verbose) println("")
 
   def commitsByLanguage: Commits = commits.byLanguage
