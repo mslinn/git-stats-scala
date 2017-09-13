@@ -4,13 +4,7 @@ import org.joda.time.{DateTime, Days}
 @deprecated("TODO Use ProgStats as an entry point instead", "0.2.1")
 object GitStats extends App with GitStatsOptionParsing {
   parser.parse(args,
-    ConfigGitStats(
-      verbose = true,
-      directoryName = "/work/workspace",
-      dateFrom = Some(ConfigGitStats.last30days),
-      subtotals = true,
-      excelFileName = Some("workspaces" + getClass.getSimpleName)
-    )
+    ConfigGitStats()
   ) match {
     case Some(config) => new AllRepos()(config).process()
 

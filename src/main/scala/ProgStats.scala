@@ -11,16 +11,7 @@ import scala.util.{Failure, Success}
 object ProgStats extends App with GitStatsOptionParsing {
 
   parser.parse(args,
-//    ConfigGitStats()
-    //TODO Don't forget remove this hardcode (added for tests)
-    ConfigGitStats(
-      verbose = true,
-      directoryName = "/work/workspace",
-      dateFrom = Some(ConfigGitStats.last30days),
-      subtotals = true,
-      excelFileName = Some("workspaces" + getClass.getSimpleName),
-      remote = true
-    )
+    ConfigGitStats()
   ) match {
     case Some(config) => process(config)
     case None => // arguments are bad, error message will have been displayed
