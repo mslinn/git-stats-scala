@@ -78,4 +78,32 @@ class AggCommitTest extends FunSuite {
       }
     }
   }
+
+
+
+  test("total - null commits") {
+    intercept[IllegalArgumentException] {
+      total(null)
+    }
+  }
+
+  test("total - one commit") {
+    val commits = Iterable(AggCommit("Scala", 5, 10))
+    val res = total(commits)
+    assert(res.language === "Total", "Total language")
+    assert(res.linesAdded === 5, "Total lines added")
+    assert(res.linesDeleted === 10, "Total lines deleted")
+  }
+
+  test("total - many commits") {
+    val commits = Iterable(
+      AggCommit("Scala", 5, 10),
+      AggCommit("Java", 0, 20),
+      AggCommit("Groovy", 20, 0)
+    )
+    val res = total(commits)
+    assert(res.language === "Total", "Total language")
+    assert(res.linesAdded === 25, "Total lines added")
+    assert(res.linesDeleted === 30, "Total lines deleted")
+  }
 }

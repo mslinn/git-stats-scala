@@ -36,4 +36,20 @@ object AggCommit {
     )
     aggMap.map { case (language, (linesAdded, linesDeleted)) => AggCommit(language, linesAdded, linesDeleted) }
   }
+
+  lazy val languageTotal = "Total"
+
+  /**
+    * Calculates total amounts for added and deleted lines.
+    *
+    * @param commits Colllection of commits.
+    * @return Commit with total numbers.
+    * @throws IllegalArgumentException commits is null.
+    */
+  def total(commits: AggCommits): AggCommit = {
+    require(commits != null, "Commits must not be null")
+
+    val (totalAdded, totalDeleted) = commits.aggregate((0, 0))((agg, c) => agg + (c.linesAdded, c.linesDeleted), _ + _)
+    AggCommit(languageTotal, totalAdded, totalDeleted)
+  }
 }
