@@ -11,14 +11,14 @@ import scala.util.{Failure, Success}
 object ProgStats extends App with GitStatsOptionParsing {
 
   parser.parse(args,
-//    ConfigGitStats()
+    ConfigGitStats()
     //TODO Don't forget remove this hardcode (added for tests)
-    ConfigGitStats(
-      verbose = true,
-      directoryName = "/work/workspace",
-      dateFrom = Some(ConfigGitStats.last30days),
-      subtotals = true
-    )
+//    ConfigGitStats(
+//      verbose = true,
+//      directoryName = "/work/workspace",
+//      dateFrom = Some(ConfigGitStats.last30days),
+//      subtotals = true
+//    )
   ) match {
     case Some(config) => process(config)
     case None => // arguments are bad, error message will have been displayed
@@ -27,7 +27,7 @@ object ProgStats extends App with GitStatsOptionParsing {
   protected def process(implicit config: ConfigGitStats): Unit = {
     val scmProjectDirs = findScmProjectDirs(config.directory.toPath)
     if (config.verbose) {
-      val dirsReport = scmProjectDirs.mkString("Found SCM project directories:\n", "\n", "\n")
+      val dirsReport = scmProjectDirs.mkString(s"Found SCM project directories (${scmProjectDirs.size}):\n", "\n", "\n")
       println(dirsReport)
     }
 

@@ -13,7 +13,7 @@ object GitStats {
   def commits(scmProjectDirs: Iterable[Path])(implicit config: ConfigGitStats): Iterable[(Path, Try[AggCommits])] = {
     val gitProjectDirs = scmProjectDirs.filter(_.isGitRepo)
     if (config.verbose)
-      println(gitProjectDirs.mkString("Detected Git repository directories:\n", "\n", "\n"))
+      println(gitProjectDirs.mkString(s"Detected Git repository directories (${gitProjectDirs.size}):\n", "\n", "\n"))
 
     val gitRepoDirs = gitProjectDirs.map(new GitRepoDir(_))
     gitRepoDirs.map { repoDir =>

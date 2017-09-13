@@ -35,7 +35,7 @@ object SvnStats {
 
     val svnProjectDirs = scmProjectDirs.filter(_.isSvnWorkDir)
     if (config.verbose)
-      println(svnProjectDirs.mkString("Detected Subversion working directories:\n", "\n", "\n"))
+      println(svnProjectDirs.mkString(s"Detected Subversion working directories (${svnProjectDirs.size}):\n", "\n", "\n"))
 
     val svnWorkDirs = svnProjectDirs.map(new SvnWorkDir(_, svnLogCmd))
     svnWorkDirs.map { workDir =>
