@@ -78,7 +78,6 @@ object ProgStats extends App with GitStatsOptionParsing {
         if (commits.nonEmpty)
         //TODO Excel
           println(asciiRenderer.table(dir.toAbsolutePath.toString, commits))
-
     }
   }
 
