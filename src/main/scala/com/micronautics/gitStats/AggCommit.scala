@@ -16,6 +16,9 @@ object AggCommit {
 
   type AggCommits = Iterable[AggCommit]
 
+  implicit val defaultOrdering: Ordering[AggCommit] =
+    Ordering.by(c => (-c.netChange, -c.linesAdded, -c.linesDeleted))
+
   /**
     * Aggregates commits by language.
     *
@@ -49,7 +52,10 @@ object AggCommit {
   def total(commits: AggCommits): AggCommit = {
     require(commits != null, "Commits must not be null")
 
-    val (totalAdded, totalDeleted) = commits.aggregate((0, 0))((agg, c) => agg + (c.linesAdded, c.linesDeleted), _ + _)
+    val (totalAdded, totalDeleted) = commits.aggregate((0, 0))(
+      (agg, c) => agg + ((c.linesAdded, c.linesDeleted)),
+      _ + _
+    )
     AggCommit(languageTotal, totalAdded, totalDeleted)
   }
 }
