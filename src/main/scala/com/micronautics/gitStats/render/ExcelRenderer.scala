@@ -20,6 +20,6 @@ class ExcelRenderer(override val fileName: String) extends ExcelOutput(fileName)
 
   @inline
   def asRow(commit: AggCommit, showLanguage: Boolean = true): List[Any] =
-    (if (showLanguage) List(language) else Nil) :::
+    (if (showLanguage) List(commit.language) else Nil) :::
       List(commit.linesAdded, -commit.linesDeleted, commit.netChange)
 }

@@ -18,7 +18,8 @@ object ProgStats extends App with GitStatsOptionParsing {
       directoryName = "/work/workspace",
       dateFrom = Some(ConfigGitStats.last30days),
       subtotals = true,
-      excelFileName = Some("workspaces" + getClass.getSimpleName)
+      excelFileName = Some("workspaces" + getClass.getSimpleName),
+      remote = true
     )
   ) match {
     case Some(config) => process(config)
