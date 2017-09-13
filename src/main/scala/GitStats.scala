@@ -3,11 +3,7 @@ import org.joda.time.{DateTime, Days}
 
 @deprecated("TODO Use ProgStats as an entry point instead", "0.2.1")
 object GitStats extends App with GitStatsOptionParsing {
-  parser.parse(args,
-    ConfigGitStats()
-    //TODO Don't forget remove this hardcode (added for tests)
-//    ConfigGitStats(verbose = true, directoryName = "/work/workspace", dateFrom = Some(ConfigGitStats.last30days))
-  ) match {
+  parser.parse(args, ConfigGitStats()) match {
     case Some(config) => new AllRepos()(config).process()
 
     case None => // arguments are bad, error message will have been displayed
@@ -71,6 +67,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
         Commits(Nil)
           .combine(commitsByLanguageByRepo.map(_._2))
 
+      //TODO Lost println?
       if (grandTotal.value.isEmpty) s"No activity across ${ commitsByLanguageByRepo.size } projects." else {
         val projects = if (commitsByLanguageByRepo.size > 1) s" (lines changed across ${ commitsByLanguageByRepo.size } projects)" else ""
 
