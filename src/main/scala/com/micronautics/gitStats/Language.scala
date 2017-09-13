@@ -32,7 +32,7 @@ object Language {
   def nameToLanguage(file: Path): Option[String] = {
     require(file != null, "File name must not be null")
 
-    file.toString.toLowerCase match {
+    file.toFile.getName.toLowerCase match {
       case name if name.startsWith("dockerfile") => Some("Dockerfile")
       case name if name.startsWith("makefile") => Some("Makefile")
       case name if name.startsWith(".") => Some(miscellaneousLanguage)

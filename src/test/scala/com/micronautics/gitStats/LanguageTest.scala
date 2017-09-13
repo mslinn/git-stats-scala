@@ -25,7 +25,7 @@ class LanguageTest extends FunSuite {
   }
 
   test("fileLanguage - file name does not have suffix but is known name") {
-    val res = fileLanguage(Paths.get("Dockerfile"))
+    val res = fileLanguage(Paths.get("Dockerfile.2.0.0"))
     assert(res === "Dockerfile", "File language")
   }
 
@@ -40,6 +40,16 @@ class LanguageTest extends FunSuite {
       val res = fileLanguage(path)
       assert(res === "Shell", "File language")
     }
+  }
+
+  test("fileLanguage - Full file path, name starts with dot") {
+    val res = fileLanguage(Paths.get("/opt/projects/whatever/.gitignore"))
+    assert(res === "Miscellaneous", "File language")
+  }
+
+  test("fileLanguage - Full file path, does not have suffix but is known name") {
+    val res = fileLanguage(Paths.get("/opt/projects/whatever/makefile.old"))
+    assert(res === "Makefile", "File language")
   }
 
   test("fileLanguage - file does not exist") {
