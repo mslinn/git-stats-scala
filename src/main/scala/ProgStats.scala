@@ -41,6 +41,7 @@ object ProgStats extends App with GitStatsOptionParsing {
       case _ => Iterable.empty
     }
     reportCommits(perProjectCommits)
+    config.excelWorkbook.foreach(_.save())
 
     val perProjectFailures = failures.collect { case (workDir, Failure(e)) => (workDir, e) }
     reportFailures(perProjectFailures)
@@ -63,20 +64,25 @@ object ProgStats extends App with GitStatsOptionParsing {
         println(s"No activity across $projectNumber projects.")
       } else {
         val projects = if (perProjectCommits.size > 1) s" (lines changed across $projectNumber projects)" else ""
-        //TODO Excel
+        if (config.excelWorkbook.isDefined)
+          config.excelWorkbook.foreach(_.addSheetOfCommits(s"Subtotals By Language$projects", allByLanguage))
+        else
           println(asciiRenderer.table(s"Subtotals By Language$projects", allByLanguage))
       }
     }
   }
 
   //TODO Make renderer a member
-  protected def reportProjectSubtotals(perProjectCommits: Iterable[(Path, AggCommits)], asciiRenderer: AsciiRenderer): Unit = {
+  protected def reportProjectSubtotals(perProjectCommits: Iterable[(Path, AggCommits)], asciiRenderer: AsciiRenderer)(implicit config: ConfigGitStats): Unit = {
     val perProjectSubtotals = perProjectCommits.map { case (dir, commits) => (dir, aggregateByLanguage(commits)) }
     perProjectSubtotals.foreach {
       case (dir, commits) =>
+        val dirPath = dir.toAbsolutePath.toString
         if (commits.nonEmpty)
-        //TODO Excel
-          println(asciiRenderer.table(dir.toAbsolutePath.toString, commits))
+          if (config.excelWorkbook.isDefined)
+            config.excelWorkbook.foreach(_.addSheetOfCommits(dirPath, commits))
+          else
+            println(asciiRenderer.table(dirPath, commits))
     }
   }
 

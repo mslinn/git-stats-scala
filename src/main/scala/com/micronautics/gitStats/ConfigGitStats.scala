@@ -3,6 +3,7 @@ package com.micronautics.gitStats
 import java.io.File
 
 import com.github.nscala_time.time.Imports.DateTime
+import com.micronautics.gitStats.render.ExcelRenderer
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 /**
@@ -67,7 +68,7 @@ case class ConfigGitStats(
 
   lazy val toFormatted: Option[String]   = dateTo.map(fmt_yyyyMMdd.print)
 
-  lazy val excelWorkbook: Option[ExcelOutput] = excelFileName.map(new ExcelOutput(_))
+  lazy val excelWorkbook: Option[ExcelRenderer] = excelFileName.map(new ExcelRenderer(_))
 
   /** This only works if the current directory is the root of a git directory tree */
   lazy val gitRepoName: String = {
