@@ -106,6 +106,10 @@ For all of May 2017:
 
     bin/run --from={2017-05-01} --to={2017-05-31}
 
+For all of May 2017, including Subversion repositories:
+
+    bin/run --from={2017-05-01} --to={2017-05-31} -r
+
 You can also run SBT if desired.
 The options shown below collects statistics for the previous year, for all Git projects under `/work/cadenza`,
 with subtotals. All ignore commits for unknown file types as well as commits for JavaScript and XML files.
