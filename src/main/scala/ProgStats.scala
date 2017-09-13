@@ -11,14 +11,15 @@ import scala.util.{Failure, Success}
 object ProgStats extends App with GitStatsOptionParsing {
 
   parser.parse(args,
-    ConfigGitStats()
+//    ConfigGitStats()
     //TODO Don't forget remove this hardcode (added for tests)
-//    ConfigGitStats(
-//      verbose = true,
-//      directoryName = "/work/workspace",
-//      dateFrom = Some(ConfigGitStats.last30days),
-//      subtotals = true
-//    )
+    ConfigGitStats(
+      verbose = true,
+      directoryName = "/work/workspace",
+      dateFrom = Some(ConfigGitStats.last30days),
+      subtotals = true,
+      excelFileName = Some("workspaces" + getClass.getSimpleName)
+    )
   ) match {
     case Some(config) => process(config)
     case None => // arguments are bad, error message will have been displayed
@@ -77,12 +78,11 @@ object ProgStats extends App with GitStatsOptionParsing {
     val perProjectSubtotals = perProjectCommits.map { case (dir, commits) => (dir, aggregateByLanguage(commits)) }
     perProjectSubtotals.foreach {
       case (dir, commits) =>
-        val dirPath = dir.toAbsolutePath.toString
         if (commits.nonEmpty)
           if (config.excelWorkbook.isDefined)
-            config.excelWorkbook.foreach(_.addSheetOfCommits(dirPath, commits))
+            config.excelWorkbook.foreach(_.addSheetOfCommits(dir.toFile.getName, commits))
           else
-            println(asciiRenderer.table(dirPath, commits))
+            println(asciiRenderer.table(dir.toAbsolutePath.toString, commits))
     }
   }
 

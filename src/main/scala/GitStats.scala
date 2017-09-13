@@ -3,7 +3,15 @@ import org.joda.time.{DateTime, Days}
 
 @deprecated("TODO Use ProgStats as an entry point instead", "0.2.1")
 object GitStats extends App with GitStatsOptionParsing {
-  parser.parse(args, ConfigGitStats()) match {
+  parser.parse(args,
+    ConfigGitStats(
+      verbose = true,
+      directoryName = "/work/workspace",
+      dateFrom = Some(ConfigGitStats.last30days),
+      subtotals = true,
+      excelFileName = Some("workspaces" + getClass.getSimpleName)
+    )
+  ) match {
     case Some(config) => new AllRepos()(config).process()
 
     case None => // arguments are bad, error message will have been displayed
@@ -57,7 +65,7 @@ protected class AllRepos()(implicit config: ConfigGitStats) {
       case (repo, commits) =>
         if (commits.value.nonEmpty)
           if (config.excelWorkbook.isDefined)
-            config.excelWorkbook.foreach(_.addSheetOfCommits(title=repo.dir.getAbsolutePath, commits=commits.value))
+            config.excelWorkbook.foreach(_.addSheetOfCommits(title=repo.dir.getName, commits=commits.value))
           else
             println(commits.asAsciiTable(title = repo.dir.getAbsolutePath))
     }
