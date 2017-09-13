@@ -22,7 +22,7 @@ case class SvnCommit(userName: String, fileModifs: Set[FileModification]) {
   require(userName != null, "User name must not be null")
   require(userName.nonEmpty, "User name must not be empty string")
   require(fileModifs != null, "File modifications cannot be null")
-  require(fileModifs.nonEmpty, "File modifications cannot be empty string")
+  require(fileModifs.nonEmpty, "File modifications cannot be empty")
 
   lazy val aggCommits: AggCommits =
     fileModifs.toList.map(modif => AggCommit(modif.language, modif.linesAdded, modif.linesDeleted))
@@ -127,7 +127,7 @@ object SvnCommit {
           .filterNot(_.isIgnoredPath)
           .filterNot(config.onlyKnown && _.isUnrecognizedLanguage)
           .toSet
-        Some(SvnCommit(userName, fileModifs))
+        if (fileModifs.nonEmpty) Some(SvnCommit(userName, fileModifs)) else None
       }
     }
   }

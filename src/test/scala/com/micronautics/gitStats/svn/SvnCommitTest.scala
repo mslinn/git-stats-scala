@@ -148,6 +148,12 @@ class SvnCommitTest extends FunSuite {
     }
   }
 
+  test("parseSvnCommit - all files are filtered out") {
+    val commitEntry = Source.fromInputStream(getClass.getResourceAsStream("commit-many-files.log")).getLines().toList
+    val res = parseSvnCommit(commitEntry, Paths.get("/workdir"))(config.copy(ignoredFileTypes = List("py", "c", "h")))
+    assert(res === None, "None commits")
+  }
+
 
 
   test("commitEntriesIterator and parseSvnCommit - svn log output from a real sample") {
