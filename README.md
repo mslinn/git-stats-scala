@@ -4,7 +4,11 @@
 [![Build Status](https://travis-ci.org/mslinn/git-stats-scala.svg?branch=master)](https://travis-ci.org/mslinn/git-stats-scala)
 [![GitHub version](https://badge.fury.io/gh/mslinn%2Fgit-stats-scala.svg)](https://badge.fury.io/gh/mslinn%2Fgit-status-scala)
 
-For your resume: subtotals and totals of lines added and deleted to/from a filtered collection of all your git repositories.
+For your resume: subtotals and totals of lines added and deleted to/from a filtered collection of all your SCM working directories.
+The following SCM systems are supported:
+
+* Git
+* Subversion
 
 [Read the author's blog](http://blog.mslinn.com/blog/2017/08/07/how-much-do-you-program) to learn why this program was written.
 
@@ -15,14 +19,20 @@ Statistics are reported for each computer language found.
 The reader is free to impart any meaning they deem appropriate to this output.
 The author of this software makes no claims regarding meaning.*
 
-GitStats scans local git repos, so running the program does not generate outbound network traffic.
+GitStats looks for local SCM working directories and then retrieves commit statistics for each detected directory.
+By default, GitStats limits only to local operations and avoids network calls.
+Git allows history queries via local operations only, Subversion on the contrary requires network calls.
+Therefore, by default GitStats collects only statistics for Git repositories.
+To enable statistics for Subversion directories as well, user has to explicitly allow remote operations.
 
-Ignores git repos containing a file called `.ignore.stats` in the root of the directory tree.
-Obtains git repo histories by examining the output of `git log`.
-The user name for each repository is obtained by running `git config user.name` in each repository.
+Ignores working directories containing a file called `.ignore.stats` in the root of the directory tree.
+Obtains Git repo histories by examining the output of `git log`.
+Obtains Subversion repo histories by examining the output of `svn log`.
+The user name for each Git repository is obtained by running `git config user.name` in each repository.
+The user name for all Subversion repositories is obtained by running `svn auth` once before processing Subversion directories.
 
-The following file types are recognized: ASP, C, C++, Dart, Delphi, F#, Groovy, Haskell, HTML, Java, JSP, MS-DOS batch,
-Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Visual Basic, Windows script and XML.
+The following file types are recognized: ASP, C, C++, Dart, Delphi, Dockerfile, F#, Groovy, Haskell, HTML, Java, JSP, Makefile, MS-DOS batch,
+Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Visual Basic, Windows script, XML and YAML.
 
 The help message is dynamically generated, so the dates shown in the help message correspond to the system clock:
 ```
@@ -52,10 +62,11 @@ Tries to continue processing remaining git repos if an exception is encountered.
   -O, --output          Show output of OS commands executed
   -v, --verbose         Show OS commands executed and dots indicating progress
   -y, --prev-365        Same as specifying --from=2016-08-12 --to=2017-08-11
+  -r, --remote          Allow remote operations. Required to collect statistics on Subversion repositories.
   --help                Print this usage text
 ```
 
-For example, to get all-time totals for the current git user (per git directory),
+For example, to get all-time totals,
 walking the directory tree below the current directory, type:
 ```
 $ bin/run
@@ -79,7 +90,7 @@ Subtotals By Language (lines changed across all projects)
 
 <img src='https://raw.githubusercontent.com/mslinn/git-stats-scala/images/resume-polish.jpg' align='right' width='25%'>
 
-To get statistics for the previous 365 days for the current logged on user, type:
+To get statistics for the previous 365 days, type:
 
     bin/run --prev-365
 
@@ -95,12 +106,8 @@ For all of May 2017:
 
     bin/run --from={2017-05-01} --to={2017-05-31}
 
-For 2016 for the GitHub user `mslinn`, type:
-
-    bin/run -u mslinn --from={2016-01-01} --to={2016-12-31}
-
 You can also run SBT if desired.
-The options shown below cause `git log`s from the previous year to be processed, for all git projects under `/work/cadenza`,
+The options shown below collects statistics for the previous year, for all Git projects under `/work/cadenza`,
 with subtotals. All ignore commits for unknown file types as well as commits for JavaScript and XML files.
 Also ignore any commits involving the entire `modules/cadenza/public/ckeditor/` subdirectory:
 
