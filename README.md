@@ -31,6 +31,12 @@ Obtains Subversion repo histories by examining the output of `svn log`.
 The user name for each Git repository is obtained by running `git config user.name` in each repository.
 The user name for all Subversion repositories is obtained by running `svn auth` once before processing Subversion directories.
 
+Note that Subversion queries are much slower than Git's due to their remote implementation.
+Subversion speed depends on the network channel bandwidth and the server capabilities.
+A query for 1 year long interval may take 30-60 minutes.
+Moreover, Subversion queries may fail due to connectivity issues. In this case, GitStats reports the error
+and continues with the next working directory. 
+
 The following file types are recognized: ASP, C, C++, Dart, Delphi, Dockerfile, F#, Groovy, Haskell, HTML, Java, JSP, Makefile, MS-DOS batch,
 Objective-C, Markdown, Perl, PHP, Python, properties, R, Ruby, Scala, Shell scripts, SQL, Swift, Visual Basic, Windows script, XML and YAML.
 
