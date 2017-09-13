@@ -6,10 +6,13 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
 cd "$DIR"
 
-# Scan build.sbt for Scala version and program version
+# Scan build.sbt for program name, Scala version and program version
+function findValue {
+  echo "$( grep "$1 :=" build.sbt | cut -d' ' -f 3 | tr -d \" )"
+}
 
 SCALA_VERSION() {
-  V=`grep "scalaVersion :=" build.sbt |  cut -d' ' -f 3 | tr -d \"`
+  V="$( findValue scalaVersion )"
    case $V in
     2.10.*) echo 2.10 ;;
     2.11.*) echo 2.11 ;;
@@ -21,8 +24,9 @@ SCALA_VERSION() {
   esac
 }
 
-VERSION="$( grep "version :=" build.sbt | cut -d' ' -f 3 | tr -d \" )"
-JAR=target/scala-`SCALA_VERSION`/git-stats-scala-assembly-$VERSION.jar
+NAME="$( findValue name )"
+VERSION="$( findValue version )"
+JAR=target/scala-`SCALA_VERSION`/$NAME-assembly-$VERSION.jar
 #echo $JAR
 
 # -j option forces rebuild of jar

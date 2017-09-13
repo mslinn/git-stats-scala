@@ -10,6 +10,6 @@
 *.stackdump
 project/target/
 target/
-*.sw?
 logs/
-*..xlsx
+*.xlsx
+*.sw?
