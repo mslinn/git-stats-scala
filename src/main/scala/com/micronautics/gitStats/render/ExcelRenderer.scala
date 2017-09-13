@@ -15,7 +15,7 @@ class ExcelRenderer(override val fileName: String) extends ExcelOutput(fileName)
       .toList
       .sorted
       .map(asRow(_))
-    addSheet(title = title, contents = commitsPerSheet)
+    addSheet(title, commitsPerSheet: _*)
   }
 
   @inline
