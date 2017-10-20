@@ -6,7 +6,7 @@ name := "git-stats-scala"
 
 version := "0.2.1"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 scalacOptions ++= Seq(
   "-deprecation",
