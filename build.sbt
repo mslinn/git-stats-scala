@@ -1,27 +1,23 @@
-import sbtassembly.MergeStrategy
+cancelable := true
 
-organization := "com.micronautics"
-
-name := "git-stats-scala"
-
-version := "0.2.1"
-
-scalaVersion := "2.12.4"
-
-scalacOptions ++= Seq(
-  "-deprecation",
-  "-encoding", "UTF-8",
-  "-feature",
-  "-target:jvm-1.8",
-  "-unchecked",
-  "-Ywarn-adapted-args",
-  "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-unused",
-  "-Ywarn-value-discard",
-  "-Xfuture",
-  "-Xlint"
+developers := List(
+  Developer(
+    "mslinn",
+    "Mike Slinn",
+    "mslinn@micronauticsresearch.com",
+    url("https://github.com/mslinn")
+  ),
+  Developer(
+    "tashoyan",
+    "Arseniy Tashoyan",
+    "", // not sure if you want this published, please add if so
+    url("https://github.com/tashoyan")
+  )
 )
+
+// define the statements initially evaluated when entering 'console', 'console-quick', but not 'console-project'
+initialCommands in console := """import com.micronautics.gitStats._
+                                |""".stripMargin
 
 javacOptions ++= Seq(
   "-Xlint:deprecation",
@@ -30,8 +26,6 @@ javacOptions ++= Seq(
   "-target", "1.8",
   "-g:vars"
 )
-
-resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronautics/scala"
 
 libraryDependencies ++= Seq(
   "ch.qos.logback"           %  "logback-classic" % "1.2.3",
@@ -51,47 +45,36 @@ logLevel in compile := Level.Warn
 // Level.INFO is needed to see detailed output when running tests
 logLevel in test := Level.Info
 
-// define the statements initially evaluated when entering 'console', 'console-quick', but not 'console-project'
-initialCommands in console := """import com.micronautics.gitStats._
-                                |""".stripMargin
+name := "git-stats-scala"
 
-cancelable := true
+organization := "com.micronautics"
+
+resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronautics/scala"
+
+scalaVersion := "2.12.4"
+
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-encoding", "UTF-8",
+  "-feature",
+  "-target:jvm-1.8",
+  "-unchecked",
+  "-Ywarn-adapted-args",
+  "-Ywarn-dead-code",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-unused",
+  "-Ywarn-value-discard",
+  "-Xfuture",
+  "-Xlint"
+)
+
+scmInfo := Some(
+  ScmInfo(
+    url(s"https://github.com/mslinn/$name"),
+    s"git@github.com:mslinn/$name.git"
+  )
+)
 
 sublimeTransitive := true
 
-assemblyMergeStrategy in assembly := { // this is the default plus one more for mime.types
-  // See https://github.com/sbt/sbt-assembly#merge-strategy
-  case x if Assembly.isConfigFile(x) =>
-    MergeStrategy.concat
-
-  case PathList(ps @ _*) if Assembly.isReadme(ps.last) || Assembly.isLicenseFile(ps.last) =>
-    MergeStrategy.rename
-
-  case PathList(ps @ _*) if ps.last.startsWith("CHANGELOG.") =>
-    MergeStrategy.discard
-
-  case PathList("META-INF", xs @ _*) =>
-    xs map {_.toLowerCase} match {
-      case "mime.types" :: _ =>
-        MergeStrategy.filterDistinctLines
-
-      case ("manifest.mf" :: Nil) | ("index.list" :: Nil) | ("dependencies" :: Nil) =>
-        MergeStrategy.discard
-
-      case ps @ (x :: _) if ps.last.endsWith(".sf") || ps.last.endsWith(".dsa") =>
-        MergeStrategy.discard
-
-      case "plexus" :: _ =>
-        MergeStrategy.discard
-
-      case "services" :: _ =>
-        MergeStrategy.filterDistinctLines
-
-      case ("spring.schemas" :: Nil) | ("spring.handlers" :: Nil) =>
-        MergeStrategy.filterDistinctLines
-
-      case _ => MergeStrategy.deduplicate
-    }
-
-  case _ => MergeStrategy.deduplicate
-}
+version := "0.2.1"
