@@ -51,7 +51,7 @@ organization := "com.micronautics"
 
 resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronautics/scala"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.8"
 
 scalacOptions ++= Seq(
   "-deprecation",
