@@ -10,7 +10,7 @@ developers := List(
   Developer(
     "tashoyan",
     "Arseniy Tashoyan",
-    "", // not sure if you want this published, please add if so
+    "",
     url("https://github.com/tashoyan")
   )
 )
@@ -51,7 +51,7 @@ organization := "com.micronautics"
 
 resolvers += "micronautics/scala on bintray" at "http://dl.bintray.com/micronautics/scala"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.10"
 
 scalacOptions ++= Seq(
   "-deprecation",
